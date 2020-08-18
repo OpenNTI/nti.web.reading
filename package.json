@@ -1,0 +1,30 @@
+{
+  "name": "@nti/web-reading",
+  "version": "0.0.0",
+  "description": "NextThought Reading Components",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "cmp-scripts test",
+    "start": "cmp-scripts start",
+    "build": "cmp-scripts build",
+    "clean": "cmp-scripts clean",
+    "check": "cmp-scripts check",
+    "release": "cmp-scripts release",
+    "fix": "cmp-scripts fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NextThought/nti.web.reading.git"
+  },
+  "author": "NextThought",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/NextThought/nti.web.reading/issues"
+  },
+  "homepage": "https://github.com/NextThought/nti.web.reading#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@nti/cmp-scripts": "^2.25.8"
+  }
+}
