@@ -25,6 +25,10 @@
   "homepage": "https://github.com/NextThought/nti.web.reading#readme",
   "dependencies": {},
   "devDependencies": {
-    "@nti/cmp-scripts": "^2.25.8"
+    "@nti/cmp-scripts": "^2.25.8",
+    "@nti/style-common": "^1.10.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }
