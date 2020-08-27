@@ -25,7 +25,13 @@
     "url": "https://github.com/NextThought/nti.web.reading/issues"
   },
   "homepage": "https://github.com/NextThought/nti.web.reading#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@nti/lib-commons": "NextThought/nti.lib.commons",
+    "@nti/lib-locale": "NextThought/nti.lib.ntiids",
+    "@nti/web-commons": "NextThought/nti.web.commons",
+    "@nti/web-editor": "NextThought/nti.web.component.editor",
+    "classnames": "^2.2.6"
+  },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.25.8",
     "@nti/style-common": "^1.10.0",
