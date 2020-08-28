@@ -41,8 +41,10 @@ export default function ReadingEditorContainer ({className, children, ...otherPr
 	return (
 		<Aside.Container className={cx('reading-editor-container', className)} {...otherProps}>
 			{Sidebar && (<Aside component={AsideWrapper} content={Sidebar} />)}
-			{Header}
-			{Content}
+			<div className={cx('content')}>
+				{Header}
+				{Content}
+			</div>
 			{ControlBar}
 			{Other}
 		</Aside.Container>

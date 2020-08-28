@@ -13,7 +13,14 @@ export const Basic = () => (
 		<Page.Content card={false}>
 			<Editor>
 				<Editor.Header />
-				<Editor.Content />
+				<Editor.Content>
+					<Editor.Content.Title />
+					<Editor.Content.Description />
+					<Editor.Content.Body />
+					<Editor.Content.Options>
+						Test Options
+					</Editor.Content.Options>
+				</Editor.Content>
 				<Editor.ControlBar />
 				<Editor.Sidebar />
 			</Editor>

@@ -1,0 +1,66 @@
+.content-option-container {
+	position: relative;
+	min-height: 200px;
+	background: white;
+
+	& :global(.fade-in-out-enter) {
+		&.options {
+			opacity: 0;
+			transform: scale(0.8);
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1;
+
+			&:global(.fade-in-out-enter-active) {
+				opacity: 1;
+				transform: scale(1);
+				transition: opacity 400ms, transform 400ms cubic-bezier(0.5, 0.01, 0.02, 1.35);
+			}
+		}
+
+		&.content {
+			opacity: 0;
+
+			&:global(.fade-in-out-enter-active) {
+				opacity: 1;
+				transition: opacity 400ms;
+			}
+		}
+	}
+
+	& :global(.fade-in-out-exit) {
+		&.options {
+			opacity: 1;
+			transform: scale(1);
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1;
+
+			&:global(.fade-in-out-exit-active) {
+				opacity: 0;
+				transform: scale(0.8);
+				transition: opacity 250ms, transform 250ms;
+			}
+		}
+
+		&.content {
+			opacity: 1;
+
+			&:global(.fade-in-out-exit-active) {
+				opacity: 0;
+				transition: opacity 250ms;
+			}
+		}
+	}
+}
+
+.options,
+.content {
+	background: white;
+	min-height: 75vh;
+	min-height: calc(100vh - 125px);
+}
