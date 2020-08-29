@@ -1,0 +1,30 @@
+.option-trigger:global(.nti-button) {
+	width: 103px;
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	border-radius: 2px;
+	font-size: 0.875rem;
+	line-height: 2.7;
+	padding: 0;
+
+	&:not(.options) {
+		background: white;
+		color: var(--secondary-grey);
+		box-shadow: 0 0 0 1px var(--border-grey-light);
+	}
+
+	&.options {
+		background: var(--primary-blue);
+		color: white;
+	}
+
+	& i {
+		margin-right: 0.25rem;
+	}
+
+	& span {
+		font-weight: 600;
+	}
+}

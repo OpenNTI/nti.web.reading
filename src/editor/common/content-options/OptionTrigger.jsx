@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import {scoped} from '@nti/lib-locale';
-import {Button, Text} from '@nti/web-commons';
+import {Button, Text, Icons} from '@nti/web-commons';
 
 import Styles from './OptionTrigger.css';
 import Context from './Context';
@@ -29,6 +29,7 @@ export default function ContentOptionTrigger ({className}) {
 			className={cx('option-trigger', className, {'options': showingOptions})}
 			onClick={onClick}
 		>
+			{!showingOptions && (<Icons.Gear />)}
 			{showingOptions && (<Text.Base>{t('showContent')}</Text.Base>)}
 			{!showingOptions && (<Text.Base>{t('showOptions')}</Text.Base>)}
 		</Button>

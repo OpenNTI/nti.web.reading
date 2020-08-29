@@ -9,7 +9,7 @@ import OptionTrigger from './OptionTrigger';
 
 const cx = classnames.bind(Styles);
 
-const Transition = (props) => (<CSSTransition classNames="fade-in-out" timeout={40000} {...props} />);
+const Transition = (props) => (<CSSTransition classNames="fade-in-out" timeout={400} {...props} />);
 
 ContentOptionsContainer.Trigger = OptionTrigger;
 ContentOptionsContainer.propTypes = {
