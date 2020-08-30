@@ -22,6 +22,7 @@ export default function ReadingEditorTitle ({className, title, ...otherProps}) {
 			className={cx('title', className)}
 			value={title}
 			placeholder={t('placeholder')}
+			plainText
 			{...otherProps}
 		/>
 	);
