@@ -1,11 +1,7 @@
-.content {
-	--content-side-padding: 1.25rem;
-}
-
 .meta-editor {
 	background: var(--panel-background);
 	border-bottom: 1px solid var(--border-grey-light);
-	padding: 1.25rem var(--content-side-padding, 1.25rem) calc(1.5 * var(--content-side-padding, 1.25rem));
+	padding: 1.25rem var(--editor-content-side-padding, 1.25rem) calc(1.5 * var(--editor-content-side-padding, 1.25rem));
 	display: grid;
 	grid-gap: 0.5rem;
 	grid-template-columns: 100px 1fr 103px;
@@ -82,7 +78,7 @@
 		color: var(--primary-grey);
 
 		& :global(.public-DraftEditor-content) {
-			padding: var(--content-side-padding, 1.25rem);
+			padding: var(--editor-content-side-padding, 1.25rem);
 
 			& > div, & > div > div {
 				margin: 0.875rem 0;

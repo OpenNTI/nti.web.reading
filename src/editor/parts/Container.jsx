@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import {Layouts} from '@nti/web-commons';
+import {EditorGroup} from '@nti/web-editor';
 
 import Styles from './Styles.css';
 import {Locations} from './Constants';
@@ -39,14 +40,16 @@ export default function ReadingEditorContainer ({className, children, ...otherPr
 	const Other = CmpsByLocation.other;
 
 	return (
-		<Aside.Container className={cx('reading-editor-container', className)} {...otherProps}>
-			{Sidebar && (<Aside component={AsideWrapper} content={Sidebar} />)}
-			<div className={cx('content')}>
-				{Header}
-				{Content}
-			</div>
-			{ControlBar}
-			{Other}
-		</Aside.Container>
+		<EditorGroup>
+			<Aside.Container className={cx('reading-editor-container', className)} {...otherProps}>
+				{Sidebar && (<Aside component={AsideWrapper} content={Sidebar} />)}
+				<div className={cx('content')}>
+					{Header}
+					{Content}
+				</div>
+				{ControlBar}
+				{Other}
+			</Aside.Container>
+		</EditorGroup>
 	);
 }
