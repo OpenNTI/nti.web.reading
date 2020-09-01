@@ -30,6 +30,7 @@
 		height: 65px;
 		width: auto;
 		margin: 0 auto;
+		pointer-events: none;
 	}
 
 	& .label {

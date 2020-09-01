@@ -11,6 +11,12 @@ export default {
 	component: Editor
 };
 
+const customBlocks = [
+	CustomBlocks.BuiltInBlock.Build(BLOCKS.BLOCKQUOTE),
+	CustomBlocks.BuiltInBlock.Build(BLOCKS.ORDERED_LIST_ITEM),
+	CustomBlocks.BuiltInBlock.Build(BLOCKS.UNORDERED_LIST_ITEM)
+];
+
 export const Basic = () => (
 	<Page>
 		<Page.Content card={false}>
@@ -19,18 +25,14 @@ export const Basic = () => (
 				<Editor.Content>
 					<Editor.Content.Title />
 					<Editor.Content.Description />
-					<Editor.Content.Body />
+					<Editor.Content.Body customBlocks={customBlocks} />
 					<Editor.Content.Options>
 						Test Options
 					</Editor.Content.Options>
 				</Editor.Content>
 				<Editor.ControlBar />
 				<Editor.Sidebar
-					customBlocks={[
-						CustomBlocks.BuiltInBlock.Build(BLOCKS.BLOCKQUOTE),
-						CustomBlocks.BuiltInBlock.Build(BLOCKS.ORDERED_LIST_ITEM),
-						CustomBlocks.BuiltInBlock.Build(BLOCKS.UNORDERED_LIST_ITEM)
-					]}
+					customBlocks={customBlocks}
 				/>
 			</Editor>
 		</Page.Content>

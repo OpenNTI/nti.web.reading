@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {Editor, Plugins, BLOCKS, STYLES} from '@nti/web-editor';
+import {Editor, EditorGroup, Plugins, BLOCKS, STYLES} from '@nti/web-editor';
+
+import {RST} from '../../../parsers';
 
 import Styles from './Styles.css';
 
@@ -39,16 +41,13 @@ function getPlugins ({
 		Plugins.LimitStyles.create({allow: allowedStyles}),
 		Plugins.KeepFocusInView.create(),
 		Plugins.BlockBreakOut.create(),
-		Plugins.ContiguousEntities.create()
+		Plugins.ContiguousEntities.create(),
+		Plugins.InsertBlock.create()
 	];
 
 	if (customBlocks) {
 		plugins.push(
 			Plugins.CustomBlocks.create({customBlocks})
-		);
-
-		plugins.push(
-			Plugins.InsertBlock.create()
 		);
 	}
 
@@ -59,26 +58,70 @@ BodyEditor.getPlugins = getPlugins;
 BodyEditor.propTypes = {
 	className: PropTypes.string,
 	error: PropTypes.any,
+
+	content: PropTypes.any,
+	onChange: PropTypes.func,
+	parser: PropTypes.shape({
+		toDraftState: PropTypes.func,
+		fromDraftState: PropTypes.func
+	}),
+
 	plugins: PropTypes.array,
 	customBlocks: PropTypes.array
 };
 export default function BodyEditor ({
 	className,
 	error,
+
+	content,
+	onChange,
+	parser = RST,
+
 	plugins: pluginsProp,
 	customBlocks,
 	...otherProps
 }) {
+	const defaultEditorRef = EditorGroup.useDefaultEditorRef();
+
+	const contentRef = React.useRef(null);
+	const [editorState, setEditorState] = React.useState(null);
 	const [plugins, setPlugins] = React.useState(null);
-	const settingUp = !plugins;
+	const settingUp = !editorState || !plugins;
+
+	React.useEffect(() => {
+		if (!contentRef.current || content !== contentRef.current) {
+			setEditorState(parser.toDraftState(content));
+		}
+
+		contentRef.current = content;
+	}, []);
 
 	React.useEffect(() => {
 		setPlugins(pluginsProp ?? getPlugins({customBlocks}));
 	}, [pluginsProp]);
 
+	const onContentChange = (newEditorState) => {
+		const newContent = parser.fromDraftState(newEditorState);
+
+		if (newContent !== contentRef.current) {
+			contentRef.current = newContent;
+			onChange?.(newContent);
+		}
+	};
+
 	return (
 		<div className={cx('body', className)}>
-			{!settingUp && (<Editor {...otherProps} plugins={plugins} />)}
+			{!settingUp && (
+				<Editor
+					{...otherProps}
+
+					onContentChange={onContentChange}
+					onChange={error && onContentChange}
+
+					plugins={plugins}
+					ref={defaultEditorRef}
+				/>
+			)}
 		</div>
 	);
 }

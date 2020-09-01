@@ -31,7 +31,8 @@
     "@nti/web-commons": "NextThought/nti.web.commons",
     "@nti/web-editor": "NextThought/nti.web.component.editor",
     "classnames": "^2.2.6",
-    "react-transition-group": "^4.4.1"
+    "react-transition-group": "^4.4.1",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.25.8",
