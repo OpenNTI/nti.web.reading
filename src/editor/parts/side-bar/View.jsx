@@ -21,8 +21,6 @@ ReadingEditorSidebar.propTypes = {
 export default function ReadingEditorSidebar ({customBlocks}) {
 	const editor = EditorGroup.useFocusedEditor();
 
-	debugger;
-
 	return (
 		<ContextProvider editor={editor}>
 			<StandardUI.Card className={cx('sidebar')}>
