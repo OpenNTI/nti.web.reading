@@ -14,7 +14,8 @@ export default {
 const customBlocks = [
 	CustomBlocks.BuiltInBlock.Build(BLOCKS.BLOCKQUOTE),
 	CustomBlocks.BuiltInBlock.Build(BLOCKS.ORDERED_LIST_ITEM),
-	CustomBlocks.BuiltInBlock.Build(BLOCKS.UNORDERED_LIST_ITEM)
+	CustomBlocks.BuiltInBlock.Build(BLOCKS.UNORDERED_LIST_ITEM),
+	CustomBlocks.Callout
 ];
 
 export const Basic = () => (

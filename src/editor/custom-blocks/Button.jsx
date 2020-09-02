@@ -13,6 +13,7 @@ BlockTypeButton.propTypes = {
 	className: PropTypes.string,
 	icon: PropTypes.any,
 	label: PropTypes.string,
+	type: PropTypes.any,
 
 	createBlock: PropTypes.func,
 	createBlockProps: PropTypes.object,
@@ -24,6 +25,7 @@ export default function BlockTypeButton ({
 	className,
 	icon,
 	label,
+	type,
 	createBlock,
 	createBlockProps,
 	isBlock,
@@ -35,6 +37,7 @@ export default function BlockTypeButton ({
 
 	return (
 		<Button
+			type={type}
 			className={cx('block-type-button', className, {mousedown: mouseDown})}
 			createBlock={createBlock}
 			createBlockProps={createBlockProps}
