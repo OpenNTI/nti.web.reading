@@ -2,7 +2,8 @@
   "name": "@nti/web-reading",
   "version": "0.0.0",
   "description": "NextThought Reading Components",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "private": true,
   "scripts": {
     "test": "cmp-scripts test",
