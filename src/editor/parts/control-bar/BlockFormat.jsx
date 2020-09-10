@@ -11,7 +11,7 @@ import {
 import Styles from './Styles.css';
 
 const cx = classnames.bind(Styles);
-const t = scoped('nti-reading.editor.parts.control-bar.EditorControls', {
+const t = scoped('nti-reading.editor.parts.control-bar.BlockFormat', {
 	[BLOCKS.HEADER_TWO]: 'Title',
 	[BLOCKS.HEADER_THREE]: 'Section Title',
 	[BLOCKS.HEADER_FOUR]: 'Paragraph Headline',
@@ -32,7 +32,7 @@ const renderBlockType = (type, mouseDown) => (
 	/>
 );
 
-export default function EditorControls () {
+export default function BlockFormat () {
 	const flyoutRef = React.useRef();
 
 	const closeMenu = () => flyoutRef.current?.dismiss?.();
