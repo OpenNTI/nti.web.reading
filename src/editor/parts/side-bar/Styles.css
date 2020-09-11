@@ -1,5 +1,7 @@
 .sidebar {
 	background: var(--panel-background);
+	position: sticky;
+	top: calc(var(--page-margin-top, 0) + var(--nt-app-top-offset, 0));
 }
 
 .header {
