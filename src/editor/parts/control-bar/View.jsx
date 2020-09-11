@@ -10,6 +10,7 @@ import {Locations} from '../Constants';
 import BlockFormat from './BlockFormat';
 import InlineFormat from './InlineFormat';
 import Status from './Status';
+import Save from './Save';
 
 const cx = classnames.bind(Styles);
 
@@ -28,6 +29,7 @@ export default function ReadingEditorControlBar ({className, ...otherProps}) {
 					<InlineFormat {...otherProps} />
 					<div className={cx('spacer')} />
 					<Status {...otherProps} />
+					<Save {...otherProps} />
 				</div>
 			</ControlBar>
 		</ContextProvider>
