@@ -115,6 +115,7 @@ export default function BodyEditor ({
 			{!settingUp && (
 				<Editor
 					{...otherProps}
+					editorState={editorState}
 
 					onContentChange={onContentChange}
 					onChange={error && onContentChange}
