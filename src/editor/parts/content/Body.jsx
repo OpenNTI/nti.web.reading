@@ -95,7 +95,7 @@ export default function BodyEditor ({
 		}
 
 		contentRef.current = content;
-	}, []);
+	}, [content]);
 
 	React.useEffect(() => {
 		setPlugins(pluginsProp ?? getPlugins({customBlocks}));
