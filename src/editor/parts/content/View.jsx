@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
+import {Errors} from '@nti/web-commons';
 
 import {ContentOptions} from '../../common';
 import {Locations} from '../Constants';
@@ -29,13 +30,16 @@ ReadingEditorContent.Options = Options;
 ReadingEditorContent.Location = Locations.Main;
 ReadingEditorContent.propTypes = {
 	className: PropTypes.string,
+
+	error: PropTypes.any,
 	mask: PropTypes.oneOfType(
 		PropTypes.bool,
 		PropTypes.node
 	),
+
 	children: PropTypes.any
 };
-export default function ReadingEditorContent ({className, children, mask}) {
+export default function ReadingEditorContent ({className, children, mask, error}) {
 	const {body, description, title, options, icon} = React.Children.toArray(children).reduce((acc, child) => {
 		const part = TypeToPart[child.type];
 
@@ -53,6 +57,7 @@ export default function ReadingEditorContent ({className, children, mask}) {
 				{render(title)}
 				{render(description)}
 			</div>
+			<Errors.Message className={cx('content-error')} error={error} />
 			{render(body)}
 			{mask && typeof mask !== 'boolean' ? mask : null}
 		</div>

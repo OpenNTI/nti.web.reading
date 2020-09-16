@@ -142,3 +142,13 @@
 		}
 	}
 }
+
+
+.content-error {
+	position: relative;
+	z-index: 1;
+	display: block;
+	pointer-events: none;
+	padding: calc(var(--editor-content-side-padding, 1.25rem) / 2) var(--editor-content-side-padding, 1.25rem) 0;
+	margin-bottom: -1.3em;
+}
