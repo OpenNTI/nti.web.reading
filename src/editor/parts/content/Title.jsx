@@ -14,14 +14,16 @@ const t = scoped('nti-reading.Editor.parts.content.Title', {
 
 ReadingEditorTitle.propTypes = {
 	className: PropTypes.string,
-	title: PropTypes.string
+	title: PropTypes.string,
+	masked: PropTypes.bool
 };
-export default function ReadingEditorTitle ({className, title, ...otherProps}) {
+export default function ReadingEditorTitle ({className, title, masked, ...otherProps}) {
 	return (
 		<TextEditor
 			className={cx('title', className)}
 			value={title}
 			placeholder={t('placeholder')}
+			readOnly={masked}
 			plainText
 			{...otherProps}
 		/>

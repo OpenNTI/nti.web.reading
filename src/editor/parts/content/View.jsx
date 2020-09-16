@@ -29,9 +29,13 @@ ReadingEditorContent.Options = Options;
 ReadingEditorContent.Location = Locations.Main;
 ReadingEditorContent.propTypes = {
 	className: PropTypes.string,
+	mask: PropTypes.oneOfType(
+		PropTypes.bool,
+		PropTypes.node
+	),
 	children: PropTypes.any
 };
-export default function ReadingEditorContent ({className, children}) {
+export default function ReadingEditorContent ({className, children, mask}) {
 	const {body, description, title, options, icon} = React.Children.toArray(children).reduce((acc, child) => {
 		const part = TypeToPart[child.type];
 
@@ -39,16 +43,18 @@ export default function ReadingEditorContent ({className, children}) {
 	}, {});
 
 	const hasOptions = Boolean(options);
+	const render = (p) => p ? React.cloneElement(p, {masked: Boolean(mask)}) : null;
 
 	const content = (
-		<div className={cx('content')}>
+		<div className={cx('content', {masked: mask})}>
 			<div className={cx('meta-editor', {'has-options': hasOptions, 'has-icon': Boolean(icon)})}>
 				{hasOptions && (<ContentOptions.Trigger className={cx('trigger')}/>)}
-				{icon}
-				{title}
-				{description}
+				{render(icon)}
+				{render(title)}
+				{render(description)}
 			</div>
-			{body}
+			{render(body)}
+			{mask && typeof mask !== 'boolean' ? mask : null}
 		</div>
 	);
 

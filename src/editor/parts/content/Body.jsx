@@ -59,6 +59,7 @@ BodyEditor.getPlugins = getPlugins;
 BodyEditor.propTypes = {
 	className: PropTypes.string,
 	error: PropTypes.any,
+	masked: PropTypes.bool,
 
 	content: PropTypes.any,
 	onChange: PropTypes.func,
@@ -73,6 +74,7 @@ BodyEditor.propTypes = {
 export default function BodyEditor ({
 	className,
 	error,
+	masked,
 
 	content,
 	onChange,
@@ -116,6 +118,7 @@ export default function BodyEditor ({
 				<Editor
 					{...otherProps}
 					editorState={editorState}
+					readOnly={masked}
 
 					onContentChange={onContentChange}
 					onChange={error && onContentChange}

@@ -9,14 +9,8 @@ ReadingEditor.Content = Content;
 ReadingEditor.ControlBar = ControlBar;
 ReadingEditor.Header = Header;
 ReadingEditor.Sidebar = Sidebar;
-ReadingEditor.propTypes = {
-	className: PropTypes.string,
-	children: PropTypes.any
-};
-export default function ReadingEditor ({className, children}) {
+export default function ReadingEditor (props) {
 	return (
-		<Container className={className}>
-			{children}
-		</Container>
+		<Container {...props} />
 	);
 }
