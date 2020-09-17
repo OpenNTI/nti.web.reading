@@ -40,7 +40,7 @@ function getPlugins ({
 		Plugins.LimitBlockTypes.create({allow: allowedBlocks}),
 		Plugins.LimitStyles.create({allow: allowedStyles}),
 		Plugins.KeepFocusInView.create(),
-		Plugins.KeepFocusableTarget.create(),
+		// Plugins.KeepFocusableTarget.create(),
 		Plugins.BlockBreakOut.create(),
 		Plugins.ContiguousEntities.create(),
 		Plugins.InsertBlock.create()
