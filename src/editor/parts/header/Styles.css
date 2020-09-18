@@ -1,0 +1,29 @@
+.header {
+	background: white;
+	box-shadow: 0 1px 0 0 var(--border-grey-light);
+	margin-bottom: 1px;
+	display: flex;
+	padding: 0 var(--editor-content-side-padding);
+	position: sticky;
+	top: var(--nt-app-top-offset, 0);
+	z-index: 1;
+
+	&:global(.pager) {
+		flex: 0 0 auto;
+	}
+}
+
+.breadcrumb {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex: 1 1 auto;
+
+	& li {
+		font-size: 0.75rem;
+		font-weight: 600;
+		line-height: 4.2;
+		color: var(--primary-blue);
+	}
+}
