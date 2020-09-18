@@ -43,7 +43,9 @@ function getPlugins ({
 		Plugins.KeepFocusableTarget.create(),
 		Plugins.BlockBreakOut.create(),
 		Plugins.ContiguousEntities.create(),
-		Plugins.InsertBlock.create()
+		Plugins.InsertBlock.create(),
+		Plugins.Links.AutoLink.create(),
+		Plugins.Links.CustomLinks.create()
 	];
 
 	if (customBlocks) {
