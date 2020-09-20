@@ -14,6 +14,7 @@ BlockTypeButton.propTypes = {
 	icon: PropTypes.any,
 	label: PropTypes.string,
 	type: PropTypes.any,
+	disabled: PropTypes.bool,
 
 	createBlock: PropTypes.func,
 	createBlockProps: PropTypes.object,
@@ -26,6 +27,7 @@ export default function BlockTypeButton ({
 	icon,
 	label,
 	type,
+	disabled,
 	createBlock,
 	createBlockProps,
 	isBlock,
@@ -44,6 +46,7 @@ export default function BlockTypeButton ({
 			onMouseDown={onMouseDown}
 			onMouseUp={onMouseUp}
 			onDragEnd={onMouseUp}
+			disabled={disabled}
 		>
 			<BlockCount className={cx('count')} predicate={isBlock} group={group} />
 			<Image className={cx('icon')} src={icon} />
