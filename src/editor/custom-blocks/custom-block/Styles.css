@@ -1,0 +1,28 @@
+.custom-reading-block-wrapper {
+	margin: var(--editor-content-side-padding, 1.25rem) 0;
+	border: 1px solid var(--border-grey-light);
+	box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.custom-reading-block-contols {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 0 0.75rem;
+	border-bottom: 1px solid var(--border-grey-light);
+	background: white;
+	min-height: 3rem;
+
+	& .remove {
+		flex: 0 0 auto;
+		width: 0.875rem;
+		height: 0.875rem;
+		border-radius: 0.875rem;
+		background-color: var(--secondary-grey);
+		color: white;
+		cursor: pointer;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Common, Plugins, NestedEditorWrapper} from '@nti/web-editor';
-import {DnD} from '@nti/web-commons';
+import classnames from 'classnames/bind';
 
-const {CustomBlocks: {CustomBlock}} = Plugins;
+import CustomBlock from '../custom-block';
 
+import Styles from './Editor.css';
+
+const cx = classnames.bind(Styles);
+
+CalloutEditor.WrapperClassName = CustomBlock.WrapperClassName;
 CalloutEditor.propTypes = {
 	block: PropTypes.any
 };
 export default function CalloutEditor (props) {
 	return (
-		<CustomBlock draggable {...props}>
-			<div>
-				<DnD.DragHandle />
-			</div>
-			<NestedEditorWrapper>
-				<Common.RichText />
-			</NestedEditorWrapper>
+		<CustomBlock {...props} className={cx('callout-editor')} >
+			<CustomBlock.Controls {...props} />
+			Callout
 		</CustomBlock>
 	);
 }
