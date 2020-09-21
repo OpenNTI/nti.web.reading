@@ -1,3 +1,48 @@
 .callout-editor {
 	background: rgba(235, 235, 235, 0.3);
 }
+
+.title-editor {
+	& :global(.nti-draft-core-container .nti-draft-core .DraftEditor-root) {
+		min-height: 3rem;
+		padding-top: 0;
+		padding-left: 0;
+		padding-right: 0;
+		padding-bottom: 0;
+		font: normal 300 1.5rem/2.2 var(--body-font-family);
+		color: var(--primary-grey);
+
+		& :global(.public-DraftEditor-content),
+		& :global(.public-DraftEditorPlaceholder-root) {
+			padding: 0.3rem 1.25rem;
+
+			& > div, & > div > div {
+				margin: 0;
+			}
+		}
+	}
+}
+
+.body-editor {
+	& :global(.nti-draft-core-container .nti-draft-core .DraftEditor-root) {
+		min-height: 200px;
+		padding-top: 0;
+		padding-left: 0;
+		padding-right: 0;
+		font: normal normal 0.875rem/2.2 var(--body-font-family);
+		color: var(--primary-grey);
+
+		& :global(.public-DraftEditor-content),
+		& :global(.public-DraftEditorPlaceholder-root) {
+			padding: 0 1.25rem;
+
+			& > div, & > div > div {
+				margin: 0;
+			}
+		}
+	}
+
+	ul, ol {
+		padding: 0 0 0 2.5rem;
+	}
+}
