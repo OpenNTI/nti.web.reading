@@ -1,0 +1,19 @@
+.video-wrap {
+	& *::-moz-selection {
+		background: none;
+	}
+
+	& .video-missimg {
+		height: 400px;
+		background-color: black;
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	& .video-title {
+		display: block;
+		padding: 0 0.5rem;
+	}
+}

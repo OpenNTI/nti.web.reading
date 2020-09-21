@@ -34,6 +34,7 @@ function getPlugins ({
 	allowedBlocks = DefaultAllowedBlocks,
 	allowedStyles = DefaultAllowedStyles,
 	customBlocks,
+	customBlockProps,
 	formatPasted
 }) {
 	const plugins = [
@@ -50,7 +51,7 @@ function getPlugins ({
 
 	if (customBlocks) {
 		plugins.push(
-			Plugins.CustomBlocks.create({customBlocks})
+			Plugins.CustomBlocks.create({customBlocks, blockProps: customBlockProps})
 		);
 	}
 
@@ -84,6 +85,7 @@ export default function BodyEditor ({
 
 	plugins: pluginsProp,
 	customBlocks,
+	customBlockProps,
 	...otherProps
 }) {
 	const defaultEditorRef = EditorGroup.useDefaultEditorRef();
@@ -102,7 +104,7 @@ export default function BodyEditor ({
 	}, [content]);
 
 	React.useEffect(() => {
-		setPlugins(pluginsProp ?? getPlugins({customBlocks}));
+		setPlugins(pluginsProp ?? getPlugins({customBlocks, customBlockProps}));
 	}, [pluginsProp]);
 
 	const onContentChange = (newEditorState) => {

@@ -16,9 +16,10 @@ const t = scoped('nti-reading.editor.parts.side-bar.View', {
 
 ReadingEditorSidebar.Location = Locations.Sidebar;
 ReadingEditorSidebar.propTypes = {
-	customBlocks: PropTypes.array
+	customBlocks: PropTypes.array,
+	customBlockProps: PropTypes.object
 };
-export default function ReadingEditorSidebar ({customBlocks}) {
+export default function ReadingEditorSidebar ({customBlocks, customBlockProps = {}}) {
 	const editor = EditorGroup.useFocusedEditor();
 
 	return (
@@ -36,7 +37,7 @@ export default function ReadingEditorSidebar ({customBlocks}) {
 
 						return (
 							<li key={index}>
-								<Button />
+								<Button {...customBlockProps} />
 							</li>
 						);
 					})}
