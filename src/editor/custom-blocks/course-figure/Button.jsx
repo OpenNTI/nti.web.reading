@@ -10,7 +10,7 @@ import Icon from './assets/icon-photo.svg';
 import {isCourseFigureBlock, isImage} from './utils';
 import {Name} from './Constants';
 
-const t = scoped('web-reading.editor.custom-blocks.video-ref.Button', {
+const t = scoped('web-reading.editor.custom-blocks.course-figure.Button', {
 	label: 'Photo'
 });
 
