@@ -15,6 +15,8 @@ import Styles from './TextEditor.css';
 
 const cx = classnames.bind(Styles);
 
+const Initial = Symbol('Initial');
+
 const toDraftState = (x) => Parsers.HTML.toDraftState(x);
 const fromDraftState = (x) => Parsers.HTML.fromDraftState(x)?.join('\n') ?? null;
 
@@ -80,7 +82,7 @@ export default function TextEditor ({
 	const [plugins, setPlugins] = React.useState(null);
 	const settingUp = !editorState || !plugins;
 
-	const valueRef = React.useRef();
+	const valueRef = React.useRef(Initial);
 	const editorIdRef = React.useRef();
 
 	React.useEffect(() => {
@@ -88,7 +90,7 @@ export default function TextEditor ({
 	}, []);
 
 	React.useEffect(() => {
-		if (!valueRef.current || valueRef.current !== value) {
+		if (valueRef.current === Initial || valueRef.current !== value) {
 			setEditorState(toDraftState(value));
 		}
 

@@ -9,6 +9,8 @@ import Styles from './Styles.css';
 
 const cx = classnames.bind(Styles);
 
+const Initial = Symbol('Initial');
+
 const DefaultAllowedBlocks = new Set([
 	BLOCKS.ATOMIC,
 	BLOCKS.HEADER_ONE,
@@ -90,13 +92,13 @@ export default function BodyEditor ({
 }) {
 	const defaultEditorRef = EditorGroup.useDefaultEditorRef();
 
-	const contentRef = React.useRef(null);
+	const contentRef = React.useRef(Initial);
 	const [editorState, setEditorState] = React.useState(null);
 	const [plugins, setPlugins] = React.useState(null);
 	const settingUp = !editorState || !plugins;
 
 	React.useEffect(() => {
-		if (!contentRef.current || content !== contentRef.current) {
+		if (contentRef.current === Initial || content !== contentRef.current) {
 			setEditorState(parser.toDraftState(content));
 		}
 
