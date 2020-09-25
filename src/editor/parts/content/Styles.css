@@ -70,12 +70,20 @@
 
 .body {
 	& > :global(.nti-draft-core-container > .nti-draft-core > .DraftEditor-root) {
-		min-height: 75px;
+		min-height: var(--fill-to-bottom-height, 75px);
 		padding-top: 0;
 		padding-left: 0;
 		padding-right: 0;
 		font: normal 400 0.875rem/2.2 var(--body-font-family);
 		color: var(--primary-grey);
+
+		& > :global(.DraftEditor-editorContainer) {
+			min-height: var(--fill-to-bottom-height, 75px);
+
+			& > :global(.public-DraftEditor-content) {
+				min-height: var(--fill-to-bottom-height, 75px);
+			}
+		}
 
 		& > :global(.DraftEditor-editorContainer > .public-DraftEditor-content) {
 			padding: var(--editor-content-side-padding, 1.25rem);

@@ -61,6 +61,4 @@
 .options,
 .content {
 	background: white;
-	min-height: 75vh;
-	min-height: calc(100vh - 125px);
 }

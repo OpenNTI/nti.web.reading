@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import {FillToBottom} from '@nti/web-commons';
 
 import Styles from './Container.css';
 import Context from './Context';
@@ -33,16 +34,16 @@ export default function ContentOptionsContainer ({className, content, options}) 
 				{showOptions ?
 					(
 						<Transition key="options">
-							<div className={cx('options')}>
+							<FillToBottom className={cx('options')}>
 								{options}
-							</div>
+							</FillToBottom>
 						</Transition>
 					) :
 					(
 						<Transition key="content">
-							<div className={cx('content')}>
+							<FillToBottom className={cx('content')}>
 								{content}
-							</div>
+							</FillToBottom>
 						</Transition>
 					)
 				}
