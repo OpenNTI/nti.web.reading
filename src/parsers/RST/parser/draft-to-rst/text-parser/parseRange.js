@@ -42,6 +42,8 @@ const ENTITY_HANDLERS = {
 		const {data} = entity;
 		const {href} = data;
 
+		if (!href) { return ENTITY_HANDLERS[DEFAULT](); }
+
 		return {
 			start: '`',
 			end: ` <${href}>\`__`
