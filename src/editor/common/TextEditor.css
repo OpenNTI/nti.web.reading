@@ -1,8 +1,38 @@
 .text-editor {
 	cursor: text;
+	position: relative;
+
+	&:focus-within .character-count {
+		display: inline-block;
+	}
+
+	& + .text-editor {
+		margin-top: 0.875rem;
+	}
 
 	& :global(.nti-draft-core .DraftEditor-root) {
 		min-height: 0;
 		padding: 0.125rem 0.3125rem 0.25rem;
+	}
+}
+
+.character-count {
+	padding: 0 0.3125rem;
+	font-size: 0.625rem;
+	font-weight: 700;
+	color: var(--tertiary-grey);
+	position: absolute;
+	top: 100%;
+	left: 0;
+	display: none;
+
+	&:global(.over) {
+		display: inline-block;
+	}
+}
+
+.error {
+	&.TooLong {
+		display: none;
 	}
 }

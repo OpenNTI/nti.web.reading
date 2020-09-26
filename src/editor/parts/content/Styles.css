@@ -5,11 +5,12 @@
 	display: grid;
 	grid-gap: 0.5rem;
 	grid-template-columns: 100px 1fr 103px;
-	grid-template-rows: 2.375rem auto;
+	grid-template-rows: auto auto;
 
 	& .trigger {
 		grid-row: 1 / 1;
 		grid-column: 3 / 3;
+		align-self: start;
 	}
 
 	& .title {

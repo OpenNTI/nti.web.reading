@@ -10,6 +10,7 @@ import {
 	generateID,
 	STYLES
 } from '@nti/web-editor';
+import {Errors} from '@nti/web-commons';
 
 import Styles from './TextEditor.css';
 
@@ -67,6 +68,7 @@ const getPlugins = ({plainText, singleLine, charLimit, countDown}) => {
 TextEditor.propTypes = {
 	className: PropTypes.string,
 	value: PropTypes.string,
+	name: PropTypes.string,
 	onChange: PropTypes.func,
 	error: PropTypes.any,
 
@@ -78,6 +80,7 @@ TextEditor.propTypes = {
 export default function TextEditor ({
 	className,
 	value,
+	name,
 	onChange,
 	error,
 	plainText,
@@ -135,6 +138,7 @@ export default function TextEditor ({
 			<ContextProvider editorID={editorIdRef.current}>
 				<div>
 					{countDown != null && (<CharacterCounter className={cx('character-count')} />)}
+					{error && (<Errors.Target error={error} label={name} className={cx('error', error.code ?? 'unknown')} />)}
 				</div>
 			</ContextProvider>
 		</div>
