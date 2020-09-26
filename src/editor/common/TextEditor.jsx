@@ -17,8 +17,16 @@ const cx = classnames.bind(Styles);
 
 const Initial = Symbol('Initial');
 
-const toDraftState = (x) => Parsers.HTML.toDraftState(x);
-const fromDraftState = (x) => Parsers.HTML.fromDraftState(x)?.join('\n') ?? null;
+const TextParsers = {
+	HTML: {
+		toDraftState: (x) => Parsers.HTML.toDraftState(x),
+		fromDraftState: (x) => Parsers.HTML.fromDraftState(x)?.join('\n') ?? null
+	},
+	PlainText: {
+		toDraftState: (x) => Parsers.PlainText.toDraftState(x),
+		fromDraftState: (x) => Parsers.PlainText.fromDraftState(x)?.join('\n') ?? null
+	}
+};
 
 const {CharacterCounter} = Plugins.Counter.components;
 
@@ -82,6 +90,8 @@ export default function TextEditor ({
 	const [plugins, setPlugins] = React.useState(null);
 	const settingUp = !editorState || !plugins;
 
+	const parser = plainText ? TextParsers.PlainText : TextParsers.HTML;
+
 	const valueRef = React.useRef(Initial);
 	const editorIdRef = React.useRef();
 
@@ -91,7 +101,7 @@ export default function TextEditor ({
 
 	React.useEffect(() => {
 		if (valueRef.current === Initial || valueRef.current !== value) {
-			setEditorState(toDraftState(value));
+			setEditorState(parser.toDraftState(value));
 		}
 
 		valueRef.current = value;
@@ -105,7 +115,7 @@ export default function TextEditor ({
 	})), [plainText, singleLine, charLimit, countDown]);
 
 	const onContentChange = (newEditorState) => {
-		const newValue = fromDraftState(newEditorState);
+		const newValue = parser.fromDraftState(newEditorState);
 
 		valueRef.current = newValue;
 		onChange?.(newValue);
