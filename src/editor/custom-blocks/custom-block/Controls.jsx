@@ -16,6 +16,8 @@ CustomBlockControls.propTypes = {
 	changeLabel: PropTypes.string,
 	changeIcon: PropTypes.node,
 
+	children: PropTypes.any,
+
 	block: PropTypes.object,
 	blockProps: PropTypes.shape({
 		removeBlock: PropTypes.func
@@ -27,12 +29,15 @@ export default function CustomBlockControls ({
 
 	onChange,
 	changeLabel,
-	changeIcon = (<Icons.Pencil />)
+	changeIcon = (<Icons.Pencil />),
+
+	children
 }) {
 	const {removeBlock} = blockProps ?? {};
 
 	return (
 		<div className={cx('custom-reading-block-contols', className)}>
+			{children}
 			{onChange && (
 				<Button plain className={cx('edit')} onClick={(e) => (stop(e), onChange())}>
 					{changeIcon}

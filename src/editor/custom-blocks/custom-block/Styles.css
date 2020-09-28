@@ -15,7 +15,7 @@
 
 	& .edit {
 		flex: 0 0 auto;
-		margin-right: 1.25rem;
+		margin-left: 1.25rem;
 		color: var(--secondary-grey);
 		cursor: pointer;
 		display: inline-flex;
@@ -30,6 +30,7 @@
 	}
 
 	& .remove {
+		margin-left: 1.25rem;
 		flex: 0 0 auto;
 		width: 0.875rem;
 		height: 0.875rem;

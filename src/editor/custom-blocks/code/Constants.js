@@ -1,0 +1,27 @@
+export const Name = 'code-block';
+export const Languages = {
+	'Arduino': 'arduino',
+	'Bash': 'bash',
+	'C': 'c',
+	'C#': 'csharp',
+	'C++': 'cpp',
+	'CSS': 'css',
+	'Go': 'go',
+	'HTML': 'html',
+	'Haskell': 'haskell',
+	'JSON': 'json',
+	'Java': 'java',
+	'JavaScript': 'js',
+	'Makefile': 'make',
+	'Matlab': 'matlab',
+	'MySQL': 'mysql',
+	'PHP': 'php',
+	'Python': 'python',
+	'Python 3': 'python3',
+	'Ruby': 'rb',
+	'Scala': 'scala',
+	'Swift': 'swift',
+	'VB.net': 'vb.net',
+	'XML': 'xml',
+	'markdown': 'md'
+};
