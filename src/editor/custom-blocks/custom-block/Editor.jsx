@@ -9,6 +9,8 @@ import Styles from './Styles.css';
 
 const cx = classnames.bind(Styles);
 
+const Initial = Symbol('Initial');
+
 const getPlugins = ({singleline}) => {
 	const plugins = [
 		Plugins.LimitBlockTypes.create({
@@ -44,13 +46,13 @@ CustomBlockEditor.propTypes = {
 	singleline: PropTypes.bool
 };
 export default function CustomBlockEditor ({value, className, onChange, parser = RST, singleline, ...otherProps}) {
-	const valueRef = React.useRef(null);
+	const valueRef = React.useRef(Initial);
 	const [editorState, setEditorState] = React.useState(null);
 	const [plugins, setPlugins] = React.useState(null);
 	const settingUp = !editorState || !plugins;
 
 	React.useEffect(() => {
-		if (!valueRef.current || value !== valueRef.current) {
+		if (valueRef.current === Initial || value !== valueRef.current) {
 			setEditorState(parser.toDraftState(value));
 		}
 
