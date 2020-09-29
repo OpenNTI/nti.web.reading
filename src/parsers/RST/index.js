@@ -21,6 +21,6 @@ export const fromDraftState = (state, options) => {
 };
 
 export const withOptions = (options = {}) => ({
-	toDraftState: (rst, incoming = {}) => Parser.convertRSTToDraftState(rst, {...options, ...incoming}),
-	fromDraftState: (state, incoming = {}) => Parser.convertDraftStateToRST(state, {...options, ...incoming})
+	toDraftState: (rst, incoming = {}) => toDraftState(rst, {...options, ...incoming}),
+	fromDraftState: (state, incoming = {}) => fromDraftState(state, {...options, ...incoming})
 });
