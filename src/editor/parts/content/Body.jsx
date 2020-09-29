@@ -83,7 +83,7 @@ export default function BodyEditor ({
 
 	content,
 	onChange,
-	parser = RST,
+	parser = RST.withOptions({startingHeaderLevel: 2}),
 
 	plugins: pluginsProp,
 	customBlocks,
