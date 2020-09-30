@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import {scoped} from '@nti/lib-locale';
-import {StandardUI, Text} from '@nti/web-commons';
+import {StandardUI, Text, FillToBottom} from '@nti/web-commons';
 import {EditorGroup, ContextProvider} from '@nti/web-editor';
 
 import {Locations} from '../Constants';
@@ -29,7 +29,7 @@ export default function ReadingEditorSidebar ({customBlocks, customBlockProps = 
 					<Text.Base className={cx('tab', 'active')}>{t('types')}</Text.Base>
 					<span className={cx('tab')} />
 				</div>
-				<ul className={cx('custom-blocks')}>
+				<FillToBottom as="ul" className={cx('custom-blocks')} property="maxHeight" padding={60}>
 					{(customBlocks ?? []).map((customBlock, index) => {
 						const {Button} = customBlock;
 
@@ -41,7 +41,7 @@ export default function ReadingEditorSidebar ({customBlocks, customBlockProps = 
 							</li>
 						);
 					})}
-				</ul>
+				</FillToBottom>
 			</StandardUI.Card>
 		</ContextProvider>
 	);
