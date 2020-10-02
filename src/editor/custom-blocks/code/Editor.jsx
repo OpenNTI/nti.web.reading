@@ -51,6 +51,7 @@ export default function CodeEditor (props) {
 					className={cx('code-language')}
 					value={language}
 					onChange={onLanguageChange}
+					optionsClassName={cx('code-language-options')}
 				>
 					{
 						Object.entries(Languages)

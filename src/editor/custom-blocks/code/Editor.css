@@ -6,3 +6,8 @@
 	border-top-right-radius: 0;
 	min-height: 200px;
 }
+
+.code-language-options {
+	max-height: 200px;
+	overflow: auto;
+}
