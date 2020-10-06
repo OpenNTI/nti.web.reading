@@ -6,9 +6,11 @@ import {Pager, Text} from '@nti/web-commons';
 import {Locations} from '../Constants';
 
 import Styles from './Styles.css';
+import Controls from './controls';
 
 const cx = classnames.bind(Styles);
 
+ReadingEditorHeader.Controls = Controls;
 ReadingEditorHeader.Location = Locations.Header;
 ReadingEditorHeader.propTypes = {
 	children: PropTypes.any,

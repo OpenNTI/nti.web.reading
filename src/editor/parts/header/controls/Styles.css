@@ -1,0 +1,21 @@
+.reading-editor-controls {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	background: white;
+}
+
+.control {
+	flex: 1 1 auto;
+	max-width: 33%;
+	padding: 0.5rem 0.625rem 0.625rem 1rem;
+	border-right: 1px solid var(--border-grey-light);
+
+	&:first-child {
+		padding-left: var(--side-padding, 1rem);
+	}
+
+	&:last-child:not(:first-child) {
+		border-right: none;
+	}
+}
