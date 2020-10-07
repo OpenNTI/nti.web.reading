@@ -11,14 +11,15 @@ ReadingEditorHeaderControl.propTypes = {
 	label: PropTypes.node,
 	value: PropTypes.node,
 
+	disabled: PropTypes.bool,
 	onDismiss: PropTypes.func,
 
 	children: PropTypes.any
 };
-export default function ReadingEditorHeaderControl ({label, value, onDismiss, children}) {
+export default function ReadingEditorHeaderControl ({label, value, disabled, onDismiss, children}) {
 	const trigger = (
 		<LabeledValue
-			className={cx('control')}
+			className={cx('control', {disabled})}
 			label={label}
 			arrow
 		>
