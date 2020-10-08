@@ -46,7 +46,7 @@
 		height: 1rem;
 		width: 1rem;
 		border-radius: 1rem;
-		border: 1px solid var(--border-grey)-light;
+		border: 1px solid var(--border-grey-light);
 	}
 }
 
