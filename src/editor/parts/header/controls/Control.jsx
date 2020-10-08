@@ -14,9 +14,11 @@ ReadingEditorHeaderControl.propTypes = {
 	disabled: PropTypes.bool,
 	onDismiss: PropTypes.func,
 
-	children: PropTypes.any
+	children: PropTypes.any,
+	forwardRef: PropTypes.any
 };
-export default function ReadingEditorHeaderControl ({label, value, disabled, onDismiss, children}) {
+function ReadingEditorHeaderControl ({label, value, disabled, onDismiss, children, forwardRef}) {
+	const flyoutRef = React.useRef(null);
 	const trigger = (
 		<LabeledValue
 			className={cx('control', {disabled})}
@@ -27,8 +29,13 @@ export default function ReadingEditorHeaderControl ({label, value, disabled, onD
 		</LabeledValue>
 	);
 
+	React.useImperativeHandle(forwardRef, () => ({
+		dismiss: () => flyoutRef.current?.dismiss()
+	}));
+
 	return (
 		<Flyout.Triggered
+			ref={flyoutRef}
 			trigger={trigger}
 			verticalAlign={Flyout.ALIGNMENTS.BOTTOM}
 			horizontalAlign={Flyout.ALIGNMENTS.LEFT_OR_RIGHT}
@@ -40,3 +47,6 @@ export default function ReadingEditorHeaderControl ({label, value, disabled, onD
 		</Flyout.Triggered>
 	);
 }
+
+const ControlForwardRef = (props, ref) => (<ReadingEditorHeaderControl {...props} forwardRef={ref} />);
+export default React.forwardRef(ControlForwardRef);
