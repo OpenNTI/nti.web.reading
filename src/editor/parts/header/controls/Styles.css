@@ -3,6 +3,7 @@
 	flex-direction: row;
 	align-items: stretch;
 	background: white;
+	border-bottom: 1px solid var(--border-grey-light);
 }
 
 .control {
