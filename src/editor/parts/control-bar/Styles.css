@@ -39,14 +39,14 @@
 		top: 50%;
 		right: 0.625rem;
 		margin-top: -0.5rem;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		text-align: center;
 		font-size: 8px;
 		line-height: 1rem;
 		height: 1rem;
 		width: 1rem;
 		border-radius: 1rem;
-		border: 1px solid $border-grey-light;
+		border: 1px solid var(--border-grey-light);
 	}
 }
 
