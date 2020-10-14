@@ -44,7 +44,7 @@ export default function CourseFigureEditor (props) {
 
 	const onTitleChange = (newTitle) => (
 		setBlockData(
-			{body: [newTitle || t('figurePlaceholder', {index: figureIndex}), caption]},
+			{body: [newTitle, caption]},
 			true
 		)
 	);
@@ -57,7 +57,7 @@ export default function CourseFigureEditor (props) {
 	);
 
 	React.useEffect(() => {
-		if (!title || titleRegex.test(title)) {
+		if (titleRegex.test(title)) {
 			const newTitle = t('figurePlaceholder', {index: figureIndex});
 
 			if (title !== newTitle) {
