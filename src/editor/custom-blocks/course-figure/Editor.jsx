@@ -57,7 +57,7 @@ export default function CourseFigureEditor (props) {
 	);
 
 	React.useEffect(() => {
-		if (titleRegex.test(title)) {
+		if (title == null || titleRegex.test(title)) {
 			const newTitle = t('figurePlaceholder', {index: figureIndex});
 
 			if (title !== newTitle) {
