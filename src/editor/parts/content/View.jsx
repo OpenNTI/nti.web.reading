@@ -32,10 +32,10 @@ ReadingEditorContent.propTypes = {
 	className: PropTypes.string,
 
 	error: PropTypes.any,
-	mask: PropTypes.oneOfType(
+	mask: PropTypes.oneOfType([
 		PropTypes.bool,
 		PropTypes.node
-	),
+	]),
 
 	children: PropTypes.any
 };

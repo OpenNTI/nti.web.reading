@@ -22,10 +22,10 @@ const getAssetContainer = (container) => (
 );
 
 VideoRefButton.propTypes = {
-	container: PropTypes.oneOfType(
+	container: PropTypes.oneOfType([
 		PropTypes.object,
 		PropTypes.array
-	)
+	])
 };
 export default function VideoRefButton ({container}) {
 	const createBlock = async (insertBlock, p, selection, editor) => {
