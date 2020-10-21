@@ -74,7 +74,8 @@ BodyEditor.propTypes = {
 	}),
 
 	plugins: PropTypes.array,
-	customBlocks: PropTypes.array
+	customBlocks: PropTypes.array,
+	customBlockProps: PropTypes.any,
 };
 export default function BodyEditor ({
 	className,

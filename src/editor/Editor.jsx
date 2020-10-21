@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import * as CustomBlocks from './custom-blocks';
 import {Container, Content, ControlBar, Header, Sidebar} from './parts';

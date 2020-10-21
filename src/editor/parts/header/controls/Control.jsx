@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {Text, Flyout, LabeledValue} from '@nti/web-commons';
+import {Flyout, LabeledValue} from '@nti/web-commons';
 
 import Styles from './Styles.css';
 

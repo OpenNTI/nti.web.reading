@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {Editor, Plugins, BLOCKS, STYLES, STYLE_SET} from '@nti/web-editor';
+import {Editor, Plugins, BLOCKS, STYLE_SET} from '@nti/web-editor';
 
 import {RST} from '../../../parsers';
 
