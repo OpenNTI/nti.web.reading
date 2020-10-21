@@ -4,9 +4,9 @@ import classnames from 'classnames/bind';
 import {ControlBar} from '@nti/web-commons';
 import {EditorGroup, ContextProvider} from '@nti/web-editor';
 
-import Styles from './Styles.css';
 import {Locations} from '../Constants';
 
+import Styles from './Styles.css';
 import BlockFormat from './BlockFormat';
 import InlineFormat from './InlineFormat';
 import Status from './Status';
