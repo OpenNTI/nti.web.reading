@@ -1,10 +1,9 @@
 .block-type-button {
-	border: 1px solid var(--border-grey-light);
-	background: white;
 	position: relative;
 	overflow: hidden;
 	transition: transform 250ms;
-	padding: 5px 0 10px 0;
+	padding: 5px 0;
+	cursor: pointer;
 
 	&:global(.disabled) {
 		opacity: 0.5;
@@ -15,32 +14,22 @@
 		transform: scale(0.9);
 	}
 
-	& .label,
-	& .count {
+	& .label {
 		color: var(--secondary-grey);
 		text-transform: uppercase;
 		font-family: var(--body-font-family);
 		font-size: 0.625rem;
 		font-weight: bold;
 		line-height: 1.4;
-	}
-
-	& .icon {
-		display: block;
-		height: 65px;
-		width: auto;
-		margin: 0 auto;
-		pointer-events: none;
-	}
-
-	& .label {
 		display: block;
 		text-align: center;
 	}
 
-	& .count {
-		text-align: right;
-		padding: 0 5px 0 0;
-		min-height: 19px;
+	& .icon {
+		display: block;
+		height: 50px;
+		width: auto;
+		margin: 0 auto;
+		pointer-events: none;
 	}
 }

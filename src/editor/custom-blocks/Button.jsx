@@ -48,7 +48,6 @@ export default function BlockTypeButton ({
 			onDragEnd={onMouseUp}
 			disabled={disabled}
 		>
-			<BlockCount className={cx('count')} predicate={isBlock} group={group} />
 			<Image className={cx('icon')} src={icon} />
 			<Text.Base className={cx('label')}>{label}</Text.Base>
 		</Button>
