@@ -7,7 +7,7 @@ import {Plugins} from '@nti/web-editor';
 import Styles from './Button.css';
 
 const cx = classnames.bind(Styles);
-const {Button, BlockCount} = Plugins.InsertBlock.components;
+const {Button} = Plugins.InsertBlock.components;
 
 BlockTypeButton.propTypes = {
 	className: PropTypes.string,
@@ -30,8 +30,6 @@ export default function BlockTypeButton ({
 	disabled,
 	createBlock,
 	createBlockProps,
-	isBlock,
-	group
 }) {
 	const [mouseDown, setMouseDown] = React.useState(false);
 	const onMouseDown = () => setMouseDown(true);
