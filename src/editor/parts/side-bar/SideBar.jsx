@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames/bind';
 import {scoped} from '@nti/lib-locale';
 import {StandardUI, Text, FillToBottom} from '@nti/web-commons';
 import {EditorGroup, ContextProvider} from '@nti/web-editor';
 
 import {Locations} from '../Constants';
 
-import Styles from './Styles.css';
+import styles from './SideBar.css';
 
 
-const cx = classnames.bind(Styles);
 const t = scoped('nti-reading.editor.parts.side-bar.View', {
 	types: 'Types',
 	defaultGroup: 'Formatting'
@@ -49,27 +47,19 @@ export default function ReadingEditorSidebar ({customBlocks, customBlockProps = 
 	return (
 		<ContextProvider editor={editor}>
 			<StandardUI.Card>
-				<FillToBottom property="maxHeight" padding={60} className={cx('sidebar')}>
-					{order.map((group, index) => {
-						const blocks = groups[group];
-
-						return (
-							<div key={index} className={cx('group')}>
-								<Text.Base className={cx('label')}>{group}</Text.Base>
-								<ul>
-									{(blocks ?? []).map((block, key) => {
-										const {Button} = block;
-
-										return (
-											<li key={key}>
-												<Button {...customBlockProps} />
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						);
-					})}
+				<FillToBottom property="maxHeight" padding={60} className={styles.sidebar}>
+					{order.map((group, index) => (
+						<div key={index} className={styles.group}>
+							<Text.Base className={styles.label}>{group}</Text.Base>
+							<ul>
+								{(groups[group] ?? []).map(({Button}, key) => (
+									<li key={key}>
+										<Button {...customBlockProps} />
+									</li>
+								))}
+							</ul>
+						</div>
+					))}
 				</FillToBottom>
 			</StandardUI.Card>
 		</ContextProvider>

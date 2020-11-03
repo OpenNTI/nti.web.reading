@@ -24,7 +24,7 @@ ReadingEditorContainer.propTypes = {
 };
 export default function ReadingEditorContainer ({className, children, ...otherProps}) {
 	const components = React.Children.toArray(children);
-	const CmpsByLocation = (components ?? []).reduce((acc, cmp) => {
+	const ComponentsByLocation = (components ?? []).reduce((acc, cmp) => {
 		const location = cmp?.type?.Location ?? 'other';
 
 		if (!acc[location]) { acc[location] = []; }
@@ -33,11 +33,11 @@ export default function ReadingEditorContainer ({className, children, ...otherPr
 		return acc;
 	}, {});
 
-	const Content = CmpsByLocation[Locations.Main];
-	const ControlBar = CmpsByLocation[Locations.ControlBar];
-	const Header = CmpsByLocation[Locations.Header];
-	const Sidebar = CmpsByLocation[Locations.Sidebar];
-	const Other = CmpsByLocation.other;
+	const Content = ComponentsByLocation[Locations.Main];
+	const ControlBar = ComponentsByLocation[Locations.ControlBar];
+	const Header = ComponentsByLocation[Locations.Header];
+	const Sidebar = ComponentsByLocation[Locations.Sidebar];
+	const Other = ComponentsByLocation.other;
 
 	return (
 		<EditorGroup>
