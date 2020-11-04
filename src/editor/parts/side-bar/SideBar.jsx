@@ -46,8 +46,8 @@ export default function ReadingEditorSidebar ({customBlocks, customBlockProps = 
 
 	return (
 		<ContextProvider editor={editor}>
-			<StandardUI.Card>
-				<FillToBottom property="maxHeight" padding={60} className={styles.sidebar}>
+			<StandardUI.Card className={styles.sidebar}>
+				<FillToBottom property="maxHeight" padding={60}>
 					{order.map((group, index) => (
 						<div key={index} className={styles.group}>
 							<Text.Base className={styles.label}>{group}</Text.Base>
