@@ -59,7 +59,9 @@ export default function VideoRefEditor (props) {
 		[]
 	);
 
-	Hooks.useChanges(video ?? {subscribeToChange: () => {}});
+	Hooks.useChanges(video ?? {
+		subscribeToChange: () => (() => {})
+	});
 
 	const missing = deleted || (!loading && !video);
 
