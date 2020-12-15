@@ -22,7 +22,7 @@ BlockTypeButton.propTypes = {
 	isBlock: PropTypes.func,
 	group: PropTypes.bool
 };
-export default function BlockTypeButton ({
+function BlockTypeButton ({
 	className,
 	icon,
 	label,
@@ -30,13 +30,14 @@ export default function BlockTypeButton ({
 	disabled,
 	createBlock,
 	createBlockProps,
-}) {
+}, ref) {
 	const [mouseDown, setMouseDown] = React.useState(false);
 	const onMouseDown = () => setMouseDown(true);
 	const onMouseUp = () => setMouseDown(false);
 
 	return (
 		<Button
+			ref={ref}
 			type={type}
 			className={cx('block-type-button', className, {mousedown: mouseDown})}
 			createBlock={createBlock}
@@ -51,3 +52,5 @@ export default function BlockTypeButton ({
 		</Button>
 	);
 }
+
+export default React.forwardRef(BlockTypeButton);
