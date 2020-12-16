@@ -9,20 +9,7 @@ import Styles from './Button.css';
 const cx = classnames.bind(Styles);
 const {Button} = Plugins.InsertBlock.components;
 
-BlockTypeButton.propTypes = {
-	className: PropTypes.string,
-	icon: PropTypes.any,
-	label: PropTypes.string,
-	type: PropTypes.any,
-	disabled: PropTypes.bool,
-
-	createBlock: PropTypes.func,
-	createBlockProps: PropTypes.object,
-
-	isBlock: PropTypes.func,
-	group: PropTypes.bool
-};
-function BlockTypeButton ({
+const BlockTypeButton = React.forwardRef(({
 	className,
 	icon,
 	label,
@@ -30,7 +17,7 @@ function BlockTypeButton ({
 	disabled,
 	createBlock,
 	createBlockProps,
-}, ref) {
+}, ref) => {
 	const [mouseDown, setMouseDown] = React.useState(false);
 	const onMouseDown = () => setMouseDown(true);
 	const onMouseUp = () => setMouseDown(false);
@@ -51,6 +38,21 @@ function BlockTypeButton ({
 			<Text.Base className={cx('label')}>{label}</Text.Base>
 		</Button>
 	);
-}
+});
 
-export default React.forwardRef(BlockTypeButton);
+BlockTypeButton.displayName = 'BlockTypeButton';
+BlockTypeButton.propTypes = {
+	className: PropTypes.string,
+	icon: PropTypes.any,
+	label: PropTypes.string,
+	type: PropTypes.any,
+	disabled: PropTypes.bool,
+
+	createBlock: PropTypes.func,
+	createBlockProps: PropTypes.object,
+
+	isBlock: PropTypes.func,
+	group: PropTypes.bool
+};
+
+export default BlockTypeButton;
