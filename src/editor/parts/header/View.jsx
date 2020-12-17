@@ -24,7 +24,7 @@ ReadingEditorHeader.propTypes = {
 };
 export default function ReadingEditorHeader ({children, breadcrumb, pageSource}) {
 	return (
-		<div className={cx('header')}>
+		<>
 			<div className={cx('bar')}>
 				{breadcrumb && (
 					<ul className={cx('breadcrumb')}>
@@ -40,6 +40,6 @@ export default function ReadingEditorHeader ({children, breadcrumb, pageSource})
 			<div className={cx('controls')}>
 				{children}
 			</div>
-		</div>
+		</>
 	);
 }
