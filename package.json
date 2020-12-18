@@ -33,19 +33,17 @@
     "@nti/web-commons": "NextThought/nti.web.commons",
     "@nti/web-editor": "NextThought/nti.web.editor",
     "@nti/web-video": "NextThought/nti.web.video",
-    "classnames": "^2.2.6",
     "react-transition-group": "^4.4.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.25.8",
-    "@nti/style-common": "NextThought/nti.style.common",
-    "@storybook/addon-actions": "^6.0.13",
-    "@storybook/addon-essentials": "^6.0.13",
-    "@storybook/addon-links": "^6.0.13",
-    "@storybook/react": "^6.0.13",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "@nti/style-common": "NextThought/nti.style.common"
+  },
+  "peerDependencies": {
+    "classnames": "*",
+    "react": "*",
+    "react-dom": "*",
+    "prop-types": "*"
   }
 }
