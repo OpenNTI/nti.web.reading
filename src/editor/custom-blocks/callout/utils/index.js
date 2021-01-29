@@ -1,1 +1,1 @@
-export isCalloutBlock from './is-callout-block';
+export { default as isCalloutBlock } from './is-callout-block';

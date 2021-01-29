@@ -1,2 +1,2 @@
-export ContentOptions from './content-options';
-export TextEditor from './TextEditor';
+export { default as ContentOptions } from './content-options';
+export { default as TextEditor } from './TextEditor';

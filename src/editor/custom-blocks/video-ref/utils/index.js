@@ -1,1 +1,1 @@
-export isVideoRefBlock from './is-video-ref-block';
+export { default as isVideoRefBlock } from './is-video-ref-block';

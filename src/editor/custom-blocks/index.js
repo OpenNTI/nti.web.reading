@@ -1,7 +1,7 @@
-export Button from './Button';
+export { default as Button } from './Button';
 export * as BuiltInBlock from './builtin-block';
-export Callout from './callout';
-export Code from './code';
-export CourseFigure from './course-figure';
-export Iframe from './iframe';
-export VideoRef from './video-ref';
+export { default as Callout } from './callout';
+export { default as Code } from './code';
+export { default as CourseFigure } from './course-figure';
+export { default as Iframe } from './iframe';
+export { default as VideoRef } from './video-ref';

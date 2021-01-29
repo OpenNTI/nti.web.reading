@@ -1,5 +1,5 @@
-export Content from './content';
-export Container from './Container';
-export ControlBar from './control-bar';
-export Header from './header';
-export Sidebar from './side-bar';
+export { default as Content } from './content';
+export { default as Container } from './Container';
+export { default as ControlBar } from './control-bar';
+export { default as Header } from './header';
+export { default as Sidebar } from './side-bar';

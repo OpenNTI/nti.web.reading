@@ -1,1 +1,1 @@
-export isCodeBlock from './is-code-block';
+export { default as isCodeBlock } from './is-code-block';

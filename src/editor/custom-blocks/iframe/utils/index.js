@@ -1,1 +1,1 @@
-export isIframeBlock from './is-iframe-block';
+export { default as isIframeBlock } from './is-iframe-block';

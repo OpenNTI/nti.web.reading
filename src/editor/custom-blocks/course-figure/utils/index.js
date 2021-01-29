@@ -1,2 +1,2 @@
-export isCourseFigureBlock from './is-course-figure-block';
-export isImage from './is-image';
+export { default as isCourseFigureBlock } from './is-course-figure-block';
+export { default as isImage } from './is-image';
