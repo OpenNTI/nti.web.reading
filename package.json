@@ -28,7 +28,7 @@
   "homepage": "https://github.com/NextThought/nti.web.reading#readme",
   "dependencies": {
     "@nti/lib-commons": "NextThought/nti.lib.commons",
-    "@nti/lib-locale": "NextThought/nti.lib.ntiids",
+    "@nti/lib-locale": "NextThought/nti.lib.locale",
     "@nti/web-client": "NextThought/nti.web.client",
     "@nti/web-commons": "NextThought/nti.web.commons",
     "@nti/web-editor": "NextThought/nti.web.editor",
