@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import {scoped} from '@nti/lib-locale';
-import {getService} from '@nti/web-client';//eslint-disable-line
+import {getService} from '@nti/web-client';
 import {getAtomicBlockData} from '@nti/web-editor';
 import {Hooks, Loading, Text} from '@nti/web-commons';
 import Video, {Editor} from '@nti/web-video';
