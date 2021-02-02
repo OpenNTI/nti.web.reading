@@ -150,10 +150,10 @@ function getTextParts (text) {
 /**
  * Parse a range into RST
  * @param  {Object} range     the range to parse
- * @param  {String} text      the text to mark up
+ * @param  {string} text      the text to mark up
  * @param  {Object} context   the context of the parser
  * @param  {Object} prevRange the prev consecutive range
- * @return {String}           the rst
+ * @returns {string}           the rst
  */
 export default function parseRange (range, text, context, prevRange) {
 	const {styles, keys} = range;

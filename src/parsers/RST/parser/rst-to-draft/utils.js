@@ -8,7 +8,7 @@ const ALL_WHITE_SPACE = /\s/g;
  *
  * return {
  * 	blockOffset: the offset to the start of the block
- * 	lineOffet: the offset to the start of the text
+ * 	lineOffset: the offset to the start of the text
  * }
  *
  * Treat tabs or two spaces as being block offsets, and count them as block offsets and line offsets.
@@ -16,10 +16,10 @@ const ALL_WHITE_SPACE = /\s/g;
  * followed by another space, stop adding white space to the block offset and only add it
  * to the line offset until you hit a  non-whitespace character.
  *
- * @param  {String} block          the blocks to get the offsets of
- * @param  {String} blockIndicator the text that indicates the block and should not be counted
- * @param  {Number} baseDepth      the amount to take off
- * @return {Object}                the offsets of the block.
+ * @param  {string} block          the blocks to get the offsets of
+ * @param  {string} blockIndicator the text that indicates the block and should not be counted
+ * @param  {number} baseDepth      the amount to take off
+ * @returns {Object}                the offsets of the block.
  */
 export function getIndention (block, blockIndicator, baseDepth = 0) {
 	const blockStart = blockIndicator ? block.indexOf(blockIndicator) : -1;

@@ -52,7 +52,7 @@ function parseBlock (block) {
  *
  * @param  {Object} block           the ordered list item
  * @param  {Object} parsedInterface the already parsed blocks
- * @return {Object}                 the block with the correct list style
+ * @returns {Object}                 the block with the correct list style
  */
 function maybeSwitchStyle (block, parsedInterface) {
 	const {listStyle, ordinal, depth} = block;

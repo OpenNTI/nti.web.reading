@@ -45,7 +45,7 @@ export default class Parser {
 	 * @param  {Array} blockTypes        the list of block types to look for in the input
 	 * @param  {Array}  inputTransforms  the list of transforms to apply to the input
 	 * @param  {Array}  outputTransforms the list of transforms to apply to the output
-	 * @return {Parser}                  the initialized Parse with these block types and transforms
+	 * @returns {Parser}                  the initialized Parse with these block types and transforms
 	 */
 	constructor (blockTypes = [], inputTransforms = [], outputTransforms = []) {
 		//TODO: decide if we need to formalize the context beyond a simple object
@@ -63,7 +63,7 @@ export default class Parser {
 	 *
 	 * @param  {Mixed} input what to parse
 	 * @param {Object} options configuration options
-	 * @return {Array}       the blocks in the input
+	 * @returns {Array}       the blocks in the input
 	 */
 	formatInput (input, options) {
 		return this[INPUT_TRANSFORMS].reduce((acc, transform) => {
@@ -78,7 +78,7 @@ export default class Parser {
 	 * @param {Array} parsed.blocks the blocks that were parsed from the input
 	 * @param {Object} parsed.context the context set while parsing the blocks
 	 * @param {Object} options configuration options
-	 * @return {Object}        the formatted version to output
+	 * @returns {Object}        the formatted version to output
 	 */
 	formatParsed (parsed, options) {
 		return this[OUTPUT_TRANSFORMS].reduce((acc, transform) => {
@@ -94,7 +94,7 @@ export default class Parser {
 	 *
 	 * @param  {Mixed} input what to parse
 	 * @param {Object} options options to configure the parser
-	 * @return {Object}       the result of parsing
+	 * @returns {Object}       the result of parsing
 	 */
 	parse (input, options = {}) {
 		const {input:parsedInputs, context:parsedContext} = this.formatInput({input, context: {}}, options);
@@ -133,7 +133,7 @@ export default class Parser {
 	 * @param  {Object} inputInterface   the remaining inputs
 	 * @param  {Object} context the context of the parser
 	 * @param  {Object} parsedInterface the already parsed inputs
-	 * @return {Object}        the block to use to parse
+	 * @returns {Object}        the block to use to parse
 	 */
 	getClassForBlock (inputInterface, context, parsedInterface) {
 		for (let blockType of this[BLOCK_TYPES]) {
