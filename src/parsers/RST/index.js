@@ -18,7 +18,7 @@ export const toDraftState = (rst, options) => {
 
 export const fromRawDraftState = ({blocks, entityMap}) => {
 	return Parser.convertDraftStateToRST({blocks, entityMap});
-}
+};
 
 export const fromDraftState = (state, options) => {
 	const {blocks, entityMap} = EditorParsers.Utils.getRawForState(state);
