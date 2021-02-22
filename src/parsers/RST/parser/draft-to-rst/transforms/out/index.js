@@ -1,5 +1,3 @@
 import ToRST from './ToRST';
 
-export default [
-	ToRST
-];
+export default [ToRST];

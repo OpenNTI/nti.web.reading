@@ -1,25 +1,38 @@
 /* eslint-env jest */
-import {STYLES} from '@nti/web-editor';
+import { STYLES } from '@nti/web-editor';
 
 import Literal from '../Literal';
 import Plaintext from '../Plaintext';
-import {getInterface} from '../../../../Parser';
+import { getInterface } from '../../../../Parser';
 
 describe('Literal', () => {
 	describe('isNextBlock', () => {
 		test('matchOpen is true for ``', () => {
 			const test = ['`', '`', 'l', 'i', 't', 'e', 'r', 'a', 'l'];
 			const inputInterface = getInterface(0, test);
-			const {matches, nextChar} = Literal.matchOpen(inputInterface);
+			const { matches, nextChar } = Literal.matchOpen(inputInterface);
 
 			expect(matches).toBeTruthy();
 			expect(nextChar).toEqual('l');
 		});
 
 		test('matchOpen is false for `', () => {
-			const test = ['`', 'i', 'n', 't', 'e', 'r', 'p', 'r', 'e', 't', 'e', 'd'];
+			const test = [
+				'`',
+				'i',
+				'n',
+				't',
+				'e',
+				'r',
+				'p',
+				'r',
+				'e',
+				't',
+				'e',
+				'd',
+			];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Literal.matchOpen(inputInterface);
+			const { matches } = Literal.matchOpen(inputInterface);
 
 			expect(matches).toBeFalsy();
 		});
@@ -27,7 +40,7 @@ describe('Literal', () => {
 		test('matchClose is true for ``', () => {
 			const test = ['`', '`', 'a'];
 			const inputInterface = getInterface(0, test);
-			const {matches, nextChar} = Literal.matchClose(inputInterface);
+			const { matches, nextChar } = Literal.matchClose(inputInterface);
 
 			expect(matches).toBeTruthy();
 			expect(nextChar).toEqual('a');
@@ -36,12 +49,11 @@ describe('Literal', () => {
 		test('matchClose is false for `', () => {
 			const test = ['`', 'a'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Literal.matchClose(inputInterface);
+			const { matches } = Literal.matchClose(inputInterface);
 
 			expect(matches).toBeFalsy();
 		});
 	});
-
 
 	describe('getRanges', () => {
 		test('getRanges returns the proper range', () => {
@@ -57,7 +69,7 @@ describe('Literal', () => {
 
 			block.appendBlock(new Literal());
 
-			const {inlineStyleRanges} = block.getRanges({charCount: 0});
+			const { inlineStyleRanges } = block.getRanges({ charCount: 0 });
 
 			expect(inlineStyleRanges.length).toEqual(1);
 			expect(inlineStyleRanges[0].style).toEqual(STYLES.CODE);

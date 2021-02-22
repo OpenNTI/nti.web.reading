@@ -1,7 +1,7 @@
 import Button from './Button';
 import Editor from './Editor';
-import {Name} from './Constants';
-import {isIframeBlock} from './utils';
+import { Name } from './Constants';
+import { isIframeBlock } from './utils';
 
 export default {
 	Button,
@@ -9,5 +9,5 @@ export default {
 	className: Editor.WrapperClassName,
 	type: Name,
 	handlesBlock: (...args) => isIframeBlock(...args),
-	editable: false
+	editable: false,
 };

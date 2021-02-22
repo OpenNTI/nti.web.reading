@@ -1,4 +1,4 @@
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
 import IndentedBlock from './IndentedBlock';
 import Text from './Text';
@@ -6,61 +6,69 @@ import Text from './Text';
 const PARAGRAPH_REGEX = /^\s*(.*)/;
 
 export default class Paragraph extends IndentedBlock {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const input = inputInterface.get();
 
 		return PARAGRAPH_REGEX.test(input);
 	}
 
-	static parse (inputInterface, context) {
+	static parse(inputInterface, context) {
 		const input = inputInterface.get();
 		const matches = input.match(PARAGRAPH_REGEX);
 		const text = matches[1];
 
-		return {block: new this(input, '', {text: new Text(text)}), context};
+		return {
+			block: new this(input, '', { text: new Text(text) }),
+			context,
+		};
 	}
 
-	constructor (...args) {
+	constructor(...args) {
 		super(...args);
 
 		this.lineCount = 1;
 	}
 
+	isParagraph = true;
 
-	isParagraph = true
-
-	get text () {
+	get text() {
 		return this.parts.text;
 	}
 
-	get raw () {
+	get raw() {
 		return this.parts.text.text;
 	}
 
-	get isOneLine () {
+	get isOneLine() {
 		return this.lineCount === 1;
 	}
 
 	//TODO: if the next block is not white space, and is indented its a term not a paragraph
-	shouldAppendBlock (block) {
+	shouldAppendBlock(block) {
 		return block && block.isParagraph && this.isSameOffset(block);
 	}
 
-
-	appendBlock (block) {
+	appendBlock(block) {
 		this.lineCount += 1;
 		this.parts.text.append(block.text);
 
-		return {block: this};
+		return { block: this };
 	}
 
-
-	getOutput (context) {
-		const {text} = this;
-		const {output, context:newContext} = text.getOutput(context);
+	getOutput(context) {
+		const { text } = this;
+		const { output, context: newContext } = text.getOutput(context);
 
 		const type = this.depth === 0 ? BLOCKS.UNSTYLED : BLOCKS.BLOCKQUOTE;
 
-		return {output: {...output, depth: this.depth, type, data: this.blockData}, newContext};
+		return {
+			output: {
+				...output,
+				depth: this.depth,
+				type,
+				data: this.blockData,
+			},
+			newContext,
+		};
 	}
 }

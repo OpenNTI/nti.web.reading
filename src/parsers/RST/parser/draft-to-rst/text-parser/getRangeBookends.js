@@ -1,16 +1,16 @@
-import {STYLES, ENTITIES} from '@nti/web-editor';
+import { STYLES, ENTITIES } from '@nti/web-editor';
 
 const DEFAULT = 'default';
 
-const {BOLD, ITALIC, UNDERLINE} = STYLES;
+const { BOLD, ITALIC, UNDERLINE } = STYLES;
 const BOLD_ITALIC = getKeyForStyles([BOLD, ITALIC]);
 const BOLD_UNDERLINE = getKeyForStyles([BOLD, UNDERLINE]);
 const ITALIC_UNDERLINE = getKeyForStyles([ITALIC, UNDERLINE]);
 const BOLD_ITALIC_UNDERLINE = getKeyForStyles([BOLD, ITALIC, UNDERLINE]);
 
-const {LINK} = ENTITIES;
+const { LINK } = ENTITIES;
 
-function getKeyForStyles (styles) {
+function getKeyForStyles(styles) {
 	const contains = styles.reduce((acc, style) => {
 		acc[style] = true;
 
@@ -25,48 +25,65 @@ function getKeyForStyles (styles) {
 }
 
 const STYLES_HANDLERS = {
-	[DEFAULT]: () => { return {start: '', end: ''}; },
-	[BOLD]: () => { return {start: '**', end: '**'}; },
-	[ITALIC]: () => { return {start: '*', end: '*'}; },
-	[UNDERLINE]: () => { return {start: ':underline:`',	end: '`'}; },
-	[BOLD_ITALIC]: () => { return {start: ':bolditalic:`', end: '`'}; },
-	[BOLD_UNDERLINE]: () => { return {start: ':boldunderline:`', end: '`'}; },
-	[ITALIC_UNDERLINE]: () => { return {start: ':italicunderline:`',	end: '`'}; },
-	[BOLD_ITALIC_UNDERLINE]: () => { return {start: ':bolditalicunderline:`', end: '`'}; }
+	[DEFAULT]: () => {
+		return { start: '', end: '' };
+	},
+	[BOLD]: () => {
+		return { start: '**', end: '**' };
+	},
+	[ITALIC]: () => {
+		return { start: '*', end: '*' };
+	},
+	[UNDERLINE]: () => {
+		return { start: ':underline:`', end: '`' };
+	},
+	[BOLD_ITALIC]: () => {
+		return { start: ':bolditalic:`', end: '`' };
+	},
+	[BOLD_UNDERLINE]: () => {
+		return { start: ':boldunderline:`', end: '`' };
+	},
+	[ITALIC_UNDERLINE]: () => {
+		return { start: ':italicunderline:`', end: '`' };
+	},
+	[BOLD_ITALIC_UNDERLINE]: () => {
+		return { start: ':bolditalicunderline:`', end: '`' };
+	},
 };
 
-
 const ENTITY_HANDLERS = {
-	[DEFAULT]: () => { return {start: '', end: ''}; },
-	[LINK]: (entity) => {
-		const {data} = entity;
-		const {href} = data;
+	[DEFAULT]: () => {
+		return { start: '', end: '' };
+	},
+	[LINK]: entity => {
+		const { data } = entity;
+		const { href } = data;
 
 		return {
 			start: '`',
-			end: ` <${href}>\``
+			end: ` <${href}>\``,
 		};
-	}
+	},
 };
 
-function getStyleBookends (styles) {
+function getStyleBookends(styles) {
 	const key = getKeyForStyles(styles);
 	const styleHandler = STYLES_HANDLERS[key] || STYLES_HANDLERS[DEFAULT];
 
 	return styleHandler(styles);
 }
 
-
-function getKeyBookends (keys, context) {
+function getKeyBookends(keys, context) {
 	const key = keys[0];
 	const entity = context.entityMap[key];
-	const entityHandler = ENTITY_HANDLERS[entity.type] || ENTITY_HANDLERS[DEFAULT];
+	const entityHandler =
+		ENTITY_HANDLERS[entity.type] || ENTITY_HANDLERS[DEFAULT];
 
 	return entityHandler(entity);
 }
 
-export default function getRangeBookends (range, context) {
-	const {styles, keys} = range;
+export default function getRangeBookends(range, context) {
+	const { styles, keys } = range;
 	let bookends;
 
 	if (keys.length) {

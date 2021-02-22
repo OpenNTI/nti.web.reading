@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import Empty from '../Empty';
-import {getInterface} from '../../../Parser';
+import { getInterface } from '../../../Parser';
 
 describe('Empty Block', () => {
 	describe('isNextBlock', () => {

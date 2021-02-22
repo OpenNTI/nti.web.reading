@@ -29,5 +29,5 @@ export default [
 	FieldList,
 	Directive,
 	Comment,
-	Paragraph
+	Paragraph,
 ];

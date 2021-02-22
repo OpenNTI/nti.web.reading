@@ -1,4 +1,4 @@
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
 // import {getUIDStringFor} from '../utils';
 import parseText from '../text-parser';
@@ -6,34 +6,33 @@ import parseText from '../text-parser';
 const BLOCK = Symbol('Block');
 
 export default class Paragraph {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const input = inputInterface.get(0);
 		return input.type === BLOCKS.UNSTYLED;
 	}
 
-	static parse (inputInterface) {
+	static parse(inputInterface) {
 		const input = inputInterface.get(0);
 
-		return {block: new this(input)};
+		return { block: new this(input) };
 	}
 
-	followWithBlankLine = true
+	followWithBlankLine = true;
 
-	constructor (block) {
+	constructor(block) {
 		this[BLOCK] = block;
 	}
 
-
-	getOutput (context) {
+	getOutput(context) {
 		if (!this[BLOCK].text) {
 			return {};
 		}
 
 		const output = [
 			// getUIDStringFor(this[BLOCK]),
-			parseText(this[BLOCK], context)
+			parseText(this[BLOCK], context),
 		];
 
-		return {output};
+		return { output };
 	}
 }

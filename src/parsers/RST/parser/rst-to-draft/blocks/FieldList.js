@@ -4,36 +4,33 @@ import IndentedBlock from './IndentedBlock';
 const FIELDLIST = /^\s*:([^:]*):[^`]\s*(.*)/;
 
 export default class FieldList extends IndentedBlock {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const current = inputInterface.get(0);
 
 		return FIELDLIST.test(current);
 	}
 
-	static parse (inputInterface) {
+	static parse(inputInterface) {
 		const current = inputInterface.get(0);
 		const matches = current.match(FIELDLIST);
 		const name = matches[1];
 		const value = matches[2];
 
-		return {block: new this(current, '', {name, value})};
+		return { block: new this(current, '', { name, value }) };
 	}
 
+	isFieldList = true;
 
-	isFieldList = true
-
-
-	get name () {
+	get name() {
 		return this.parts.name;
 	}
 
-
-	get value () {
+	get value() {
 		return this.parts.value;
 	}
 
-	getOutput (context) {
+	getOutput(context) {
 		//TODO: fill this out
-		return {context};
+		return { context };
 	}
 }

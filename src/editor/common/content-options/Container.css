@@ -16,7 +16,8 @@
 			&:global(.fade-in-out-enter-active) {
 				opacity: 1;
 				transform: scale(1);
-				transition: opacity 400ms, transform 400ms cubic-bezier(0.5, 0.01, 0.02, 1.35);
+				transition: opacity 400ms,
+					transform 400ms cubic-bezier(0.5, 0.01, 0.02, 1.35);
 			}
 		}
 

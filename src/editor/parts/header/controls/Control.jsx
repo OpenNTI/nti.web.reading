@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {Flyout, LabeledValue} from '@nti/web-commons';
+import { Flyout, LabeledValue } from '@nti/web-commons';
 
 import Styles from './Styles.css';
 
@@ -15,13 +15,20 @@ ReadingEditorHeaderControl.propTypes = {
 	onDismiss: PropTypes.func,
 
 	children: PropTypes.any,
-	forwardRef: PropTypes.any
+	forwardRef: PropTypes.any,
 };
-function ReadingEditorHeaderControl ({label, value, disabled, onDismiss, children, forwardRef}) {
+function ReadingEditorHeaderControl({
+	label,
+	value,
+	disabled,
+	onDismiss,
+	children,
+	forwardRef,
+}) {
 	const flyoutRef = React.useRef(null);
 	const trigger = (
 		<LabeledValue
-			className={cx('control', {disabled})}
+			className={cx('control', { disabled })}
 			label={label}
 			arrow
 		>
@@ -30,7 +37,7 @@ function ReadingEditorHeaderControl ({label, value, disabled, onDismiss, childre
 	);
 
 	React.useImperativeHandle(forwardRef, () => ({
-		dismiss: () => flyoutRef.current?.dismiss()
+		dismiss: () => flyoutRef.current?.dismiss(),
 	}));
 
 	return (
@@ -41,12 +48,12 @@ function ReadingEditorHeaderControl ({label, value, disabled, onDismiss, childre
 			horizontalAlign={Flyout.ALIGNMENTS.LEFT_OR_RIGHT}
 			onDismiss={onDismiss}
 		>
-			<div className={cx('control-flyout')}>
-				{children}
-			</div>
+			<div className={cx('control-flyout')}>{children}</div>
 		</Flyout.Triggered>
 	);
 }
 
-const ControlForwardRef = (props, ref) => (<ReadingEditorHeaderControl {...props} forwardRef={ref} />);
+const ControlForwardRef = (props, ref) => (
+	<ReadingEditorHeaderControl {...props} forwardRef={ref} />
+);
 export default React.forwardRef(ControlForwardRef);

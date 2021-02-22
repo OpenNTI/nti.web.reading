@@ -1,11 +1,16 @@
 /* eslint-env jest */
 import TextParser from '../TextParser';
-import {normalizeEntityName} from '../../utils';
+import { normalizeEntityName } from '../../utils';
 
 describe('TextParser', () => {
 	const test1 = 'no markup in this string';
 	test(test1, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test1);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test1);
 
 		expect(text).toEqual(test1);
 		expect(inlineStyleRanges.length).toEqual(0);
@@ -15,7 +20,12 @@ describe('TextParser', () => {
 
 	const test2 = '*entire text is emphasis*';
 	test(test2, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test2);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test2);
 		const range = inlineStyleRanges[0];
 
 		expect(text).toEqual('entire text is emphasis');
@@ -29,7 +39,12 @@ describe('TextParser', () => {
 
 	const test3 = 'last half **is strong emphasis**';
 	test(test3, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test3);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test3);
 		const range = inlineStyleRanges[0];
 
 		expect(text).toEqual('last half is strong emphasis');
@@ -43,7 +58,12 @@ describe('TextParser', () => {
 
 	const test4 = '`entire text is inline-link <http://www.google.com>`_';
 	test(test4, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test4);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test4);
 		const range = entityRanges[0];
 		const entity = entityMap[range.key];
 
@@ -60,7 +80,12 @@ describe('TextParser', () => {
 
 	const test5 = 'text has a named link_';
 	test(test5, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test5);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test5);
 		const range = entityRanges[0];
 
 		expect(text).toEqual('text has a named link');
@@ -74,7 +99,12 @@ describe('TextParser', () => {
 
 	const test6 = 'emphasis role works :emphasis:`on this`';
 	test(test6, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test6);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test6);
 		const range = inlineStyleRanges[0];
 
 		expect(text).toEqual('emphasis role works on this');
@@ -88,7 +118,12 @@ describe('TextParser', () => {
 
 	const test7 = '**x*x**';
 	test(test7, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test7);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test7);
 		const range = inlineStyleRanges[0];
 
 		expect(text).toEqual('x*x');
@@ -102,7 +137,12 @@ describe('TextParser', () => {
 
 	const test8 = ':emphasis:`,interpreted with escaped first char`';
 	test(test8, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test8);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test8);
 		const range = inlineStyleRanges[0];
 
 		expect(text).toEqual(',interpreted with escaped first char');
@@ -116,7 +156,12 @@ describe('TextParser', () => {
 
 	const test9 = '*\\**';
 	test(test9, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test9);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test9);
 		const range = inlineStyleRanges[0];
 
 		expect(text).toEqual('*');
@@ -130,7 +175,12 @@ describe('TextParser', () => {
 
 	const test10 = '**\\***';
 	test(test10, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test10);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test10);
 		const range = inlineStyleRanges[0];
 
 		expect(text).toEqual('*');
@@ -144,7 +194,12 @@ describe('TextParser', () => {
 
 	const test11 = ':strong:`strong`:math:`math`';
 	test(test11, () => {
-		const {text, inlineStyleRanges, entityRanges, entityMap} = TextParser.parse(test11);
+		const {
+			text,
+			inlineStyleRanges,
+			entityRanges,
+			entityMap,
+		} = TextParser.parse(test11);
 
 		expect(text).toEqual('strongmath');
 		expect(entityRanges.length).toEqual(0);

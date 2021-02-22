@@ -2,22 +2,22 @@ const BLOCK_TYPES = Symbol('Block Types');
 const INPUT_TRANSFORMS = Symbol('Input Transforms');
 const OUTPUT_TRANSFORMS = Symbol('Output Transforms');
 
-export function getInterface (currentIndex, inputs) {
+export function getInterface(currentIndex, inputs) {
 	return {
-		get (offset = 0) {
+		get(offset = 0) {
 			const index = currentIndex + offset;
 
-			if (index < 0 || (index - 1) > inputs.length) {
+			if (index < 0 || index - 1 > inputs.length) {
 				return null;
 			}
 
 			return inputs[index];
-		}
+		},
 	};
 }
 
 export default class Parser {
-	blankContext = {}
+	blankContext = {};
 
 	/**
 	 * Create a parser with the given blockTypes and transforms
@@ -47,7 +47,7 @@ export default class Parser {
 	 * @param  {Array}  outputTransforms the list of transforms to apply to the output
 	 * @returns {Parser}                  the initialized Parse with these block types and transforms
 	 */
-	constructor (blockTypes = [], inputTransforms = [], outputTransforms = []) {
+	constructor(blockTypes = [], inputTransforms = [], outputTransforms = []) {
 		//TODO: decide if we need to formalize the context beyond a simple object
 		this.context = this.blankContext;
 
@@ -55,7 +55,6 @@ export default class Parser {
 		this[INPUT_TRANSFORMS] = inputTransforms;
 		this[OUTPUT_TRANSFORMS] = outputTransforms;
 	}
-
 
 	/**
 	 * Run the input through the list of input transforms to get the
@@ -65,7 +64,7 @@ export default class Parser {
 	 * @param {Object} options configuration options
 	 * @returns {Array}       the blocks in the input
 	 */
-	formatInput (input, options) {
+	formatInput(input, options) {
 		return this[INPUT_TRANSFORMS].reduce((acc, transform) => {
 			return transform(acc, options);
 		}, input);
@@ -80,12 +79,11 @@ export default class Parser {
 	 * @param {Object} options configuration options
 	 * @returns {Object}        the formatted version to output
 	 */
-	formatParsed (parsed, options) {
+	formatParsed(parsed, options) {
 		return this[OUTPUT_TRANSFORMS].reduce((acc, transform) => {
 			return transform(acc, options);
 		}, parsed);
 	}
-
 
 	/**
 	 * Run an input through the parser.
@@ -96,10 +94,13 @@ export default class Parser {
 	 * @param {Object} options options to configure the parser
 	 * @returns {Object}       the result of parsing
 	 */
-	parse (input, options = {}) {
-		const {input:parsedInputs, context:parsedContext} = this.formatInput({input, context: {}}, options);
+	parse(input, options = {}) {
+		const {
+			input: parsedInputs,
+			context: parsedContext,
+		} = this.formatInput({ input, context: {} }, options);
 
-		let context = {...parsedContext};
+		let context = { ...parsedContext };
 		let blocks = [];
 		let currentBlock = null;
 
@@ -108,7 +109,11 @@ export default class Parser {
 		while (i < parsedInputs.length) {
 			let inputInterface = getInterface(i, parsedInputs);
 			let parsedInterface = getInterface(blocks.length - 1, blocks);
-			let {block, context:newContext, length} = this.parseNextBlock(inputInterface, context, parsedInterface);
+			let { block, context: newContext, length } = this.parseNextBlock(
+				inputInterface,
+				context,
+				parsedInterface
+			);
 
 			if (block && block !== currentBlock) {
 				blocks.push(block);
@@ -117,13 +122,16 @@ export default class Parser {
 			context = newContext || context;
 			currentBlock = block;
 
-			i += (length || 1);
+			i += length || 1;
 		}
 
-		return this.formatParsed({
-			blocks,
-			context
-		}, options);
+		return this.formatParsed(
+			{
+				blocks,
+				context,
+			},
+			options
+		);
 	}
 
 	/**
@@ -135,32 +143,54 @@ export default class Parser {
 	 * @param  {Object} parsedInterface the already parsed inputs
 	 * @returns {Object}        the block to use to parse
 	 */
-	getClassForBlock (inputInterface, context, parsedInterface) {
+	getClassForBlock(inputInterface, context, parsedInterface) {
 		for (let blockType of this[BLOCK_TYPES]) {
-			if (blockType.isNextBlock(inputInterface, context, parsedInterface)) {
+			if (
+				blockType.isNextBlock(inputInterface, context, parsedInterface)
+			) {
 				return blockType;
 			}
 		}
 	}
 
-
-	parseNextBlock (inputInterface, context, parsedInterface) {
-		const blockClass = this.getClassForBlock(inputInterface, context, parsedInterface);
+	parseNextBlock(inputInterface, context, parsedInterface) {
+		const blockClass = this.getClassForBlock(
+			inputInterface,
+			context,
+			parsedInterface
+		);
 
 		if (!blockClass) {
 			//TODO: warn if there is no block class
 			return {};
 		}
 
-		const {block:nextBlock, context:nextContext, length} = blockClass.parse(inputInterface, context, parsedInterface);
+		const {
+			block: nextBlock,
+			context: nextContext,
+			length,
+		} = blockClass.parse(inputInterface, context, parsedInterface);
 		const currentBlock = parsedInterface.get(0);
 
 		let parsed;
 
-		if (currentBlock && nextBlock && currentBlock.shouldAppendBlock && currentBlock.shouldAppendBlock(nextBlock, nextContext, inputInterface)) {
-			parsed = currentBlock.appendBlock(nextBlock, nextContext, inputInterface);
+		if (
+			currentBlock &&
+			nextBlock &&
+			currentBlock.shouldAppendBlock &&
+			currentBlock.shouldAppendBlock(
+				nextBlock,
+				nextContext,
+				inputInterface
+			)
+		) {
+			parsed = currentBlock.appendBlock(
+				nextBlock,
+				nextContext,
+				inputInterface
+			);
 		} else {
-			parsed = {block:nextBlock, context:nextContext};
+			parsed = { block: nextBlock, context: nextContext };
 		}
 
 		//Even if the block is appended, we still need to advance the parser the length of the block we just parsed;

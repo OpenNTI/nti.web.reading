@@ -1,57 +1,57 @@
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
 // import {getUIDStringFor} from '../utils';
 import parseText from '../text-parser';
 
 const BLOCK = Symbol('Block');
 
-export function getIndentForDepth (depth) {
+export function getIndentForDepth(depth) {
 	return Array(depth + 1).join('  ');
 }
 
 export default class UnorderedListItem {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const input = inputInterface.get(0);
 
 		return input.type === BLOCKS.UNORDERED_LIST_ITEM;
 	}
 
-	static parse (inputInterface) {
+	static parse(inputInterface) {
 		const input = inputInterface.get(0);
 
-		return {block: new this(input)};
+		return { block: new this(input) };
 	}
 
-	constructor (block) {
+	constructor(block) {
 		this[BLOCK] = block;
 		this.blocks = [block];
 	}
 
-	get block () {
+	get block() {
 		return this[BLOCK];
 	}
 
-	get type () {
+	get type() {
 		return this[BLOCK].type;
 	}
 
-	shouldAppendBlock (block) {
+	shouldAppendBlock(block) {
 		return block.type === BLOCKS.UNORDERED_LIST_ITEM;
 	}
 
-	appendBlock (block) {
+	appendBlock(block) {
 		this.blocks.push(block.block);
 
-		return {block: this};
+		return { block: this };
 	}
 
-	getOutput (context) {
-		const {blocks} = this;
+	getOutput(context) {
+		const { blocks } = this;
 		let output = [];
 		let currentDepth = 0;
 
 		for (let block of blocks) {
-			let {depth} = block;
+			let { depth } = block;
 			let text = parseText(block, context);
 			let indent = getIndentForDepth(depth);
 
@@ -65,6 +65,6 @@ export default class UnorderedListItem {
 			output.push(`${indent}- ${text}`);
 		}
 
-		return {output};
+		return { output };
 	}
 }

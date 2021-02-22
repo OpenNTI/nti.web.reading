@@ -1,51 +1,47 @@
-import {ENTITIES} from '@nti/web-editor';
+import { ENTITIES } from '@nti/web-editor';
 
-import {normalizeEntityName} from '../utils';
+import { normalizeEntityName } from '../utils';
 
 import IndentedBlock from './IndentedBlock';
 
 const EXTERNAL_TARGET = /^.. _([^:|^_]+):\s?(.*)/;
 
 export default class ExternalHyperLink extends IndentedBlock {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const current = inputInterface.get();
 
 		return EXTERNAL_TARGET.test(current);
 	}
 
-	static parse (inputInterface) {
+	static parse(inputInterface) {
 		const current = inputInterface.get();
 
 		const matches = current.match(EXTERNAL_TARGET);
 		const name = matches[1];
 		const target = matches[2];
 
-		return {block: new this(current, '..', {name, target})};
+		return { block: new this(current, '..', { name, target }) };
 	}
 
-
-	get name () {
+	get name() {
 		return this.parts.name;
 	}
 
-
-	get target () {
+	get target() {
 		return this.parts.target;
 	}
 
-	get mutability () {
+	get mutability() {
 		//TODO: look into when this would need to be immutable or segmented
 		return 'MUTABLE';
 	}
 
-
-	shouldAppendBlock (/*block*/) {
+	shouldAppendBlock(/*block*/) {
 		//TODO: there is a format where the target may be on the next line so check for that case
 	}
 
-
-	getOutput (context) {
-		const {name, target} = this;
+	getOutput(context) {
+		const { name, target } = this;
 
 		if (!context.entityMap) {
 			context.entityMap = {};
@@ -57,10 +53,10 @@ export default class ExternalHyperLink extends IndentedBlock {
 			data: {
 				name: name,
 				href: target,
-				contiguous: false
-			}
+				contiguous: false,
+			},
 		};
 
-		return {context};
+		return { context };
 	}
 }

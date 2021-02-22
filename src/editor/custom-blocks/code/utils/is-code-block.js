@@ -1,8 +1,8 @@
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
-import {Name} from '../Constants';
+import { Name } from '../Constants';
 
-export default function isCodeBlock (block) {
+export default function isCodeBlock(block) {
 	const type = block.getType();
 	const data = block.getData();
 

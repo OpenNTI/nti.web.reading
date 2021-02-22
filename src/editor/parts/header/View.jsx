@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {Pager, Text} from '@nti/web-commons';
+import { Pager, Text } from '@nti/web-commons';
 
-import {Locations} from '../Constants';
+import { Locations } from '../Constants';
 
 import Styles from './Styles.css';
 import Controls from './controls';
@@ -17,29 +17,35 @@ ReadingEditorHeader.propTypes = {
 	breadcrumb: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string,
-			handleRoute: PropTypes.func
+			handleRoute: PropTypes.func,
 		})
 	),
-	pageSource: PropTypes.any
+	pageSource: PropTypes.any,
 };
-export default function ReadingEditorHeader ({children, breadcrumb, pageSource}) {
+export default function ReadingEditorHeader({
+	children,
+	breadcrumb,
+	pageSource,
+}) {
 	return (
 		<>
 			<div className={cx('bar')}>
 				{breadcrumb && (
 					<ul className={cx('breadcrumb')}>
 						{breadcrumb.map((item, index) => (
-							<Text.Base as ="li" key={index} onClick={item.handleRoute}>
+							<Text.Base
+								as="li"
+								key={index}
+								onClick={item.handleRoute}
+							>
 								{item.label}
 							</Text.Base>
 						))}
 					</ul>
 				)}
-				{pageSource && (<Pager pageSource={pageSource} />)}
+				{pageSource && <Pager pageSource={pageSource} />}
 			</div>
-			<div className={cx('controls')}>
-				{children}
-			</div>
+			<div className={cx('controls')}>{children}</div>
 		</>
 	);
 }

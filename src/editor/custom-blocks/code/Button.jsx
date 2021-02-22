@@ -1,18 +1,18 @@
 import React from 'react';
-import {scoped} from '@nti/lib-locale';
-import {BLOCKS} from '@nti/web-editor';
+import { scoped } from '@nti/lib-locale';
+import { BLOCKS } from '@nti/web-editor';
 
 import Button from '../Button';
 
 import Icon from './assets/icon-codeblock.svg';
-import {isCodeBlock} from './utils';
-import {Name} from './Constants';
+import { isCodeBlock } from './utils';
+import { Name } from './Constants';
 
 const t = scoped('web-reading.editor.custom-blocks.code.Button', {
-	label: 'Code'
+	label: 'Code',
 });
 
-function createBlock (insertBlock) {
+function createBlock(insertBlock) {
 	insertBlock({
 		type: BLOCKS.ATOMIC,
 		text: '',
@@ -20,12 +20,12 @@ function createBlock (insertBlock) {
 			name: Name,
 			arguments: 'java',
 			body: [],
-			options: {}
-		}
+			options: {},
+		},
 	});
 }
 
-export default function CodeButton () {
+export default function CodeButton() {
 	return (
 		<Button
 			label={t('label')}

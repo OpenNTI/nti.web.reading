@@ -1,12 +1,8 @@
 import React from 'react';
 import classnames from 'classnames/bind';
-import {scoped} from '@nti/lib-locale';
-import {Flyout} from '@nti/web-commons';
-import {
-	ActiveType,
-	TypeButton,
-	BLOCKS
-} from '@nti/web-editor';
+import { scoped } from '@nti/lib-locale';
+import { Flyout } from '@nti/web-commons';
+import { ActiveType, TypeButton, BLOCKS } from '@nti/web-editor';
 
 import Styles from './Styles.css';
 
@@ -18,7 +14,7 @@ const t = scoped('nti-reading.editor.parts.control-bar.BlockFormat', {
 	[BLOCKS.BLOCKQUOTE]: 'Block Quote',
 	[BLOCKS.UNSTYLED]: 'Body Text',
 	[BLOCKS.ORDERED_LIST_ITEM]: 'Numbered List',
-	[BLOCKS.UNORDERED_LIST_ITEM]: 'Bulleted List'
+	[BLOCKS.UNORDERED_LIST_ITEM]: 'Bulleted List',
 });
 
 const renderBlockType = (type, mouseDown) => (
@@ -32,7 +28,7 @@ const renderBlockType = (type, mouseDown) => (
 	/>
 );
 
-export default function BlockFormat () {
+export default function BlockFormat() {
 	const flyoutRef = React.useRef();
 
 	const closeMenu = () => flyoutRef.current?.dismiss?.();
@@ -44,9 +40,9 @@ export default function BlockFormat () {
 			verticalAlign={Flyout.ALIGNMENTS.TOP}
 			horizontalAlign={Flyout.ALIGNMENTS.LEFT}
 			focusOnOpen={false}
-			trigger={(
-				<ActiveType className={cx('active-block-type')} getString={t}/>
-			)}
+			trigger={
+				<ActiveType className={cx('active-block-type')} getString={t} />
+			}
 		>
 			<div className={cx('block-type-list')}>
 				<ul>
@@ -57,8 +53,12 @@ export default function BlockFormat () {
 					<li>{renderBlockType(BLOCKS.UNSTYLED, closeMenu)}</li>
 				</ul>
 				<ul>
-					<li>{renderBlockType(BLOCKS.ORDERED_LIST_ITEM, closeMenu)}</li>
-					<li>{renderBlockType(BLOCKS.UNORDERED_LIST_ITEM, closeMenu)}</li>
+					<li>
+						{renderBlockType(BLOCKS.ORDERED_LIST_ITEM, closeMenu)}
+					</li>
+					<li>
+						{renderBlockType(BLOCKS.UNORDERED_LIST_ITEM, closeMenu)}
+					</li>
 				</ul>
 			</div>
 		</Flyout.Triggered>

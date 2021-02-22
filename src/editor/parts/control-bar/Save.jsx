@@ -7,14 +7,12 @@ import Styles from './Styles.css';
 const cx = classnames.bind(Styles);
 
 Save.propTypes = {
-	saveButton: PropTypes.node
+	saveButton: PropTypes.node,
 };
-export default function Save ({saveButton}) {
-	if (!saveButton) { return null; }
+export default function Save({ saveButton }) {
+	if (!saveButton) {
+		return null;
+	}
 
-	return (
-		<div className={cx('reading-save')}>
-			{saveButton}
-		</div>
-	);
+	return <div className={cx('reading-save')}>{saveButton}</div>;
 }

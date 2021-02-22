@@ -1,21 +1,19 @@
-import Directive, {buildDirectiveRegex} from './Directive';
+import Directive, { buildDirectiveRegex } from './Directive';
 
 const DOCID = buildDirectiveRegex('uid');
 
 export default class DocID extends Directive {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const input = inputInterface.get(0);
 
 		return DOCID.test(input);
 	}
 
-
-	shouldAppendBlock () {
+	shouldAppendBlock() {
 		return true;
 	}
 
-
-	appendBlock (block) {
+	appendBlock(block) {
 		let nextBlock;
 
 		if (block.isComment || block.isEmpty) {
@@ -25,6 +23,6 @@ export default class DocID extends Directive {
 			nextBlock = block;
 		}
 
-		return {block: nextBlock};
+		return { block: nextBlock };
 	}
 }

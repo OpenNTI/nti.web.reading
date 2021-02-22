@@ -1,16 +1,12 @@
 /* eslint-env jest */
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
 import Paragraph from '../Paragraph';
-import {getInterface} from '../../../Parser';
+import { getInterface } from '../../../Parser';
 
 describe('Paragraph', () => {
 	test('isNextBlock matches everything', () => {
-		const tests = [
-			'paragraph',
-			'  paragraph',
-			'.. paragraph'
-		];
+		const tests = ['paragraph', '  paragraph', '.. paragraph'];
 
 		for (let test of tests) {
 			let inputInterface = getInterface(0, [test]);
@@ -22,7 +18,7 @@ describe('Paragraph', () => {
 	test('parses ignore leading spaces (that just makes it a block quote)', () => {
 		const text = ' paragraph';
 		const inputInterface = getInterface(0, [text]);
-		const {block} = Paragraph.parse(inputInterface);
+		const { block } = Paragraph.parse(inputInterface);
 
 		expect(block.text.text).toEqual('paragraph');
 	});
@@ -31,8 +27,8 @@ describe('Paragraph', () => {
 		test('Indented paragraphs are output as block quotes', () => {
 			const text = '  paragraph';
 			const inputInterface = getInterface(0, [text]);
-			const {block} = Paragraph.parse(inputInterface);
-			const {output} = block.getOutput({});
+			const { block } = Paragraph.parse(inputInterface);
+			const { output } = block.getOutput({});
 
 			expect(output.type).toEqual(BLOCKS.BLOCKQUOTE);
 		});

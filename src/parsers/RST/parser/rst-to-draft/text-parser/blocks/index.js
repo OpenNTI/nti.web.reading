@@ -15,5 +15,5 @@ export default [
 	Hyperlink,
 	Interpreted,
 	Role,
-	Plaintext
+	Plaintext,
 ];

@@ -1,21 +1,47 @@
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
 // import {getUIDStringFor} from '../utils';
 import parseText from '../text-parser';
-import {LIST_STYLES} from '../../Constants';
+import { LIST_STYLES } from '../../Constants';
 
-import UnorderedListItem, {getIndentForDepth} from './UnorderedListItem';
+import UnorderedListItem, { getIndentForDepth } from './UnorderedListItem';
 
-const {AUTO_NUMBERED, NUMERIC, ALPHA_NUMERIC, ROMAN_NUMERAL} = LIST_STYLES;
-
+const { AUTO_NUMBERED, NUMERIC, ALPHA_NUMERIC, ROMAN_NUMERAL } = LIST_STYLES;
 
 //from: http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
-export function toRomanNumeral (num) {
+export function toRomanNumeral(num) {
 	const digits = String(+num).split('');
 	const key = [
-		'', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM',
-		'', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC',
-		'', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'
+		'',
+		'C',
+		'CC',
+		'CCC',
+		'CD',
+		'D',
+		'DC',
+		'DCC',
+		'DCCC',
+		'CM',
+		'',
+		'X',
+		'XX',
+		'XXX',
+		'XL',
+		'L',
+		'LX',
+		'LXX',
+		'LXXX',
+		'XC',
+		'',
+		'I',
+		'II',
+		'III',
+		'IV',
+		'V',
+		'VI',
+		'VII',
+		'VIII',
+		'IX',
 	];
 
 	let roman = '';
@@ -23,7 +49,7 @@ export function toRomanNumeral (num) {
 	let m = [];
 
 	while (i--) {
-		roman = (key[+digits.pop() + (i * 10)] || '') + roman;
+		roman = (key[+digits.pop() + i * 10] || '') + roman;
 	}
 
 	m.length = +digits.join('') + 1;
@@ -31,7 +57,7 @@ export function toRomanNumeral (num) {
 	return m.join('M') + roman;
 }
 
-export function toAlphaNumeric (num) {
+export function toAlphaNumeric(num) {
 	const val = (num - 1) % 26;
 	const letter = String.fromCharCode(97 + val);
 	const num2 = Math.floor((num - 1) / 26);
@@ -47,28 +73,31 @@ const STYLE_TO_ORDINAL = {
 	[AUTO_NUMBERED]: ordinal => ordinal,
 	[NUMERIC]: ordinal => ordinal,
 	[ALPHA_NUMERIC]: ordinal => toAlphaNumeric(ordinal),
-	[ROMAN_NUMERAL]: ordinal => toRomanNumeral(ordinal)
+	[ROMAN_NUMERAL]: ordinal => toRomanNumeral(ordinal),
 };
 
 export default class OrderedListItem extends UnorderedListItem {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const input = inputInterface.get(0);
 
 		return input.type === BLOCKS.ORDERED_LIST_ITEM;
 	}
 
-	shouldAppendBlock (block) {
+	shouldAppendBlock(block) {
 		return block.type === BLOCKS.ORDERED_LIST_ITEM;
 	}
 
-	getOutput (context) {
-		const {blocks} = this;
+	getOutput(context) {
+		const { blocks } = this;
 		let output = [];
 		let currentDepth = 0;
 		let ordinals = {};
 
 		for (let block of blocks) {
-			let {depth, data:{listStyle}} = block;
+			let {
+				depth,
+				data: { listStyle },
+			} = block;
 			let text = parseText(block, context);
 			let ordinal = ordinals[depth] ? ordinals[depth] + 1 : 1;
 			let indent = getIndentForDepth(depth);
@@ -90,6 +119,6 @@ export default class OrderedListItem extends UnorderedListItem {
 			output.push(`${indent}${bullet}. ${text}`);
 		}
 
-		return {output};
+		return { output };
 	}
 }

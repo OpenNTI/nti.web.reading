@@ -11,5 +11,5 @@ export default [
 	OrderedListItem,
 	Paragraph,
 	UnorderedListItem,
-	BlockQuote
+	BlockQuote,
 ];

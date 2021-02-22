@@ -1,4 +1,4 @@
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
 import IndentedBlock from './IndentedBlock';
 import Text from './Text';
@@ -7,47 +7,53 @@ import Text from './Text';
 const UNORDERED_LIST_ITEM = /^\s*-\s(.*)/;
 
 export default class UnorderedListItem extends IndentedBlock {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const input = inputInterface.get();
 
 		return UNORDERED_LIST_ITEM.test(input);
 	}
 
-
-	static parse (inputInterface, context) {
+	static parse(inputInterface, context) {
 		const input = inputInterface.get();
 		const matches = input.match(UNORDERED_LIST_ITEM);
 		const text = matches[1];
 
-		return {block: new this(input, '-', {text: new Text(text)}), context};
+		return {
+			block: new this(input, '-', { text: new Text(text) }),
+			context,
+		};
 	}
 
-
-	get text () {
+	get text() {
 		return this.parts.text;
 	}
 
-	get raw () {
+	get raw() {
 		return this.parts.text.text;
 	}
 
-
-	shouldAppendBlock (block) {
+	shouldAppendBlock(block) {
 		return block && block.isParagraph && this.isSameOffset(block);
 	}
 
-
-	appendBlock (block) {
+	appendBlock(block) {
 		this.parts.text.append(block.text);
 
-		return {block: this};
+		return { block: this };
 	}
 
+	getOutput(context) {
+		const { text } = this;
+		const { output, context: newContext } = text.getOutput(context);
 
-	getOutput (context) {
-		const {text} = this;
-		const {output, context:newContext} = text.getOutput(context);
-
-		return {output: {...output, depth: this.depth, type: BLOCKS.UNORDERED_LIST_ITEM, data: this.blockData}, newContext};
+		return {
+			output: {
+				...output,
+				depth: this.depth,
+				type: BLOCKS.UNORDERED_LIST_ITEM,
+				data: this.blockData,
+			},
+			newContext,
+		};
 	}
 }

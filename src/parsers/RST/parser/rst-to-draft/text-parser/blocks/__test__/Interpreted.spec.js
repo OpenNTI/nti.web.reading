@@ -1,8 +1,8 @@
 /* globals spyOn */
 /* eslint-env jest */
-import {STYLES} from '@nti/web-editor';
+import { STYLES } from '@nti/web-editor';
 
-import {getInterface} from '../../../../Parser';
+import { getInterface } from '../../../../Parser';
 import Interpreted from '../Interpreted';
 import Plaintext from '../Plaintext';
 
@@ -11,7 +11,7 @@ describe('Interpreted', () => {
 		test('matchOpen is true for `', () => {
 			const test = ['`', 'i', 'n', 't'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Interpreted.matchOpen(inputInterface);
+			const { matches } = Interpreted.matchOpen(inputInterface);
 
 			expect(matches).toBeTruthy();
 		});
@@ -19,7 +19,7 @@ describe('Interpreted', () => {
 		test('matchOpen is not true for ``', () => {
 			const test = ['`', '`', 'l', 'i', 't'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Interpreted.matchOpen(inputInterface);
+			const { matches } = Interpreted.matchOpen(inputInterface);
 
 			expect(matches).toBeFalsy();
 		});
@@ -27,7 +27,7 @@ describe('Interpreted', () => {
 		test('matchOpen is not true for not `', () => {
 			const test = ['n', 'o', 't'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Interpreted.matchOpen(inputInterface);
+			const { matches } = Interpreted.matchOpen(inputInterface);
 
 			expect(matches).toBeFalsy();
 		});
@@ -35,7 +35,9 @@ describe('Interpreted', () => {
 		test('matchClose is true for `', () => {
 			const test = ['`', 'a', 'f', 't', 'e', 'r'];
 			const inputInterface = getInterface(0, test);
-			const {matches, nextChar} = Interpreted.matchClose(inputInterface);
+			const { matches, nextChar } = Interpreted.matchClose(
+				inputInterface
+			);
 
 			expect(matches).toBeTruthy();
 			expect(nextChar).toEqual('a');
@@ -44,7 +46,7 @@ describe('Interpreted', () => {
 		test('matchClose is false for ``', () => {
 			const test = ['`', '`', 'a', 'f', 't', 'e', 'r'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Interpreted.matchClose(inputInterface);
+			const { matches } = Interpreted.matchClose(inputInterface);
 
 			expect(matches).toBeFalsy();
 		});
@@ -52,7 +54,9 @@ describe('Interpreted', () => {
 		test('matchClose consumes following _', () => {
 			const test = ['`', '_', 'a', 'f', 't', 'e', 'r'];
 			const inputInterface = getInterface(0, test);
-			const {matches, nextChar} = Interpreted.matchClose(inputInterface);
+			const { matches, nextChar } = Interpreted.matchClose(
+				inputInterface
+			);
 
 			expect(matches).toBeTruthy();
 			expect(nextChar).toEqual('a');
@@ -60,10 +64,10 @@ describe('Interpreted', () => {
 	});
 
 	describe('parse', () => {
-		function buildBlock (type) {
+		function buildBlock(type) {
 			const block = {
 				[type]: true,
-				setMarkerFor: () => {}
+				setMarkerFor: () => {},
 			};
 
 			spyOn(block, 'setMarkerFor');
@@ -76,7 +80,11 @@ describe('Interpreted', () => {
 			const currentBlock = buildBlock('isRole');
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, [currentBlock]);
-			const {block} = Interpreted.parse(inputInterface, {}, parsedInterface);
+			const { block } = Interpreted.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			expect(currentBlock.setMarkerFor).toHaveBeenCalledWith(block);
 			expect(block.roleMarker).toEqual(currentBlock);
@@ -87,18 +95,21 @@ describe('Interpreted', () => {
 			const currentBlock = buildBlock('isTarget');
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, [currentBlock]);
-			const {block} = Interpreted.parse(inputInterface, {}, parsedInterface);
+			const { block } = Interpreted.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			expect(currentBlock.setMarkerFor).toHaveBeenCalledWith(block);
 			expect(block.roleMarker).toEqual(currentBlock);
 		});
 	});
 
-
 	describe('getOutput', () => {
-		function buildMarker () {
+		function buildMarker() {
 			const block = {
-				getOutputForInterpreted: () => {}
+				getOutputForInterpreted: () => {},
 			};
 
 			spyOn(block, 'getOutputForInterpreted');
@@ -112,12 +123,19 @@ describe('Interpreted', () => {
 			const parsedInterface = getInterface(0, []);
 			const marker = buildMarker();
 			const context = {};
-			const {block} = Interpreted.parse(inputInterface, context, parsedInterface);
+			const { block } = Interpreted.parse(
+				inputInterface,
+				context,
+				parsedInterface
+			);
 
 			block.setRoleMarker(marker);
 			block.getOutput(context);
 
-			expect(marker.getOutputForInterpreted).toHaveBeenCalledWith(block, context);
+			expect(marker.getOutputForInterpreted).toHaveBeenCalledWith(
+				block,
+				context
+			);
 		});
 
 		test('If it has a marker, and output if forced', () => {
@@ -126,7 +144,11 @@ describe('Interpreted', () => {
 			const parsedInterface = getInterface(0, []);
 			const marker = buildMarker();
 			const context = {};
-			const {block} = Interpreted.parse(inputInterface, context, parsedInterface);
+			const { block } = Interpreted.parse(
+				inputInterface,
+				context,
+				parsedInterface
+			);
 
 			block.setRoleMarker(marker);
 			block.getOutput(context, true);
@@ -138,7 +160,11 @@ describe('Interpreted', () => {
 			const test = ['`'];
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, []);
-			const {block} = Interpreted.parse(inputInterface, {}, parsedInterface);
+			const { block } = Interpreted.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			block.appendBlock(new Plaintext('i'));
 			block.appendBlock(new Plaintext('n'));
@@ -154,8 +180,8 @@ describe('Interpreted', () => {
 
 			block.appendBlock(new Interpreted());
 
-			const {output, context} = block.getOutput({charCount: 0});
-			const {inlineStyleRanges, charCount} = context;
+			const { output, context } = block.getOutput({ charCount: 0 });
+			const { inlineStyleRanges, charCount } = context;
 
 			expect(output).toEqual('interpreted');
 			expect(charCount).toEqual(11);

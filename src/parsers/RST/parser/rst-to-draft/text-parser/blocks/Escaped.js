@@ -5,18 +5,21 @@ import Plaintext from './Plaintext';
 const ESCAPED_CHAR = '\\';
 
 export default {
-	isNextBlock (inputInterface) {
+	isNextBlock(inputInterface) {
 		const current = inputInterface.get(0);
 
 		return current === ESCAPED_CHAR;
 	},
 
-	parse (inputInterface) {
+	parse(inputInterface) {
 		const next = inputInterface.get(1);
 
 		return {
-			block: next && !Regex.isWhitespaceChar(next) ? new Plaintext(next) : {},
-			length: 2
+			block:
+				next && !Regex.isWhitespaceChar(next)
+					? new Plaintext(next)
+					: {},
+			length: 2,
 		};
-	}
+	},
 };

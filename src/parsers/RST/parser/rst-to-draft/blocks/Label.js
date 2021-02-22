@@ -1,8 +1,8 @@
-import Directive, {buildDirectiveRegex} from './Directive';
+import Directive, { buildDirectiveRegex } from './Directive';
 
 const LABEL = buildDirectiveRegex('label');
 
-function applyLabelToPrevHeader (label, parsedInterface) {
+function applyLabelToPrevHeader(label, parsedInterface) {
 	let prevIndex = 0;
 	let prev = parsedInterface.get(prevIndex);
 
@@ -17,19 +17,19 @@ function applyLabelToPrevHeader (label, parsedInterface) {
 }
 
 export default class FakeSubSection extends Directive {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const current = inputInterface.get(0);
 
 		return LABEL.test(current);
 	}
 
-	static parse (inputInterface, context, parsedInterface) {
+	static parse(inputInterface, context, parsedInterface) {
 		const current = inputInterface.get(0);
 		const matches = current.match(LABEL);
 		const label = matches[2];
 
 		applyLabelToPrevHeader(label, parsedInterface);
 
-		return {block: null, context};
+		return { block: null, context };
 	}
 }

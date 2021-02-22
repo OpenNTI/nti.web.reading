@@ -1,54 +1,48 @@
-import {getIndention} from '../utils';
+import { getIndention } from '../utils';
 
 import Block from './Block';
 
 const INDENTION = Symbol('Indention');
 
 export default class IndentedBlock extends Block {
-	constructor (block, blockIndicator, parts) {
+	constructor(block, blockIndicator, parts) {
 		super(block, parts);
 
 		this[INDENTION] = getIndention(block, blockIndicator);
 	}
 
-
-	get indention () {
+	get indention() {
 		return this[INDENTION];
 	}
 
-
-	get depth () {
-		const {indention} = this;
+	get depth() {
+		const { indention } = this;
 
 		return indention.blockOffset;
 	}
 
-
-	get offset () {
-		const {indention} = this;
+	get offset() {
+		const { indention } = this;
 
 		return indention.lineOffset;
 	}
 
-
-	get isIndented () {
-		const {depth} = this;
+	get isIndented() {
+		const { depth } = this;
 
 		return depth > 0;
 	}
 
-
-	isSameDepth (block) {
-		const {depth:myDepth} = this;
-		const {depth:theirDepth} = block;
+	isSameDepth(block) {
+		const { depth: myDepth } = this;
+		const { depth: theirDepth } = block;
 
 		return myDepth === theirDepth;
 	}
 
-
-	isSameOffset (block) {
-		const {offset:myOffset} = this;
-		const {offset:theirOffset} = block;
+	isSameOffset(block) {
+		const { offset: myOffset } = this;
+		const { offset: theirOffset } = block;
 
 		return myOffset === theirOffset;
 	}

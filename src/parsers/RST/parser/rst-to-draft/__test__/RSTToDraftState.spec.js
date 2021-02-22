@@ -11,7 +11,7 @@ const TEST_RST = [
 	'Inline Styles',
 	'+++++++++++++',
 	'',
-	'The first paragraph doesn\'t have any styling',
+	"The first paragraph doesn't have any styling",
 	'',
 	'The second paragraph has **bold**, *italic*, `interpreted`, and ``literals.``',
 	'',
@@ -54,11 +54,11 @@ const TEST_RST = [
 	'',
 	'(I) Roman Numeral List Item with `interpreted`',
 	'  (i) Roman Numeral Nested List Item',
-	'(II) Roman Numeral List Item'
+	'(II) Roman Numeral List Item',
 ].join('\n');
 
 const TEST_PARSED = RSTToDraftState.parse(TEST_RST);
-const {blocks, entityMap} = TEST_PARSED;
+const { blocks, entityMap } = TEST_PARSED;
 
 describe('RSTToDraftState', () => {
 	test('Has the correct number of blocks', () => {
@@ -68,7 +68,7 @@ describe('RSTToDraftState', () => {
 	test('entityMap has all the entities', () => {
 		const links = entityMap['links'];
 		const multiple = entityMap['one with multiple words'];
-		const inline = entityMap[3];//The id of inline links is now based on a counter of how many links we've parsed
+		const inline = entityMap[3]; //The id of inline links is now based on a counter of how many links we've parsed
 
 		expect(Object.keys(entityMap).length).toEqual(3);
 
@@ -144,28 +144,36 @@ describe('RSTToDraftState', () => {
 			const block = blocks[2];
 
 			expect(block.type).toEqual('unstyled');
-			expect(block.text).toEqual('The first paragraph doesn\'t have any styling');
+			expect(block.text).toEqual(
+				"The first paragraph doesn't have any styling"
+			);
 		});
 
 		test('Second Paragraph', () => {
 			const block = blocks[3];
 
 			expect(block.type).toEqual('unstyled');
-			expect(block.text).toEqual('The second paragraph has bold, italic, interpreted, and literals.');
+			expect(block.text).toEqual(
+				'The second paragraph has bold, italic, interpreted, and literals.'
+			);
 		});
 
 		test('Third Paragraph', () => {
 			const block = blocks[4];
 
 			expect(block.type).toEqual('unstyled');
-			expect(block.text).toEqual('The third paragraph has roles emphasis, math, bolditalic.');
+			expect(block.text).toEqual(
+				'The third paragraph has roles emphasis, math, bolditalic.'
+			);
 		});
 
 		test('Named Links Paragraph', () => {
 			const block = blocks[7];
 
 			expect(block.type).toEqual('unstyled');
-			expect(block.text).toEqual('This paragraph has named links and even another one with Multiple Words');
+			expect(block.text).toEqual(
+				'This paragraph has named links and even another one with Multiple Words'
+			);
 		});
 
 		test('Inline Links Paragraph', () => {
@@ -271,7 +279,9 @@ describe('RSTToDraftState', () => {
 			expect(block.type).toEqual('ordered-list-item');
 			expect(block.depth).toEqual(0);
 			expect(block.data.listStyle).toEqual('roman-numeral');
-			expect(block.text).toEqual('Roman Numeral List Item with interpreted');
+			expect(block.text).toEqual(
+				'Roman Numeral List Item with interpreted'
+			);
 		});
 
 		test('Roman Numeral Nested List Item', () => {
@@ -296,7 +306,7 @@ describe('RSTToDraftState', () => {
 	describe('Inline Styles', () => {
 		test('Title', () => {
 			const block = blocks[0];
-			const {inlineStyleRanges} = block;
+			const { inlineStyleRanges } = block;
 
 			expect(inlineStyleRanges.length).toEqual(2);
 
@@ -311,7 +321,7 @@ describe('RSTToDraftState', () => {
 
 		test('Second Paragraph', () => {
 			const block = blocks[3];
-			const {inlineStyleRanges} = block;
+			const { inlineStyleRanges } = block;
 
 			expect(inlineStyleRanges.length).toEqual(4);
 
@@ -334,7 +344,7 @@ describe('RSTToDraftState', () => {
 
 		test('Bullet list Item 1', () => {
 			const block = blocks[11];
-			const {inlineStyleRanges} = block;
+			const { inlineStyleRanges } = block;
 
 			expect(inlineStyleRanges.length).toEqual(1);
 
@@ -345,7 +355,7 @@ describe('RSTToDraftState', () => {
 
 		test('Nested Bullet List Item', () => {
 			const block = blocks[12];
-			const {inlineStyleRanges} = block;
+			const { inlineStyleRanges } = block;
 
 			expect(inlineStyleRanges.length).toEqual(1);
 
@@ -356,7 +366,7 @@ describe('RSTToDraftState', () => {
 
 		test('Bullet list Item 2', () => {
 			const block = blocks[14];
-			const {inlineStyleRanges} = block;
+			const { inlineStyleRanges } = block;
 
 			expect(inlineStyleRanges.length).toEqual(1);
 
@@ -367,7 +377,7 @@ describe('RSTToDraftState', () => {
 
 		test('Ordered List Item 1', () => {
 			const block = blocks[16];
-			const {inlineStyleRanges} = block;
+			const { inlineStyleRanges } = block;
 
 			expect(inlineStyleRanges.length).toEqual(1);
 
@@ -378,7 +388,7 @@ describe('RSTToDraftState', () => {
 
 		test('Ordered List Item 3', () => {
 			const block = blocks[19];
-			const {inlineStyleRanges} = block;
+			const { inlineStyleRanges } = block;
 
 			expect(inlineStyleRanges.length).toEqual(1);
 
@@ -389,7 +399,7 @@ describe('RSTToDraftState', () => {
 
 		test('Ordered List Item 5', () => {
 			const block = blocks[22];
-			const {inlineStyleRanges} = block;
+			const { inlineStyleRanges } = block;
 
 			expect(inlineStyleRanges.length).toEqual(1);
 
@@ -402,7 +412,7 @@ describe('RSTToDraftState', () => {
 	describe('Entity Ranges', () => {
 		test('Named Links', () => {
 			const block = blocks[7];
-			const {entityRanges} = block;
+			const { entityRanges } = block;
 
 			expect(entityRanges.length).toEqual(2);
 
@@ -417,11 +427,11 @@ describe('RSTToDraftState', () => {
 
 		test('Inline Links', () => {
 			const block = blocks[9];
-			const {entityRanges} = block;
+			const { entityRanges } = block;
 
 			expect(entityRanges.length).toEqual(1);
 
-			expect(entityRanges[0].key).toEqual(3);//The key for inline links is based on a counter
+			expect(entityRanges[0].key).toEqual(3); //The key for inline links is based on a counter
 			expect(entityRanges[0].offset).toEqual(19);
 			expect(entityRanges[0].length).toEqual(12);
 		});

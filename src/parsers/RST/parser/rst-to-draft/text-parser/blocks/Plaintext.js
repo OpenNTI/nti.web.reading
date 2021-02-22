@@ -4,11 +4,11 @@ const TEXT = Symbol('Text');
 const ROLE_MARKER = Symbol('Role Marker');
 
 export default class Plaintext {
-	static isNextBlock () {
+	static isNextBlock() {
 		return true;
 	}
 
-	static parse (inputInterface, context, parsedInterface) {
+	static parse(inputInterface, context, parsedInterface) {
 		const currentBlock = parsedInterface.get();
 		const input = inputInterface.get();
 		const block = new this(input);
@@ -18,68 +18,63 @@ export default class Plaintext {
 			block.setRoleMarker(currentBlock);
 		}
 
-		return {block, context: {...context, openRange: false}};
+		return { block, context: { ...context, openRange: false } };
 	}
 
-	isPlaintext = true
+	isPlaintext = true;
 
-	constructor (block) {
+	constructor(block) {
 		this[TEXT] = block || '';
 	}
 
-
-	get text () {
+	get text() {
 		return this[TEXT];
 	}
 
-	get length () {
+	get length() {
 		return this.text.length;
 	}
 
-	get isWhitespace () {
+	get isWhitespace() {
 		return /^\s$/.test(this.text);
 	}
 
-
-	get endsInWhitespace () {
+	get endsInWhitespace() {
 		return /\s$/.test(this.text);
 	}
 
-
-	get roleMarker () {
+	get roleMarker() {
 		return this[ROLE_MARKER];
 	}
 
-
-	setRoleMarker (marker) {
+	setRoleMarker(marker) {
 		this[ROLE_MARKER] = marker;
 	}
 
-
-	shouldAppendBlock (block) {
+	shouldAppendBlock(block) {
 		return block.isPlaintext && Regex.doesNotEndInWhitespace(this.text);
 	}
 
-
-	appendBlock (block, context) {
+	appendBlock(block, context) {
 		this[TEXT] = this[TEXT] + block.text;
 
-		return {block: this, context};
+		return { block: this, context };
 	}
 
-
-	appendText (text) {
+	appendText(text) {
 		this[TEXT] = this[TEXT] + text;
 	}
 
-
-	getOutput (context, force) {
+	getOutput(context, force) {
 		if (this[ROLE_MARKER] && !force) {
 			return this[ROLE_MARKER].getOutputForInterpreted(this, context);
 		}
 
-		const newContext = {...context, charCount: context.charCount + this.text.length};
+		const newContext = {
+			...context,
+			charCount: context.charCount + this.text.length,
+		};
 
-		return {output: this.text, context: newContext};
+		return { output: this.text, context: newContext };
 	}
 }

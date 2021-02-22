@@ -1,12 +1,12 @@
 /* eslint-env jest */
 import normalizeRanges from '../normalizeRanges';
 
-function buildRange (offset, length, style, key) {
+function buildRange(offset, length, style, key) {
 	return {
 		offset,
 		length,
 		style,
-		key
+		key,
 	};
 }
 
@@ -16,7 +16,7 @@ describe('normalizeRange', () => {
 		const testRanges = [
 			buildRange(0, 5, 'bold'),
 			buildRange(6, 5, 'italic'),
-			buildRange(12, 5, 'underline')
+			buildRange(12, 5, 'underline'),
 		];
 
 		const normalized = normalizeRanges(testRanges);
@@ -33,7 +33,6 @@ describe('normalizeRange', () => {
 		expect(normalized[1].styles.length).toEqual(1);
 		expect(normalized[1].styles[0]).toEqual('italic');
 
-
 		expect(normalized[2].offset).toEqual(12);
 		expect(normalized[2].length).toEqual(5);
 		expect(normalized[2].styles.length).toEqual(1);
@@ -43,7 +42,7 @@ describe('normalizeRange', () => {
 	test('Two Ranges Overlap', () => {
 		const testRanges = [
 			buildRange(0, 10, 'bold'),
-			buildRange(5, 10, 'italic')
+			buildRange(5, 10, 'italic'),
 		];
 
 		const normalized = normalizeRanges(testRanges);
@@ -55,24 +54,26 @@ describe('normalizeRange', () => {
 		expect(normalized[0].styles.length).toEqual(1);
 		expect(normalized[0].styles).toEqual(expect.arrayContaining(['bold']));
 
-
 		expect(normalized[1].offset).toEqual(5);
 		expect(normalized[1].length).toEqual(5);
 		expect(normalized[1].styles.length).toEqual(2);
-		expect(normalized[1].styles).toEqual(expect.arrayContaining(['bold', 'italic']));
-
+		expect(normalized[1].styles).toEqual(
+			expect.arrayContaining(['bold', 'italic'])
+		);
 
 		expect(normalized[2].offset).toEqual(10);
 		expect(normalized[2].length).toEqual(5);
 		expect(normalized[2].styles.length).toEqual(1);
-		expect(normalized[2].styles).toEqual(expect.arrayContaining(['italic']));
+		expect(normalized[2].styles).toEqual(
+			expect.arrayContaining(['italic'])
+		);
 	});
 
 	test('Two Ranges Overlap with same end', () => {
 		const testRanges = [
 			buildRange(0, 15, 'bold'),
 			buildRange(5, 10, 'underline'),
-			buildRange(10, 5, 'italic')
+			buildRange(10, 5, 'italic'),
 		];
 
 		const normalized = normalizeRanges(testRanges);
@@ -87,19 +88,21 @@ describe('normalizeRange', () => {
 		expect(normalized[1].offset).toEqual(5);
 		expect(normalized[1].length).toEqual(5);
 		expect(normalized[1].styles.length).toEqual(2);
-		expect(normalized[1].styles).toEqual(expect.arrayContaining(['bold', 'underline']));
+		expect(normalized[1].styles).toEqual(
+			expect.arrayContaining(['bold', 'underline'])
+		);
 
 		expect(normalized[2].offset).toEqual(10);
 		expect(normalized[2].length).toEqual(5);
 		expect(normalized[2].styles.length).toEqual(3);
-		expect(normalized[2].styles).toEqual(expect.arrayContaining(['bold', 'underline', 'italic']));
+		expect(normalized[2].styles).toEqual(
+			expect.arrayContaining(['bold', 'underline', 'italic'])
+		);
 	});
 
 	test('Entity and no styles', () => {
 		const key = 'key';
-		const testRanges = [
-			buildRange(0, 5, null, key)
-		];
+		const testRanges = [buildRange(0, 5, null, key)];
 
 		const normalized = normalizeRanges(testRanges);
 

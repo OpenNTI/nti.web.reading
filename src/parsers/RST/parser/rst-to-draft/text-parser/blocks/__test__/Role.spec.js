@@ -2,14 +2,14 @@
 /* eslint-env jest */
 import Role from '../Role';
 import Plaintext from '../Plaintext';
-import {getInterface} from '../../../../Parser';
+import { getInterface } from '../../../../Parser';
 
 describe('Role', () => {
 	describe('isNextBlock', () => {
 		test('matchOpen is true for :', () => {
 			const test = [':', 'r', 'o', 'l', 'e'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Role.matchOpen(inputInterface);
+			const { matches } = Role.matchOpen(inputInterface);
 
 			expect(matches).toBeTruthy();
 		});
@@ -17,7 +17,7 @@ describe('Role', () => {
 		test('matchOpen is false for not :', () => {
 			const test = ['r', 'o', 'l', 'e'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Role.matchOpen(inputInterface);
+			const { matches } = Role.matchOpen(inputInterface);
 
 			expect(matches).toBeFalsy();
 		});
@@ -25,7 +25,7 @@ describe('Role', () => {
 		test('matchClose is true for :', () => {
 			const test = [':', 'r', 'o', 'l', 'e'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Role.matchClose(inputInterface);
+			const { matches } = Role.matchClose(inputInterface);
 
 			expect(matches).toBeTruthy();
 		});
@@ -33,17 +33,17 @@ describe('Role', () => {
 		test('matchClose is false for not : ', () => {
 			const test = ['r', 'o', 'l', 'e'];
 			const inputInterface = getInterface(0, test);
-			const {matches} = Role.matchClose(inputInterface);
+			const { matches } = Role.matchClose(inputInterface);
 
 			expect(matches).toBeFalsy();
 		});
 	});
 
 	describe('parse', () => {
-		function buildBlock (type) {
+		function buildBlock(type) {
 			const block = {
 				[type]: true,
-				setRoleMarker: () => {}
+				setRoleMarker: () => {},
 			};
 
 			spyOn(block, 'setRoleMarker');
@@ -56,7 +56,7 @@ describe('Role', () => {
 			const currentBlock = buildBlock('isInterpreted');
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, [currentBlock]);
-			const {block} = Role.parse(inputInterface, {}, parsedInterface);
+			const { block } = Role.parse(inputInterface, {}, parsedInterface);
 
 			expect(currentBlock.setRoleMarker).toHaveBeenCalledWith(block);
 			expect(block.markerFor).toEqual(currentBlock);
@@ -67,7 +67,7 @@ describe('Role', () => {
 			const currentBlock = buildBlock('notInterpreted');
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, [currentBlock]);
-			const {block} = Role.parse(inputInterface, {}, parsedInterface);
+			const { block } = Role.parse(inputInterface, {}, parsedInterface);
 
 			expect(currentBlock.setRoleMarker).not.toHaveBeenCalled();
 			expect(block.markerFor).toBeFalsy();
@@ -79,7 +79,7 @@ describe('Role', () => {
 			const role = new Role();
 
 			role.doClose();
-			role.setMarkerFor({isValidRange: true});
+			role.setMarkerFor({ isValidRange: true });
 
 			expect(role.getOutput()).toBeNull();
 		});
@@ -94,13 +94,12 @@ describe('Role', () => {
 
 			role.appendBlock(new Role());
 
-			const {output, context} = role.getOutput({charCount: 0});
+			const { output, context } = role.getOutput({ charCount: 0 });
 
 			expect(output).toEqual(':role:');
 			expect(context.charCount).toEqual(6);
 		});
 	});
-
 
 	describe('getOutputForInterpreted', () => {
 		let block;
@@ -125,7 +124,9 @@ describe('Role', () => {
 			role.appendBlock(new Plaintext('i'));
 			role.appendBlock(new Plaintext('s'));
 
-			const {output, context} = role.getOutputForInterpreted(block, {charCount: 0});
+			const { output, context } = role.getOutputForInterpreted(block, {
+				charCount: 0,
+			});
 
 			expect(output).toEqual('test');
 			expect(context.charCount).toEqual(4);

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {Editor, Plugins, BLOCKS, STYLE_SET} from '@nti/web-editor';
+import { Editor, Plugins, BLOCKS, STYLE_SET } from '@nti/web-editor';
 
-import {RST} from '../../../parsers';
+import { RST } from '../../../parsers';
 
 import Styles from './Styles.css';
 
@@ -11,28 +11,29 @@ const cx = classnames.bind(Styles);
 
 const Initial = Symbol('Initial');
 
-const getPlugins = ({singleline}) => {
+const getPlugins = ({ singleline }) => {
 	const plugins = [
 		Plugins.LimitBlockTypes.create({
-			allow: singleline ?
-				new Set([BLOCKS.UNSTYLED]) :
-				new Set([BLOCKS.UNSTYLED, BLOCKS.ORDERED_LIST_ITEM, BLOCKS.UNORDERED_LIST_ITEM])
+			allow: singleline
+				? new Set([BLOCKS.UNSTYLED])
+				: new Set([
+						BLOCKS.UNSTYLED,
+						BLOCKS.ORDERED_LIST_ITEM,
+						BLOCKS.UNORDERED_LIST_ITEM,
+				  ]),
 		}),
-		Plugins.LimitStyles.create({allow: STYLE_SET}),
+		Plugins.LimitStyles.create({ allow: STYLE_SET }),
 		Plugins.LimitLinks.create(),
 		Plugins.IgnoreDrop.create(),
-		Plugins.BlockBreakOut.create()
+		Plugins.BlockBreakOut.create(),
 	];
 
 	if (singleline) {
-		plugins.push(
-			Plugins.SingleLine.create()
-		);
+		plugins.push(Plugins.SingleLine.create());
 	}
 
 	return plugins;
 };
-
 
 CustomBlockEditor.propTypes = {
 	value: PropTypes.any,
@@ -40,12 +41,19 @@ CustomBlockEditor.propTypes = {
 	className: PropTypes.string,
 	parser: PropTypes.shape({
 		toDraftState: PropTypes.func,
-		fromDraftState: PropTypes.func
+		fromDraftState: PropTypes.func,
 	}),
 
-	singleline: PropTypes.bool
+	singleline: PropTypes.bool,
 };
-export default function CustomBlockEditor ({value, className, onChange, parser = RST, singleline, ...otherProps}) {
+export default function CustomBlockEditor({
+	value,
+	className,
+	onChange,
+	parser = RST,
+	singleline,
+	...otherProps
+}) {
 	const valueRef = React.useRef(Initial);
 	const [editorState, setEditorState] = React.useState(null);
 	const [plugins, setPlugins] = React.useState(null);
@@ -60,10 +68,10 @@ export default function CustomBlockEditor ({value, className, onChange, parser =
 	}, [value]);
 
 	React.useEffect(() => {
-		setPlugins(getPlugins({singleline}));
+		setPlugins(getPlugins({ singleline }));
 	}, [singleline]);
 
-	const onContentChange = (newEditorState) => {
+	const onContentChange = newEditorState => {
 		const newValue = parser.fromDraftState(newEditorState);
 
 		if (newValue !== valueRef.current) {

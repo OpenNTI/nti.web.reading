@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import ExternalHyperLink from '../ExternalHyperLink';
-import {normalizeEntityName} from '../../utils';
-import {getInterface} from '../../../Parser';
+import { normalizeEntityName } from '../../utils';
+import { getInterface } from '../../../Parser';
 
 describe('External HyperLink', () => {
 	describe('isNextBlock', () => {
@@ -25,7 +25,7 @@ describe('External HyperLink', () => {
 			const name = 'external link';
 			const rst = `.. _${name}: http://www.google.com`;
 			const inputInterface = getInterface(0, [rst]);
-			const {block} = ExternalHyperLink.parse(inputInterface);
+			const { block } = ExternalHyperLink.parse(inputInterface);
 
 			expect(block.name).toEqual(name);
 		});
@@ -34,7 +34,7 @@ describe('External HyperLink', () => {
 			const link = 'http://www.google.com';
 			const rst = `.. _external link: ${link}`;
 			const inputInterface = getInterface(0, [rst]);
-			const {block} = ExternalHyperLink.parse(inputInterface);
+			const { block } = ExternalHyperLink.parse(inputInterface);
 
 			expect(block.target).toEqual(link);
 		});
@@ -43,7 +43,7 @@ describe('External HyperLink', () => {
 			const link = 'http://www.google.com';
 			const rst = `.. _external link:${link}`;
 			const inputInterface = getInterface(0, [rst]);
-			const {block} = ExternalHyperLink.parse(inputInterface);
+			const { block } = ExternalHyperLink.parse(inputInterface);
 
 			expect(block.target).toEqual(link);
 		});
@@ -57,7 +57,7 @@ describe('External HyperLink', () => {
 		beforeEach(() => {
 			const rst = `.. _${name}: ${target}`;
 			const inputInterface = getInterface(0, [rst]);
-			const {block} = ExternalHyperLink.parse(inputInterface);
+			const { block } = ExternalHyperLink.parse(inputInterface);
 
 			link = block;
 		});

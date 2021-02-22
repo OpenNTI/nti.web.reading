@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import FieldList from '../FieldList';
-import {getInterface} from '../../../Parser';
+import { getInterface } from '../../../Parser';
 
 describe('FieldList', () => {
 	describe('isNextBlock', () => {
@@ -31,7 +31,7 @@ describe('FieldList', () => {
 			const name = 'name';
 			const rst = `:${name}:value`;
 			const inputInterface = getInterface(0, [rst]);
-			const {block} = FieldList.parse(inputInterface);
+			const { block } = FieldList.parse(inputInterface);
 
 			expect(block.name).toEqual(name);
 		});
@@ -40,7 +40,7 @@ describe('FieldList', () => {
 			const value = 'value';
 			const rst = `:name: ${value}`;
 			const inputInterface = getInterface(0, [rst]);
-			const {block} = FieldList.parse(inputInterface);
+			const { block } = FieldList.parse(inputInterface);
 
 			expect(block.value).toEqual(value);
 		});
@@ -49,7 +49,7 @@ describe('FieldList', () => {
 			const value = 'value';
 			const rst = `:name:${value}`;
 			const inputInterface = getInterface(0, [rst]);
-			const {block} = FieldList.parse(inputInterface);
+			const { block } = FieldList.parse(inputInterface);
 
 			expect(block.value).toEqual(value);
 		});

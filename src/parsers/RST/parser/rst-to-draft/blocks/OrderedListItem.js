@@ -1,15 +1,15 @@
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
-import {LIST_STYLES} from '../../Constants';
+import { LIST_STYLES } from '../../Constants';
 
 import UnorderedListItem from './UnorderedListItem';
 import Text from './Text';
 
-const {AUTO_NUMBERED, NUMERIC, ALPHA_NUMERIC, ROMAN_NUMERAL} = LIST_STYLES;
+const { AUTO_NUMBERED, NUMERIC, ALPHA_NUMERIC, ROMAN_NUMERAL } = LIST_STYLES;
 
 //Since the regex only matches space before the bullet it should account for
 //escaping ordered list items by saying they don't match a ordered list
-function buildOrderedListItemRegex (itemRegex) {
+function buildOrderedListItemRegex(itemRegex) {
 	//^\s*(\(?{itemRegex}(\.|\)))\s*(.*)
 	return new RegExp(`^\\s*(\\(?(${itemRegex})(?:\\.|\\)))\\s*(.*)`);
 }
@@ -18,12 +18,12 @@ const REGEXS = {
 	[AUTO_NUMBERED]: buildOrderedListItemRegex('#'),
 	[NUMERIC]: buildOrderedListItemRegex('\\d+'),
 	[ALPHA_NUMERIC]: buildOrderedListItemRegex('[a-z|A-Z]'),
-	[ROMAN_NUMERAL]: buildOrderedListItemRegex('[MDCLXVI|mdclxvi]+')
+	[ROMAN_NUMERAL]: buildOrderedListItemRegex('[MDCLXVI|mdclxvi]+'),
 };
 
 const ORDER = [ROMAN_NUMERAL, ALPHA_NUMERIC, NUMERIC, AUTO_NUMBERED];
 
-function parseBlock (block) {
+function parseBlock(block) {
 	for (let listStyle of ORDER) {
 		if (REGEXS[listStyle].test(block)) {
 			let matches = block.match(REGEXS[listStyle]);
@@ -32,7 +32,7 @@ function parseBlock (block) {
 				listStyle,
 				bullet: matches[1],
 				ordinal: matches[2],
-				text: matches[3]
+				text: matches[3],
 			};
 		}
 	}
@@ -54,10 +54,17 @@ function parseBlock (block) {
  * @param  {Object} parsedInterface the already parsed blocks
  * @returns {Object}                 the block with the correct list style
  */
-function maybeSwitchStyle (block, parsedInterface) {
-	const {listStyle, ordinal, depth} = block;
+function maybeSwitchStyle(block, parsedInterface) {
+	const { listStyle, ordinal, depth } = block;
 
-	if (listStyle !== ROMAN_NUMERAL || ordinal.length > 1 || ordinal === 'i' || ordinal === 'I') { return block; }
+	if (
+		listStyle !== ROMAN_NUMERAL ||
+		ordinal.length > 1 ||
+		ordinal === 'i' ||
+		ordinal === 'I'
+	) {
+		return block;
+	}
 
 	let lookBack = 0;
 	let previousBlock = parsedInterface.get(lookBack);
@@ -82,72 +89,80 @@ function maybeSwitchStyle (block, parsedInterface) {
 }
 
 export default class OrderedListItem extends UnorderedListItem {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const input = inputInterface.get();
 
-		return REGEXS[AUTO_NUMBERED].test(input) ||
-				REGEXS[NUMERIC].test(input) ||
-				REGEXS[ALPHA_NUMERIC].test(input) ||
-				REGEXS[ROMAN_NUMERAL].test(input);
-
+		return (
+			REGEXS[AUTO_NUMBERED].test(input) ||
+			REGEXS[NUMERIC].test(input) ||
+			REGEXS[ALPHA_NUMERIC].test(input) ||
+			REGEXS[ROMAN_NUMERAL].test(input)
+		);
 	}
 
-	static parse (inputInterface, context, parsedInterface) {
+	static parse(inputInterface, context, parsedInterface) {
 		const input = inputInterface.get();
-		const {listStyle, bullet, ordinal, text} = parseBlock(input);
-		let block = new this(input, bullet, {text: new Text(text), listStyle, bullet, ordinal});
+		const { listStyle, bullet, ordinal, text } = parseBlock(input);
+		let block = new this(input, bullet, {
+			text: new Text(text),
+			listStyle,
+			bullet,
+			ordinal,
+		});
 
 		block = maybeSwitchStyle(block, parsedInterface);
 
-		return {block, context};
+		return { block, context };
 	}
 
-	isOrderedListItem = true
+	isOrderedListItem = true;
 
-	get text () {
+	get text() {
 		return this.parts.text;
 	}
 
-	get raw () {
+	get raw() {
 		return this.parts.text.text;
 	}
 
-	get listStyle () {
+	get listStyle() {
 		return this.parts.listStyle;
 	}
 
-
-	set listStyle (style) {
+	set listStyle(style) {
 		this.parts.listStyle = style;
 	}
 
-
-	get ordinal () {
+	get ordinal() {
 		return this.parts.ordinal;
 	}
 
-
-	get bullet () {
+	get bullet() {
 		return this.parts.bullet;
 	}
 
-
-	shouldAppendBlock (block) {
+	shouldAppendBlock(block) {
 		return block && block.isParagraph && this.isSameOffset(block);
 	}
 
-
-	appendBlock (block) {
+	appendBlock(block) {
 		this.parts.text.append(block.text);
 
-		return {block: this};
+		return { block: this };
 	}
 
+	getOutput(context) {
+		const { text, listStyle } = this;
+		const { output, context: newContext } = text.getOutput(context);
 
-	getOutput (context) {
-		const {text, listStyle} = this;
-		const {output, context:newContext} = text.getOutput(context);
-
-		return {output: {...output, depth: this.depth, type: BLOCKS.ORDERED_LIST_ITEM, data: {...this.blockData, listStyle}}, newContext};
+		return {
+			output: {
+				...output,
+				depth: this.depth,
+				type: BLOCKS.ORDERED_LIST_ITEM,
+				data: { ...this.blockData, listStyle },
+			},
+			newContext,
+		};
 	}
 }

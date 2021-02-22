@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import {getIndention, normalizeEntityName} from '../utils';
+import { getIndention, normalizeEntityName } from '../utils';
 
 describe('RST Parser Utils', () => {
 	describe('getIndention tests', () => {

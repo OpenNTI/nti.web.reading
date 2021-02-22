@@ -1,7 +1,8 @@
 .meta-editor {
 	background: var(--panel-background);
 	border-bottom: 1px solid var(--border-grey-light);
-	padding: 1.25rem var(--editor-content-side-padding, 1.25rem) calc(1.5 * var(--editor-content-side-padding, 1.25rem));
+	padding: 1.25rem var(--editor-content-side-padding, 1.25rem)
+		calc(1.5 * var(--editor-content-side-padding, 1.25rem));
 	display: grid;
 	grid-gap: 0.5rem;
 	grid-template-columns: 100px 1fr 103px;
@@ -70,7 +71,10 @@
 }
 
 .body {
-	& > :global(.nti-draft-core-container > .nti-draft-core > .DraftEditor-root) {
+	&
+		> :global(.nti-draft-core-container
+			> .nti-draft-core
+			> .DraftEditor-root) {
 		min-height: var(--fill-to-bottom-height, 75px);
 		padding-top: 0;
 		padding-left: 0;
@@ -86,10 +90,13 @@
 			}
 		}
 
-		& > :global(.DraftEditor-editorContainer > .public-DraftEditor-content) {
+		&
+			> :global(.DraftEditor-editorContainer
+				> .public-DraftEditor-content) {
 			padding: var(--editor-content-side-padding, 1.25rem);
 
-			& > div, & > div > div {
+			& > div,
+			& > div > div {
 				margin: 0.875rem 0;
 			}
 		}
@@ -157,12 +164,14 @@
 	z-index: 1;
 	display: block;
 	pointer-events: none;
-	padding: calc(var(--editor-content-side-padding, 1.25rem) / 2) var(--editor-content-side-padding, 1.25rem) 0;
+	padding: calc(var(--editor-content-side-padding, 1.25rem) / 2)
+		var(--editor-content-side-padding, 1.25rem) 0;
 	margin-bottom: -1.3em;
 }
 
 .content-options {
-	padding: calc(var(--editor-content-side-padding, 1.25rem) * 2) var(--editor-content-side-padding, 1.25rem);
+	padding: calc(var(--editor-content-side-padding, 1.25rem) * 2)
+		var(--editor-content-side-padding, 1.25rem);
 
 	& .header {
 		display: grid;

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {Editor, EditorGroup, Plugins, BLOCKS, STYLES} from '@nti/web-editor';
+import { Editor, EditorGroup, Plugins, BLOCKS, STYLES } from '@nti/web-editor';
 
-import {RST} from '../../../parsers';
+import { RST } from '../../../parsers';
 
 import Styles from './Styles.css';
 
@@ -22,38 +22,41 @@ const DefaultAllowedBlocks = new Set([
 	BLOCKS.ORDERED_LIST_ITEM,
 	BLOCKS.UNORDERED_LIST_ITEM,
 	BLOCKS.BLOCKQUOTE,
-	BLOCKS.UNSTYLED
+	BLOCKS.UNSTYLED,
 ]);
 
 const DefaultAllowedStyles = new Set([
 	STYLES.BOLD,
 	STYLES.CODE,
 	STYLES.ITALIC,
-	STYLES.UNDERLINE
+	STYLES.UNDERLINE,
 ]);
 
-function getPlugins ({
+function getPlugins({
 	allowedBlocks = DefaultAllowedBlocks,
 	allowedStyles = DefaultAllowedStyles,
 	customBlocks,
 	customBlockProps,
-	formatPasted
+	formatPasted,
 }) {
 	const plugins = [
-		Plugins.LimitBlockTypes.create({allow: allowedBlocks}),
-		Plugins.LimitStyles.create({allow: allowedStyles}),
+		Plugins.LimitBlockTypes.create({ allow: allowedBlocks }),
+		Plugins.LimitStyles.create({ allow: allowedStyles }),
 		Plugins.KeepFocusInView.create(),
 		Plugins.KeepFocusableTarget.create(),
 		Plugins.BlockBreakOut.create(),
 		Plugins.ContiguousEntities.create(),
 		Plugins.InsertBlock.create(),
 		Plugins.Links.AutoLink.create(),
-		Plugins.Links.CustomLinks.create()
+		Plugins.Links.CustomLinks.create(),
 	];
 
 	if (customBlocks) {
 		plugins.push(
-			Plugins.CustomBlocks.create({customBlocks, blockProps: customBlockProps})
+			Plugins.CustomBlocks.create({
+				customBlocks,
+				blockProps: customBlockProps,
+			})
 		);
 	}
 
@@ -70,21 +73,21 @@ BodyEditor.propTypes = {
 	onChange: PropTypes.func,
 	parser: PropTypes.shape({
 		toDraftState: PropTypes.func,
-		fromDraftState: PropTypes.func
+		fromDraftState: PropTypes.func,
 	}),
 
 	plugins: PropTypes.array,
 	customBlocks: PropTypes.array,
 	customBlockProps: PropTypes.any,
 };
-export default function BodyEditor ({
+export default function BodyEditor({
 	className,
 	error,
 	masked,
 
 	content,
 	onChange,
-	parser = RST.withOptions({startingHeaderLevel: 2}),
+	parser = RST.withOptions({ startingHeaderLevel: 2 }),
 
 	plugins: pluginsProp,
 	customBlocks,
@@ -107,10 +110,12 @@ export default function BodyEditor ({
 	}, [content]);
 
 	React.useEffect(() => {
-		setPlugins(pluginsProp ?? getPlugins({customBlocks, customBlockProps}));
+		setPlugins(
+			pluginsProp ?? getPlugins({ customBlocks, customBlockProps })
+		);
 	}, [pluginsProp]);
 
-	const onContentChange = (newEditorState) => {
+	const onContentChange = newEditorState => {
 		const newContent = parser.fromDraftState(newEditorState);
 
 		if (newContent !== contentRef.current) {
@@ -126,10 +131,8 @@ export default function BodyEditor ({
 					{...otherProps}
 					editorState={editorState}
 					readOnly={masked}
-
 					onContentChange={onContentChange}
 					onChange={error && onContentChange}
-
 					plugins={plugins}
 					ref={defaultEditorRef}
 				/>

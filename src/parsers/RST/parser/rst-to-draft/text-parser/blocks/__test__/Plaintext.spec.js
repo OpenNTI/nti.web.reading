@@ -1,7 +1,7 @@
 /* globals spyOn */
 /* eslint-env jest */
 import Plaintext from '../Plaintext';
-import {getInterface} from '../../../../Parser';
+import { getInterface } from '../../../../Parser';
 
 describe('Plaintext', () => {
 	describe('isNextBlock', () => {
@@ -17,10 +17,10 @@ describe('Plaintext', () => {
 	});
 
 	describe('parse', () => {
-		function buildBlock (type) {
+		function buildBlock(type) {
 			const block = {
 				[type]: true,
-				setMarkerFor: () => {}
+				setMarkerFor: () => {},
 			};
 
 			spyOn(block, 'setMarkerFor');
@@ -32,7 +32,11 @@ describe('Plaintext', () => {
 			const test = ['p', 'l', 'a', 'i', 'n'];
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, []);
-			const {block} = Plaintext.parse(inputInterface, {}, parsedInterface);
+			const { block } = Plaintext.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			expect(block.isPlaintext).toBeTruthy();
 		});
@@ -42,7 +46,11 @@ describe('Plaintext', () => {
 			const currentBlock = buildBlock('isTarget');
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, [currentBlock]);
-			const {block} = Plaintext.parse(inputInterface, {}, parsedInterface);
+			const { block } = Plaintext.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			expect(block.isPlaintext).toBeTruthy();
 			expect(currentBlock.setMarkerFor).toHaveBeenCalledWith(block);
@@ -54,7 +62,11 @@ describe('Plaintext', () => {
 			const currentBlock = buildBlock('isTarget');
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, [currentBlock]);
-			const {block} = Plaintext.parse(inputInterface, {}, parsedInterface);
+			const { block } = Plaintext.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			expect(block.isPlaintext).toBeTruthy();
 			expect(currentBlock.setMarkerFor).not.toHaveBeenCalled();
@@ -63,7 +75,7 @@ describe('Plaintext', () => {
 	});
 
 	describe('shouldAppendBlock', () => {
-		test('Is true if we don\'t end in whitespace, and the block is plaintext', () => {
+		test("Is true if we don't end in whitespace, and the block is plaintext", () => {
 			const block = new Plaintext('n');
 			const newBlock = new Plaintext('o');
 
@@ -72,7 +84,7 @@ describe('Plaintext', () => {
 
 		test('Is false for none plaintext', () => {
 			const block = new Plaintext('n');
-			const newBlock = {notPlaintext: true};
+			const newBlock = { notPlaintext: true };
 
 			expect(block.shouldAppendBlock(newBlock)).toBeFalsy();
 		});
@@ -99,11 +111,10 @@ describe('Plaintext', () => {
 		});
 	});
 
-
 	describe('getOutput', () => {
-		function buildMarker () {
+		function buildMarker() {
 			const block = {
-				getOutputForInterpreted: () => {}
+				getOutputForInterpreted: () => {},
 			};
 
 			spyOn(block, 'getOutputForInterpreted');
@@ -119,7 +130,10 @@ describe('Plaintext', () => {
 			block.setRoleMarker(marker);
 			block.getOutput(context);
 
-			expect(marker.getOutputForInterpreted).toHaveBeenCalledWith(block, context);
+			expect(marker.getOutputForInterpreted).toHaveBeenCalledWith(
+				block,
+				context
+			);
 		});
 
 		test('If it has role marker and forces, does not call marker', () => {
@@ -145,7 +159,7 @@ describe('Plaintext', () => {
 			block.appendBlock(new Plaintext('x'));
 			block.appendBlock(new Plaintext('t'));
 
-			const {output, context} = block.getOutput({charCount: 0});
+			const { output, context } = block.getOutput({ charCount: 0 });
 
 			expect(output).toEqual('plaintext');
 			expect(context.charCount).toEqual(9);

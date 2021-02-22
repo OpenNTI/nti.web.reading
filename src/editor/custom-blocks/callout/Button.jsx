@@ -1,18 +1,18 @@
 import React from 'react';
-import {scoped} from '@nti/lib-locale';
-import {BLOCKS} from '@nti/web-editor';
+import { scoped } from '@nti/lib-locale';
+import { BLOCKS } from '@nti/web-editor';
 
 import Button from '../Button';
 
 import Icon from './assets/icon-callout.svg';
-import {isCalloutBlock} from './utils';
-import {Name} from './Constants';
+import { isCalloutBlock } from './utils';
+import { Name } from './Constants';
 
 const t = scoped('web-reading.editor.custom-blocks.callout.Button', {
-	label: 'Call Out'
+	label: 'Call Out',
 });
 
-function createBlock (insertBlock) {
+function createBlock(insertBlock) {
 	insertBlock({
 		type: BLOCKS.ATOMIC,
 		text: '',
@@ -20,13 +20,12 @@ function createBlock (insertBlock) {
 			name: 'sidebar',
 			arguments: '',
 			body: [],
-			options: {}
-		}
+			options: {},
+		},
 	});
 }
 
-
-export default function CallOutButton () {
+export default function CallOutButton() {
 	return (
 		<Button
 			label={t('label')}

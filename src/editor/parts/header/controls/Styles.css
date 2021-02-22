@@ -10,7 +10,8 @@
 	flex: 1 1 auto;
 	max-width: 25%;
 	padding: 0.5rem 0.625rem 0.625rem 1rem;
-	box-shadow: inset -1px 0 0 0 var(--border-grey-light), -1px 0 0 0 var(--border-grey-light);
+	box-shadow: inset -1px 0 0 0 var(--border-grey-light),
+		-1px 0 0 0 var(--border-grey-light);
 
 	&.disabled {
 		pointer-events: none;

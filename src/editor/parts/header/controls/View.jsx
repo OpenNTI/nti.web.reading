@@ -7,8 +7,6 @@ import Control from './Control';
 const cx = classnames.bind(Styles);
 
 ReadingEditorHeaderControls.Control = Control;
-export default function ReadingEditorHeaderControls (props) {
-	return (
-		<div className={cx('reading-editor-controls')} {...props} />
-	);
+export default function ReadingEditorHeaderControls(props) {
+	return <div className={cx('reading-editor-controls')} {...props} />;
 }

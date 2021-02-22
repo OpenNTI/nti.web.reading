@@ -1,5 +1,3 @@
 import split from './split';
 
-export default [
-	split
-];
+export default [split];

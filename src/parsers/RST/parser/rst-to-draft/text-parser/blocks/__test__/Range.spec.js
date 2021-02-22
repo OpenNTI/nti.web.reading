@@ -1,8 +1,7 @@
 /* eslint-env jest */
 import Range from '../Range';
 import Plaintext from '../Plaintext';
-import {getInterface} from '../../../../Parser';
-
+import { getInterface } from '../../../../Parser';
 
 describe('Range', () => {
 	describe('isNextBlock', () => {
@@ -24,35 +23,44 @@ describe('Range', () => {
 			const test = ['', 't', 'e', 's', 't'];
 			const inputInterface = getInterface(0, test);
 
-			expect(Range.isNextBlock(inputInterface, {openRange: 'other'})).toBeFalsy();
+			expect(
+				Range.isNextBlock(inputInterface, { openRange: 'other' })
+			).toBeFalsy();
 		});
 
 		test('False if range is open and invalid close', () => {
 			const test = [' ', ''];
 			const inputInterface = getInterface(1, test);
 
-			expect(Range.isNextBlock(inputInterface, {openRange: Range.rangeName})).toBeFalsy();
+			expect(
+				Range.isNextBlock(inputInterface, {
+					openRange: Range.rangeName,
+				})
+			).toBeFalsy();
 		});
 
 		test('True if no open range and valid open', () => {
-			Range.openChar = '*';//Set this so it nextChar works correctly
+			Range.openChar = '*'; //Set this so it nextChar works correctly
 
 			const test = ['*', 't', 'e', 's', 't'];
 			const inputInterface = getInterface(0, test);
 
 			expect(Range.isNextBlock(inputInterface, {})).toBeTruthy();
 
-			Range.openChar = '';//Set it back
+			Range.openChar = ''; //Set it back
 		});
 
 		test('True is range is open and valid close', () => {
 			const test = ['t', 'e', 's', 't', ''];
 			const inputInterface = getInterface(4, test);
 
-			expect(Range.isNextBlock(inputInterface, {openRange: Range.rangeName})).toBeTruthy();
+			expect(
+				Range.isNextBlock(inputInterface, {
+					openRange: Range.rangeName,
+				})
+			).toBeTruthy();
 		});
 	});
-
 
 	describe('shouldAppendBlock', () => {
 		test('True if not closed', () => {
@@ -135,7 +143,7 @@ describe('Range', () => {
 			range.appendBlock(new Plaintext('s'));
 			range.appendBlock(new Plaintext('t'));
 
-			const {output, context} = range.getOutput({charCount: 0});
+			const { output, context } = range.getOutput({ charCount: 0 });
 
 			expect(output).toEqual('*test');
 			expect(context.charCount).toEqual(5);
@@ -154,7 +162,7 @@ describe('Range', () => {
 
 			range.appendBlock(new Range());
 
-			const {output, context} = range.getOutput({charCount: 0});
+			const { output, context } = range.getOutput({ charCount: 0 });
 
 			expect(output).toEqual('test');
 			expect(context.charCount).toEqual(4);

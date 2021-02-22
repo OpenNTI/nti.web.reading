@@ -21,13 +21,13 @@ const ALL_WHITE_SPACE = /\s/g;
  * @param  {number} baseDepth      the amount to take off
  * @returns {Object}                the offsets of the block.
  */
-export function getIndention (block, blockIndicator, baseDepth = 0) {
+export function getIndention(block, blockIndicator, baseDepth = 0) {
 	const blockStart = blockIndicator ? block.indexOf(blockIndicator) : -1;
 	const end = block.length;
 	let index = 0;
 	let blockStarted = false;
 	let blockOffset = 0;
-	let	lineOffset = 0;
+	let lineOffset = 0;
 
 	while (index < end) {
 		//If we hit the blockIndicator stop counting for the blockOffset
@@ -35,7 +35,7 @@ export function getIndention (block, blockIndicator, baseDepth = 0) {
 		if (index === blockStart) {
 			blockStarted = true;
 			lineOffset += blockIndicator.length;
-			index +=  blockIndicator.length;
+			index += blockIndicator.length;
 			continue;
 		}
 
@@ -48,8 +48,8 @@ export function getIndention (block, blockIndicator, baseDepth = 0) {
 			if (WHITE_SPACE.test(char)) {
 				lineOffset += 1;
 				index += 1;
-			//If we hit something other than whitespace we're done getting
-			//the offsets
+				//If we hit something other than whitespace we're done getting
+				//the offsets
 			} else {
 				break;
 			}
@@ -59,19 +59,19 @@ export function getIndention (block, blockIndicator, baseDepth = 0) {
 				blockOffset += 1;
 				lineOffset += 1;
 				index += 1;
-			//If its a space followed by another space increase the blockOffset
-			//and the lineOffset
+				//If its a space followed by another space increase the blockOffset
+				//and the lineOffset
 			} else if (char === ' ' && block.charAt(index + 1) === ' ') {
 				blockOffset += 1;
 				lineOffset += 2;
 				index += 2;
-			//If its just whitespace (not two spaces) stop counting the blockOffset
-			//add the remaining white space to the lineOffset
+				//If its just whitespace (not two spaces) stop counting the blockOffset
+				//add the remaining white space to the lineOffset
 			} else if (WHITE_SPACE.test(char)) {
 				lineOffset += 1;
 				blockStarted = true;
 				index += 1;
-			//If its not whitespace we are done parsing the offsets
+				//If its not whitespace we are done parsing the offsets
 			} else {
 				break;
 			}
@@ -81,10 +81,9 @@ export function getIndention (block, blockIndicator, baseDepth = 0) {
 	blockOffset -= baseDepth;
 	lineOffset -= baseDepth;
 
-	return {blockOffset, lineOffset};
+	return { blockOffset, lineOffset };
 }
 
-
-export function normalizeEntityName (text) {
+export function normalizeEntityName(text) {
 	return text.replace(ALL_WHITE_SPACE, ' ').toLowerCase();
 }

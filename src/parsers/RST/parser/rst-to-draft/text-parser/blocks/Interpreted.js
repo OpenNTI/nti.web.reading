@@ -1,32 +1,32 @@
-import {STYLES} from '@nti/web-editor';
+import { STYLES } from '@nti/web-editor';
 
 import Range from './Range';
 
 const ROLE_MARKER = Symbol('Role Marker');
 
 export default class Interpreted extends Range {
-	static rangeName = 'interpreted'
-	static openChars = '`'
-	static closeChars = '`'
+	static rangeName = 'interpreted';
+	static openChars = '`';
+	static closeChars = '`';
 
-	static matchOpen (inputInterface) {
+	static matchOpen(inputInterface) {
 		const input = inputInterface.get(0);
 		const nextInput = inputInterface.get(1);
 
-		return {matches: input === '`' && nextInput !== '`'};
+		return { matches: input === '`' && nextInput !== '`' };
 	}
 
-	static matchClose (inputInterface) {
+	static matchClose(inputInterface) {
 		const input = inputInterface.get(0);
 		const nextInput = inputInterface.get(1);
 
 		return {
 			matches: input === '`' && nextInput !== '`',
-			nextChar: nextInput === '_' ? inputInterface.get(2) : nextInput //if the next char is an _ we need to look at the char after to determine if its a valid close
+			nextChar: nextInput === '_' ? inputInterface.get(2) : nextInput, //if the next char is an _ we need to look at the char after to determine if its a valid close
 		};
 	}
 
-	static afterParse (block, inputInterface, context, parsedInterface) {
+	static afterParse(block, inputInterface, context, parsedInterface) {
 		const currentBlock = parsedInterface.get();
 
 		if (currentBlock && (currentBlock.isRole || currentBlock.isTarget)) {
@@ -37,20 +37,17 @@ export default class Interpreted extends Range {
 		return block;
 	}
 
+	isInterpreted = true;
 
-	isInterpreted = true
-
-	get roleMarker () {
+	get roleMarker() {
 		return this[ROLE_MARKER];
 	}
 
-
-	setRoleMarker (role) {
+	setRoleMarker(role) {
 		this[ROLE_MARKER] = role;
 	}
 
-
-	getOutput (context, force) {
+	getOutput(context, force) {
 		if (this[ROLE_MARKER] && !force) {
 			return this[ROLE_MARKER].getOutputForInterpreted(this, context);
 		}
@@ -58,14 +55,19 @@ export default class Interpreted extends Range {
 		return super.getOutput(context);
 	}
 
+	getRanges(context) {
+		if (this[ROLE_MARKER]) {
+			return {};
+		}
 
-	getRanges (context) {
-		if (this[ROLE_MARKER]) { return {}; }
-
-		const range = {style: STYLES.CODE, offset: context.charCount, length: this.length};
+		const range = {
+			style: STYLES.CODE,
+			offset: context.charCount,
+			length: this.length,
+		};
 
 		return {
-			inlineStyleRanges: [range]
+			inlineStyleRanges: [range],
 		};
 	}
 }

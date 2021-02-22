@@ -28,67 +28,78 @@ const validPrecedingRange = /[-:/'"<([{]/; // One of  - : / ' " < ( [ {
 const validFollowingRange = /[-.,:;!?\\/'")\]}>]/; //One of - . , : ; ! ? \ / ' " ) ] } >
 
 export default {
-	isWhitespaceChar (char) {
+	isWhitespaceChar(char) {
 		return whitespaceChar.test(char);
 	},
 
-	isNotWhitespaceChar (char) {
+	isNotWhitespaceChar(char) {
 		return notWhitespaceChar.test(char);
 	},
 
-	isWhitespaceOnly (s) {
+	isWhitespaceOnly(s) {
 		return whitespaceOnly.test(s);
 	},
 
-	endsInWhitespace (s) {
+	endsInWhitespace(s) {
 		return endsInWhitespace.test(s);
 	},
 
-	doesNotEndInWhitespace (s) {
+	doesNotEndInWhitespace(s) {
 		return doesNotEndInWhitespace.test(s);
 	},
 
-	isOpen (char) {
-		return open.test(char) || Ps.test(char) || Pi.test(char) || Pf.test(char);
+	isOpen(char) {
+		return (
+			open.test(char) || Ps.test(char) || Pi.test(char) || Pf.test(char)
+		);
 	},
 
-	isClose (char) {
-		return close.test(char) || Pe.test(char) || Pi.test(char) || Pf.test(char);
+	isClose(char) {
+		return (
+			close.test(char) || Pe.test(char) || Pi.test(char) || Pf.test(char)
+		);
 	},
 
 	//http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#inline-markup
-	isValidRangeStart (prevChar, nextChar, simple = true) {
-		let valid = nextChar && //If the next character is falsy, we are at the end of the block and can't start a range
-						notWhitespaceChar.test(nextChar) && //If the next character is not white space
-						!(this.isOpen(prevChar) && this.isClose(nextChar)); //And the range isn't wrapped quotes or parenthesis etc.
+	isValidRangeStart(prevChar, nextChar, simple = true) {
+		let valid =
+			nextChar && //If the next character is falsy, we are at the end of the block and can't start a range
+			notWhitespaceChar.test(nextChar) && //If the next character is not white space
+			!(this.isOpen(prevChar) && this.isClose(nextChar)); //And the range isn't wrapped quotes or parenthesis etc.
 
 		if (!simple) {
-			valid = valid &&
-					(
-						!prevChar || //If there is no preceding character (the range starts a block)
-						whitespaceChar.test(prevChar) || //or the preceding character is white space
-						validPrecedingRange.test(prevChar) || // or the preceding character is one of the valid ascii chars
-						Pd.test(prevChar) || Po.test(prevChar) || Pi.test(prevChar) || Pf.test(prevChar) || Ps.test(prevChar) //Or its in one of the valid unicode categories: Dash, Other, Initial Quote, Final Quote, or Open
-					);
+			valid =
+				valid &&
+				(!prevChar || //If there is no preceding character (the range starts a block)
+					whitespaceChar.test(prevChar) || //or the preceding character is white space
+					validPrecedingRange.test(prevChar) || // or the preceding character is one of the valid ascii chars
+					Pd.test(prevChar) ||
+					Po.test(prevChar) ||
+					Pi.test(prevChar) ||
+					Pf.test(prevChar) ||
+					Ps.test(prevChar)); //Or its in one of the valid unicode categories: Dash, Other, Initial Quote, Final Quote, or Open
 		}
 
 		return valid;
 	},
 
 	//http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#inline-markup
-	isValidRangeEnd (prevChar, nextChar, simple = true) {
+	isValidRangeEnd(prevChar, nextChar, simple = true) {
 		let valid = notWhitespaceChar.test(prevChar);
 
 		if (!simple) {
-			valid = valid &&
-					(
-						!nextChar || //If there is no following character (the range ends a block)
-						whitespaceChar.test(nextChar) || //or the following character is whitespace
-						validFollowingRange.test(nextChar) || //or the following character is one of the valid ascii chars
-						Pd.test(nextChar) || Po.test(nextChar) || Pi.test(nextChar) || Pf.test(nextChar) || Pe.test(nextChar) //Or its in one of the valid unicode categories: Dash, Other, Initial Quote, Final Quote, or Close
-					);
+			valid =
+				valid &&
+				(!nextChar || //If there is no following character (the range ends a block)
+					whitespaceChar.test(nextChar) || //or the following character is whitespace
+					validFollowingRange.test(nextChar) || //or the following character is one of the valid ascii chars
+					Pd.test(nextChar) ||
+					Po.test(nextChar) ||
+					Pi.test(nextChar) ||
+					Pf.test(nextChar) ||
+					Pe.test(nextChar)); //Or its in one of the valid unicode categories: Dash, Other, Initial Quote, Final Quote, or Close
 		}
 
 		return valid;
-	}
+	},
 };

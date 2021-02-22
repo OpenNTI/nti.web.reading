@@ -4,66 +4,60 @@ const IS_CONSUMED = Symbol('Is Consumed');
 const BLOCK_DATA = Symbol('BLOCK_DATA');
 
 export default class Block {
-	static isNextBlock () { return true; }
-
-	static parse (block, context) {
-		return {block: new this(block), context};
+	static isNextBlock() {
+		return true;
 	}
 
-	constructor (block, parts) {
+	static parse(block, context) {
+		return { block: new this(block), context };
+	}
+
+	constructor(block, parts) {
 		this[BLOCK] = block;
 		this[PARTS] = parts;
 
 		this[BLOCK_DATA] = {};
 	}
 
-
-	get block () {
+	get block() {
 		return this[BLOCK];
 	}
 
-
-	get parts () {
+	get parts() {
 		return this[PARTS];
 	}
 
-
-	get blockData () {
+	get blockData() {
 		return this[BLOCK_DATA];
 	}
 
-
-	setBlockData (key, value) {
+	setBlockData(key, value) {
 		this[BLOCK_DATA][key] = value;
 	}
 
-
-	consume () {
+	consume() {
 		this[IS_CONSUMED] = true;
 	}
 
-
-	get isConsumed () {
+	get isConsumed() {
 		return this[IS_CONSUMED];
 	}
 
-
-	toDraft (context, options)  {
-		if (this.isConsumed) { return null; }
+	toDraft(context, options) {
+		if (this.isConsumed) {
+			return null;
+		}
 
 		return this.getOutput(context, options);
 	}
 
-
-	getOutput (context) {
-		return {output: this.parts, context};
+	getOutput(context) {
+		return { output: this.parts, context };
 	}
 
-
-	shouldAppendBlock (/*block, context*/) {
+	shouldAppendBlock(/*block, context*/) {
 		return false;
 	}
 
-
-	appendBlock (/*block, context*/) {}
+	appendBlock(/*block, context*/) {}
 }

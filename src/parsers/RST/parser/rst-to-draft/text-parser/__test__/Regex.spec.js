@@ -74,7 +74,7 @@ describe('text-parser Regex', () => {
 
 	describe('isOpen', () => {
 		test('is true for open characters', () => {
-			expect(Regex.isOpen('\'')).toBeTruthy();
+			expect(Regex.isOpen("'")).toBeTruthy();
 			expect(Regex.isOpen('"')).toBeTruthy();
 			expect(Regex.isOpen('<')).toBeTruthy();
 			expect(Regex.isOpen('(')).toBeTruthy();
@@ -93,7 +93,7 @@ describe('text-parser Regex', () => {
 
 	describe('isClose', () => {
 		test('is true for close characters', () => {
-			expect(Regex.isClose('\'')).toBeTruthy();
+			expect(Regex.isClose("'")).toBeTruthy();
 			expect(Regex.isClose('"')).toBeTruthy();
 			expect(Regex.isClose('>')).toBeTruthy();
 			expect(Regex.isClose(')')).toBeTruthy();
@@ -109,7 +109,6 @@ describe('text-parser Regex', () => {
 			expect(Regex.isClose('a')).toBeFalsy();
 		});
 	});
-
 
 	describe('isValidRangeStart', () => {
 		describe('simple', () => {
@@ -136,7 +135,7 @@ describe('text-parser Regex', () => {
 				expect(Regex.isValidRangeStart('-', 'a', false)).toBeTruthy();
 				expect(Regex.isValidRangeStart(':', 'a', false)).toBeTruthy();
 				expect(Regex.isValidRangeStart('/', 'a', false)).toBeTruthy();
-				expect(Regex.isValidRangeStart('\'', 'a', false)).toBeTruthy();
+				expect(Regex.isValidRangeStart("'", 'a', false)).toBeTruthy();
 				expect(Regex.isValidRangeStart('"', 'a', false)).toBeTruthy();
 				expect(Regex.isValidRangeStart('<', 'a', false)).toBeTruthy();
 				expect(Regex.isValidRangeStart('(', 'a', false)).toBeTruthy();
@@ -150,7 +149,6 @@ describe('text-parser Regex', () => {
 			});
 		});
 	});
-
 
 	describe('isValidRangeEnd', () => {
 		describe('simple', () => {
@@ -178,7 +176,7 @@ describe('text-parser Regex', () => {
 				expect(Regex.isValidRangeEnd('a', '?', false)).toBeTruthy();
 				expect(Regex.isValidRangeEnd('a', '\\', false)).toBeTruthy();
 				expect(Regex.isValidRangeEnd('a', '/', false)).toBeTruthy();
-				expect(Regex.isValidRangeEnd('a', '\'', false)).toBeTruthy();
+				expect(Regex.isValidRangeEnd('a', "'", false)).toBeTruthy();
 				expect(Regex.isValidRangeEnd('a', '"', false)).toBeTruthy();
 				expect(Regex.isValidRangeEnd('a', ')', false)).toBeTruthy();
 				expect(Regex.isValidRangeEnd('a', ']', false)).toBeTruthy();
@@ -192,5 +190,4 @@ describe('text-parser Regex', () => {
 			});
 		});
 	});
-
 });

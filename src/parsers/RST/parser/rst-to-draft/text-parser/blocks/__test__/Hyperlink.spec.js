@@ -1,7 +1,7 @@
 /* globals spyOn */
 /* eslint-env jest */
 import Hyperlink from '../Hyperlink';
-import {getInterface} from '../../../../Parser';
+import { getInterface } from '../../../../Parser';
 
 describe('Hyperlink', () => {
 	describe('isNextBlock', () => {
@@ -10,23 +10,29 @@ describe('Hyperlink', () => {
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, []);
 
-			expect(Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)).toBeTruthy();
+			expect(
+				Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)
+			).toBeTruthy();
 		});
 
 		test('Is next bock if valid char, plaintext current block, and valid range end', () => {
 			const test = ['_', 'l', 'i', 'n', 'k'];
 			const inputInterface = getInterface(0, test);
-			const parsedInterface = getInterface(1, [{isPlaintext: true}]);
+			const parsedInterface = getInterface(1, [{ isPlaintext: true }]);
 
-			expect(Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)).toBeTruthy();
+			expect(
+				Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)
+			).toBeTruthy();
 		});
 
 		test('Is next block if valid char, interpreted current block, and valid range end', () => {
 			const test = ['_', '`', 'l', 'i', 't', 'e', 'r', 'a', 'l', '`'];
 			const inputInterface = getInterface(0, test);
-			const parsedInterface = getInterface(0, [{isInterpreted: true}]);
+			const parsedInterface = getInterface(0, [{ isInterpreted: true }]);
 
-			expect(Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)).toBeTruthy();
+			expect(
+				Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)
+			).toBeTruthy();
 		});
 
 		test('Is not next block if not valid char', () => {
@@ -34,15 +40,19 @@ describe('Hyperlink', () => {
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, []);
 
-			expect(Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)).toBeFalsy();
+			expect(
+				Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)
+			).toBeFalsy();
 		});
 
 		test('Is not next block if valid char and not valid current block', () => {
 			const test = ['_', 'l', 'i', 'n', 'k'];
 			const inputInterface = getInterface(0, test);
-			const parsedInterface = getInterface(0, [{notValid: true}]);
+			const parsedInterface = getInterface(0, [{ notValid: true }]);
 
-			expect(Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)).toBeFalsy();
+			expect(
+				Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)
+			).toBeFalsy();
 		});
 
 		test('Is not next block if not a valid range end', () => {
@@ -50,15 +60,17 @@ describe('Hyperlink', () => {
 			const inputInterface = getInterface(1, test);
 			const parsedInterface = getInterface(0, []);
 
-			expect(Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)).toBeFalsy();
+			expect(
+				Hyperlink.isNextBlock(inputInterface, {}, parsedInterface)
+			).toBeFalsy();
 		});
 	});
 
 	describe('parse', () => {
-		function buildBlock (type) {
+		function buildBlock(type) {
 			const block = {
 				[type]: true,
-				setRoleMarker: () => {}
+				setRoleMarker: () => {},
 			};
 
 			spyOn(block, 'setRoleMarker');
@@ -71,7 +83,11 @@ describe('Hyperlink', () => {
 			const currentBlock = buildBlock('isPlaintext');
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, [currentBlock]);
-			const {block} = Hyperlink.parse(inputInterface, {}, parsedInterface);
+			const { block } = Hyperlink.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			expect(currentBlock.setRoleMarker).toHaveBeenCalledWith(block);
 			expect(block.markerFor).toEqual(currentBlock);
@@ -82,7 +98,11 @@ describe('Hyperlink', () => {
 			const currentBlock = buildBlock('isInterpreted');
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, [currentBlock]);
-			const {block} = Hyperlink.parse(inputInterface, {}, parsedInterface);
+			const { block } = Hyperlink.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			expect(currentBlock.setRoleMarker).toHaveBeenCalledWith(block);
 			expect(block.markerFor).toEqual(currentBlock);
@@ -92,7 +112,11 @@ describe('Hyperlink', () => {
 			const test = ['_', '_'];
 			const inputInterface = getInterface(0, test);
 			const parsedInterface = getInterface(0, []);
-			const {length} = Hyperlink.parse(inputInterface, {}, parsedInterface);
+			const { length } = Hyperlink.parse(
+				inputInterface,
+				{},
+				parsedInterface
+			);
 
 			expect(length).toEqual(2);
 		});
@@ -108,7 +132,7 @@ describe('Hyperlink', () => {
 		test('returns null if marker is a valid range', () => {
 			const block = new Hyperlink();
 
-			block.setMarkerFor({isValidRange: true});
+			block.setMarkerFor({ isValidRange: true });
 
 			expect(block.getOutput()).toBeFalsy();
 		});
@@ -116,14 +140,14 @@ describe('Hyperlink', () => {
 		test('returns null is marker is not a valid range or plain text', () => {
 			const block = new Hyperlink();
 
-			block.setMarkerFor({isPlaintext: true});
+			block.setMarkerFor({ isPlaintext: true });
 
 			expect(block.getOutput()).toBeFalsy();
 		});
 
 		test('No marker returns plain text output', () => {
 			const block = new Hyperlink();
-			const output = block.getOutput({charCount: 0});
+			const output = block.getOutput({ charCount: 0 });
 
 			expect(output.output).toEqual('_');
 			expect(output.context.charCount).toEqual(1);

@@ -1,34 +1,33 @@
 const WHITE_SPACE_ONLY = /^\s+$/;
 
 export default class Empty {
-	static isNextBlock (inputInterface) {
+	static isNextBlock(inputInterface) {
 		const input = inputInterface.get(0);
 
 		return WHITE_SPACE_ONLY.test(input) || !input;
 	}
 
-
-	static parse (inputInterface, context) {
+	static parse(inputInterface, context) {
 		const input = inputInterface.get(0);
 
-		return {block: new this(input), context};
+		return { block: new this(input), context };
 	}
 
-	constructor (rawText) {
+	constructor(rawText) {
 		this.rawText = rawText;
 	}
 
-	get text () {
+	get text() {
 		return this.block;
 	}
 
-	get raw () {
+	get raw() {
 		return '';
 	}
 
-	get block () {
+	get block() {
 		return this.rawText;
 	}
 
-	isEmpty = true
+	isEmpty = true;
 }

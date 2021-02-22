@@ -1,4 +1,4 @@
-import {STYLES} from '@nti/web-editor';
+import { STYLES } from '@nti/web-editor';
 
 import Range from './Range';
 
@@ -13,23 +13,26 @@ import Range from './Range';
  */
 
 export default class Emphasis extends Range {
-	static rangeName = 'emphasis'
-	static openChars = '*'
-	static closeChars = '*'
+	static rangeName = 'emphasis';
+	static openChars = '*';
+	static closeChars = '*';
 
-	static matchOpen (inputInterface) {
+	static matchOpen(inputInterface) {
 		const input = inputInterface.get(0);
 		const nextInput = inputInterface.get(1);
 
-		return {matches: input === '*' && nextInput !== '*'};
+		return { matches: input === '*' && nextInput !== '*' };
 	}
 
-	getRanges (context) {
-		const range = {style: STYLES.ITALIC, offset:context.charCount, length: this.length};
+	getRanges(context) {
+		const range = {
+			style: STYLES.ITALIC,
+			offset: context.charCount,
+			length: this.length,
+		};
 
 		return {
-			inlineStyleRanges: [range]
+			inlineStyleRanges: [range],
 		};
 	}
 }
-

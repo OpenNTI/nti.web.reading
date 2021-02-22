@@ -27,8 +27,8 @@ describe('escapeRST', () => {
 			expect(escapeRST('&')).toEqual('\\&');
 		});
 
-		test('\'', () => {
-			expect(escapeRST('\'')).toEqual('\\\'');
+		test("'", () => {
+			expect(escapeRST("'")).toEqual("\\'");
 		});
 
 		test('(', () => {

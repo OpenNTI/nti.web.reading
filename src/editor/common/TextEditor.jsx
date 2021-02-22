@@ -8,9 +8,9 @@ import {
 	Parsers,
 	Plugins,
 	generateID,
-	STYLES
+	STYLES,
 } from '@nti/web-editor';
-import {Errors} from '@nti/web-commons';
+import { Errors } from '@nti/web-commons';
 
 import Styles from './TextEditor.css';
 
@@ -20,46 +20,45 @@ const Initial = Symbol('Initial');
 
 const TextParsers = {
 	HTML: {
-		toDraftState: (x) => Parsers.HTML.toDraftState(x),
-		fromDraftState: (x) => Parsers.HTML.fromDraftState(x)?.join('\n') ?? null
+		toDraftState: x => Parsers.HTML.toDraftState(x),
+		fromDraftState: x => Parsers.HTML.fromDraftState(x)?.join('\n') ?? null,
 	},
 	PlainText: {
-		toDraftState: (x) => Parsers.PlainText.toDraftState(x),
-		fromDraftState: (x) => Parsers.PlainText.fromDraftState(x)?.join('\n') ?? null
-	}
+		toDraftState: x => Parsers.PlainText.toDraftState(x),
+		fromDraftState: x =>
+			Parsers.PlainText.fromDraftState(x)?.join('\n') ?? null,
+	},
 };
 
-const {CharacterCounter} = Plugins.Counter.components;
+const { CharacterCounter } = Plugins.Counter.components;
 
-const getPlugins = ({plainText, singleLine, charLimit, countDown}) => {
+const getPlugins = ({ plainText, singleLine, charLimit, countDown }) => {
 	const plugins = [
-		Plugins.LimitBlockTypes.create({allow: new Set([BLOCKS.UNSTYLED])}),
-		Plugins.IgnoreDrop.create()
+		Plugins.LimitBlockTypes.create({ allow: new Set([BLOCKS.UNSTYLED]) }),
+		Plugins.IgnoreDrop.create(),
 	];
 
 	if (charLimit != null) {
 		plugins.push(
-			Plugins.Counter.create({character: {limit: charLimit, countDown}})
+			Plugins.Counter.create({
+				character: { limit: charLimit, countDown },
+			})
 		);
 	}
 
 	if (plainText) {
-		plugins.push(
-			Plugins.Plaintext.create()
-		);
+		plugins.push(Plugins.Plaintext.create());
 	} else {
 		plugins.push(
-			Plugins.LimitStyles.create({allow: new Set([STYLES.BOLD, STYLES.ITALIC, STYLES.UNDERLINE])})
+			Plugins.LimitStyles.create({
+				allow: new Set([STYLES.BOLD, STYLES.ITALIC, STYLES.UNDERLINE]),
+			})
 		);
-		plugins.push(
-			Plugins.EnsureFocusableBlock.create()
-		);
+		plugins.push(Plugins.EnsureFocusableBlock.create());
 	}
 
 	if (singleLine) {
-		plugins.push(
-			Plugins.SingleLine.create()
-		);
+		plugins.push(Plugins.SingleLine.create());
 	}
 
 	return plugins;
@@ -77,7 +76,7 @@ TextEditor.propTypes = {
 	charLimit: PropTypes.number,
 	countDown: PropTypes.bool,
 };
-export default function TextEditor ({
+export default function TextEditor({
 	className,
 	value,
 	name,
@@ -110,21 +109,29 @@ export default function TextEditor ({
 		valueRef.current = value;
 	}, [value]);
 
-	React.useEffect(() => setPlugins(getPlugins({
-		plainText,
-		singleLine,
-		charLimit,
-		countDown
-	})), [plainText, singleLine, charLimit, countDown]);
+	React.useEffect(
+		() =>
+			setPlugins(
+				getPlugins({
+					plainText,
+					singleLine,
+					charLimit,
+					countDown,
+				})
+			),
+		[plainText, singleLine, charLimit, countDown]
+	);
 
-	const onContentChange = (newEditorState) => {
+	const onContentChange = newEditorState => {
 		const newValue = parser.fromDraftState(newEditorState);
 
 		valueRef.current = newValue;
 		onChange?.(newValue);
 	};
 
-	if (settingUp) { return null; }
+	if (settingUp) {
+		return null;
+	}
 
 	return (
 		<div className={cx('text-editor', className)}>
@@ -137,8 +144,16 @@ export default function TextEditor ({
 			/>
 			<ContextProvider editorID={editorIdRef.current}>
 				<div>
-					{countDown != null && (<CharacterCounter className={cx('character-count')} />)}
-					{error && (<Errors.Target error={error} label={name} className={cx('error', error.code ?? 'unknown')} />)}
+					{countDown != null && (
+						<CharacterCounter className={cx('character-count')} />
+					)}
+					{error && (
+						<Errors.Target
+							error={error}
+							label={name}
+							className={cx('error', error.code ?? 'unknown')}
+						/>
+					)}
 				</div>
 			</ContextProvider>
 		</div>

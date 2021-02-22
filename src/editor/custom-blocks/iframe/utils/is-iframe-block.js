@@ -1,8 +1,8 @@
-import {BLOCKS} from '@nti/web-editor';
+import { BLOCKS } from '@nti/web-editor';
 
-import {Name} from '../Constants';
+import { Name } from '../Constants';
 
-export default function isIframeBlock (block) {
+export default function isIframeBlock(block) {
 	const type = block.getType();
 	const data = block.getData();
 
