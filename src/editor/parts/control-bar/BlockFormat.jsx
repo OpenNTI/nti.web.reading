@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames/bind';
+
 import { scoped } from '@nti/lib-locale';
 import { Flyout } from '@nti/web-commons';
 import { ActiveType, TypeButton, BLOCKS } from '@nti/web-editor';

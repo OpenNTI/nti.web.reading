@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
 import { FillToBottom } from '@nti/web-commons';
 
 import Styles from './Container.css';

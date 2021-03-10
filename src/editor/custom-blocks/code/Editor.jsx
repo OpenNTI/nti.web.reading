@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
+
 import { getAtomicBlockData, NestedEditorWrapper } from '@nti/web-editor';
 import { Input } from '@nti/web-commons';
 

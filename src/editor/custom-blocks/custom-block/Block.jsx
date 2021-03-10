@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames/bind';
+
 import { Plugins } from '@nti/web-editor';
 
 import Styles from './Styles.css';
