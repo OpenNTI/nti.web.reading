@@ -1,28 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames/bind';
+import cx from 'classnames';
 
 import { Layouts } from '@nti/web-commons';
 import { EditorGroup } from '@nti/web-editor';
 
-import Styles from './Styles.css';
 import { Locations } from './Constants';
 
 const { Aside } = Layouts;
 
-const cx = classnames.bind(Styles);
+const Container = styled(Aside.Container)`
+	--editor-content-side-padding: 1.25rem;
+	--side-padding: 1.25rem;
+`;
 
-AsideWrapper.propTypes = {
-	content: PropTypes.any,
-};
-function AsideWrapper({ content }) {
-	return content;
-}
-
-ReadingEditorContainer.propTypes = {
-	className: PropTypes.string,
-	children: PropTypes.any,
-};
 export default function ReadingEditorContainer({
 	className,
 	children,
@@ -30,38 +20,40 @@ export default function ReadingEditorContainer({
 }) {
 	const components = React.Children.toArray(children);
 	const ComponentsByLocation = (components ?? []).reduce((acc, cmp) => {
-		const location = cmp?.type?.Location ?? 'other';
+		const location = cmp?.type?.Location || 'other';
 
 		if (!acc[location]) {
 			acc[location] = [];
 		}
+
+		//TODO: inspect cmp for a key, if not found, add one
 		acc[location].push(cmp);
 
 		return acc;
 	}, {});
 
-	const Content = ComponentsByLocation[Locations.Main];
-	const ControlBar = ComponentsByLocation[Locations.ControlBar];
-	const Header = ComponentsByLocation[Locations.Header];
-	const Sidebar = ComponentsByLocation[Locations.Sidebar];
-	const Other = ComponentsByLocation.other;
+	const {
+		[Locations.Main]: content,
+		[Locations.ControlBar]: controlBar,
+		[Locations.Header]: header,
+		[Locations.Sidebar]: sidebar,
+		other,
+	} = ComponentsByLocation;
 
 	return (
 		<EditorGroup>
-			<Aside.Container
+			<Container
 				className={cx('reading-editor-container', className)}
 				{...otherProps}
 			>
-				{Sidebar && (
-					<Aside component={AsideWrapper} content={Sidebar} />
-				)}
-				<div className={cx('content')}>
-					{Header}
-					{Content}
-				</div>
-				{ControlBar}
-				{Other}
-			</Aside.Container>
+				{sidebar && <Aside>{sidebar}</Aside>}
+				<>
+					{header}
+					{content}
+				</>
+				{controlBar}
+				{other}
+			</Container>
 		</EditorGroup>
 	);
 }
