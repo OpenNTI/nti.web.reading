@@ -41,7 +41,7 @@ function ReadingEditorHeaderControl({
 }) {
 	const flyoutRef = React.useRef(null);
 	const trigger = (
-		<Control className="control" disabled label={label} arrow>
+		<Control className="control" disabled={disabled} label={label} arrow>
 			{value}
 		</Control>
 	);
