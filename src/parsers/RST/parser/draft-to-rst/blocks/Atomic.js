@@ -2,6 +2,8 @@ import { BLOCKS } from '@nti/web-editor';
 
 const BLOCK = Symbol('Block');
 
+
+const isEmpty = x => x == null || x === '';
 export default class Atomic {
 	static isNextBlock(inputInterface) {
 		const input = inputInterface.get(0);
@@ -40,11 +42,27 @@ export default class Atomic {
 			options = options.toJS();
 		}
 
-		return (Object.keys(options) || []).map(key => {
-			const value = options[key];
+		const keys = Object.keys(options);
 
-			return `:${key}: ${value}`;
-		});
+		return (keys || [])
+			.sort((a, b) => {
+				const aVal = options[a];
+				const bVal = options[b];
+
+				if (isEmpty(aVal) && isEmpty(bVal)) { return 0; }
+				if (isEmpty(aVal) && !isEmpty(bVal)) { return -1; }
+				if (!isEmpty(aVal) && isEmpty(bVal)) { return 1; }
+
+				const aIndex = keys.indexOf(a);
+				const bIndex = keys.indexOf(b);
+
+				return aIndex < bIndex ? -1 : (aIndex === bIndex ? 0 : 1);
+			})
+			.map(key => {
+				const value = options[key];
+
+				return `:${key}: ${value}`;
+			});
 	}
 
 	getBodyOutput() {
