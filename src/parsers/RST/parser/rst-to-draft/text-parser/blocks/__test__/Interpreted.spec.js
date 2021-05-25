@@ -1,4 +1,3 @@
-/* globals spyOn */
 /* eslint-env jest */
 import { STYLES } from '@nti/web-editor';
 
@@ -35,9 +34,8 @@ describe('Interpreted', () => {
 		test('matchClose is true for `', () => {
 			const test = ['`', 'a', 'f', 't', 'e', 'r'];
 			const inputInterface = getInterface(0, test);
-			const { matches, nextChar } = Interpreted.matchClose(
-				inputInterface
-			);
+			const { matches, nextChar } =
+				Interpreted.matchClose(inputInterface);
 
 			expect(matches).toBeTruthy();
 			expect(nextChar).toEqual('a');
@@ -54,9 +52,8 @@ describe('Interpreted', () => {
 		test('matchClose consumes following _', () => {
 			const test = ['`', '_', 'a', 'f', 't', 'e', 'r'];
 			const inputInterface = getInterface(0, test);
-			const { matches, nextChar } = Interpreted.matchClose(
-				inputInterface
-			);
+			const { matches, nextChar } =
+				Interpreted.matchClose(inputInterface);
 
 			expect(matches).toBeTruthy();
 			expect(nextChar).toEqual('a');
@@ -70,7 +67,7 @@ describe('Interpreted', () => {
 				setMarkerFor: () => {},
 			};
 
-			spyOn(block, 'setMarkerFor');
+			jest.spyOn(block, 'setMarkerFor');
 
 			return block;
 		}
@@ -112,7 +109,7 @@ describe('Interpreted', () => {
 				getOutputForInterpreted: () => {},
 			};
 
-			spyOn(block, 'getOutputForInterpreted');
+			jest.spyOn(block, 'getOutputForInterpreted');
 
 			return block;
 		}

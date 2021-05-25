@@ -1,4 +1,3 @@
-/* globals spyOn */
 /* eslint-env jest */
 import Plaintext from '../Plaintext';
 import { getInterface } from '../../../../Parser';
@@ -23,7 +22,7 @@ describe('Plaintext', () => {
 				setMarkerFor: () => {},
 			};
 
-			spyOn(block, 'setMarkerFor');
+			jest.spyOn(block, 'setMarkerFor');
 
 			return block;
 		}
@@ -117,7 +116,7 @@ describe('Plaintext', () => {
 				getOutputForInterpreted: () => {},
 			};
 
-			spyOn(block, 'getOutputForInterpreted');
+			jest.spyOn(block, 'getOutputForInterpreted');
 
 			return block;
 		}

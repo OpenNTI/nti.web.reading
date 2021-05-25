@@ -1,4 +1,3 @@
-/* globals spyOn */
 /* eslint-env jest */
 import Role from '../Role';
 import Plaintext from '../Plaintext';
@@ -46,7 +45,7 @@ describe('Role', () => {
 				setRoleMarker: () => {},
 			};
 
-			spyOn(block, 'setRoleMarker');
+			jest.spyOn(block, 'setRoleMarker');
 
 			return block;
 		}

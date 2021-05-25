@@ -1,4 +1,3 @@
-/* globals spyOn */
 /* eslint-env jest */
 import Hyperlink from '../Hyperlink';
 import { getInterface } from '../../../../Parser';
@@ -73,7 +72,7 @@ describe('Hyperlink', () => {
 				setRoleMarker: () => {},
 			};
 
-			spyOn(block, 'setRoleMarker');
+			jest.spyOn(block, 'setRoleMarker');
 
 			return block;
 		}
