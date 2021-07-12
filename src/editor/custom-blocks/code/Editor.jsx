@@ -76,7 +76,7 @@ export default function CodeEditor(props) {
 				onClick={focus}
 			>
 				<Input.TextArea
-					className={cx('code-editor')}
+					inputClassName={cx('code-editor')}
 					value={code}
 					ref={codeRef}
 					onChange={onCodeChange}
