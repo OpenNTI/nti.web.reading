@@ -31,6 +31,7 @@
     "@nti/lib-locale": "NextThought/nti.lib.locale",
     "@nti/web-client": "NextThought/nti.web.client",
     "@nti/web-commons": "NextThought/nti.web.commons",
+    "@nti/web-core": "NextThought/nti.web.core",
     "@nti/web-editor": "NextThought/nti.web.editor",
     "@nti/web-video": "NextThought/nti.web.video",
     "react-transition-group": "^4.4.1",
