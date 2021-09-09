@@ -6,6 +6,7 @@ import { scoped } from '@nti/lib-locale';
 import { getService } from '@nti/web-client';
 import { getAtomicBlockData } from '@nti/web-editor';
 import { Hooks, Loading, Text } from '@nti/web-commons';
+import { useChanges } from '@nti/web-core';
 import Video, { Editor } from '@nti/web-video';
 
 import CustomBlock from '../custom-block';
@@ -61,7 +62,7 @@ export default function VideoRefEditor(props) {
 		[]
 	);
 
-	Hooks.useChanges(
+	useChanges(
 		video ?? {
 			subscribeToChange: () => () => {},
 		}
