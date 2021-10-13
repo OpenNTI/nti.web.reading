@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
@@ -89,20 +89,20 @@ export default function TextEditor({
 	countDown,
 	...otherProps
 }) {
-	const [editorState, setEditorState] = React.useState(null);
-	const [plugins, setPlugins] = React.useState(null);
+	const [editorState, setEditorState] = useState(null);
+	const [plugins, setPlugins] = useState(null);
 	const settingUp = !editorState || !plugins;
 
 	const parser = plainText ? TextParsers.PlainText : TextParsers.HTML;
 
-	const valueRef = React.useRef(Initial);
-	const editorIdRef = React.useRef();
+	const valueRef = useRef(Initial);
+	const editorIdRef = useRef();
 
-	React.useEffect(() => {
+	useEffect(() => {
 		editorIdRef.current = generateID();
 	}, []);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (valueRef.current === Initial || valueRef.current !== value) {
 			setEditorState(parser.toDraftState(value));
 		}
@@ -110,7 +110,7 @@ export default function TextEditor({
 		valueRef.current = value;
 	}, [value]);
 
-	React.useEffect(
+	useEffect(
 		() =>
 			setPlugins(
 				getPlugins({

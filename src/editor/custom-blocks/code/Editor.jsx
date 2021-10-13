@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
@@ -22,7 +22,7 @@ CodeEditor.propTypes = {
 	}),
 };
 export default function CodeEditor(props) {
-	const codeRef = React.useRef(null);
+	const codeRef = useRef(null);
 	const {
 		block,
 		blockProps: {

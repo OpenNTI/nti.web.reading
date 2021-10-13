@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
@@ -38,7 +38,7 @@ export default function VideoRefEditor(props) {
 		block,
 		blockProps: { editorState, removeBlock },
 	} = props;
-	const [deleted, setDeleted] = React.useState(false);
+	const [deleted, setDeleted] = useState(false);
 
 	const data = getAtomicBlockData(block, editorState);
 	const videoId = data.arguments;
@@ -52,7 +52,7 @@ export default function VideoRefEditor(props) {
 	const loading = isPending(resolver);
 	const video = isResolved(resolver) ? resolver : null;
 
-	React.useEffect(
+	useEffect(
 		() =>
 			Events.subscribeTo(Events.VideoDeleted, id => {
 				if (videoId === id) {

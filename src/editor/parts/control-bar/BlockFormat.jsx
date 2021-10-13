@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef } from 'react';
 import classnames from 'classnames/bind';
 
 import { scoped } from '@nti/lib-locale';
@@ -30,7 +30,7 @@ const renderBlockType = (type, mouseDown) => (
 );
 
 export default function BlockFormat() {
-	const flyoutRef = React.useRef();
+	const flyoutRef = useRef();
 
 	const closeMenu = () => flyoutRef.current?.dismiss?.();
 

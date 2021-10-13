@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
@@ -50,7 +50,7 @@ export default function CourseFigureEditor(props) {
 	const onCaptionChange = newCaption =>
 		setBlockData({ body: [title, newCaption] }, true);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (title == null || titleRegex.test(title)) {
 			const newTitle = t('figurePlaceholder', { index: figureIndex });
 

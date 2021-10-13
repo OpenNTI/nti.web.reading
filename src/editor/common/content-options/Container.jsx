@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -26,7 +26,7 @@ export default function ContentOptionsContainer({
 	content,
 	options,
 }) {
-	const [showOptions, setShowOptions] = React.useState(false);
+	const [showOptions, setShowOptions] = useState(false);
 
 	return (
 		<Context.Provider

@@ -1,10 +1,10 @@
-import React from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import { scoped } from '@nti/lib-locale';
 import { Text, Icons } from '@nti/web-commons';
-import { Button } from "@nti/web-core";
+import { Button } from '@nti/web-core';
 
 import Styles from './OptionTrigger.css';
 import Context from './Context';
@@ -19,7 +19,7 @@ ContentOptionTrigger.propTypes = {
 	className: PropTypes.string,
 };
 export default function ContentOptionTrigger({ className }) {
-	const trigger = React.useContext(Context);
+	const trigger = useContext(Context);
 
 	if (!trigger || !trigger.hasOptions) {
 		return null;

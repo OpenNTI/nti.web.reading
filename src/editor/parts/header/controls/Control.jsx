@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Flyout, LabeledValue } from '@nti/web-commons';
@@ -39,14 +39,14 @@ function ReadingEditorHeaderControl({
 	children,
 	forwardRef,
 }) {
-	const flyoutRef = React.useRef(null);
+	const flyoutRef = useRef(null);
 	const trigger = (
 		<Control className="control" disabled={disabled} label={label} arrow>
 			{value}
 		</Control>
 	);
 
-	React.useImperativeHandle(forwardRef, () => ({
+	useImperativeHandle(forwardRef, () => ({
 		dismiss: () => flyoutRef.current?.dismiss(),
 	}));
 

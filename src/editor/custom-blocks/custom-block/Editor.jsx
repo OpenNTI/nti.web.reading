@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
@@ -55,12 +55,12 @@ export default function CustomBlockEditor({
 	singleline,
 	...otherProps
 }) {
-	const valueRef = React.useRef(Initial);
-	const [editorState, setEditorState] = React.useState(null);
-	const [plugins, setPlugins] = React.useState(null);
+	const valueRef = useRef(Initial);
+	const [editorState, setEditorState] = useState(null);
+	const [plugins, setPlugins] = useState(null);
 	const settingUp = !editorState || !plugins;
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (valueRef.current === Initial || value !== valueRef.current) {
 			setEditorState(parser.toDraftState(value));
 		}
@@ -68,7 +68,7 @@ export default function CustomBlockEditor({
 		valueRef.current = value;
 	}, [value]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		setPlugins(getPlugins({ singleline }));
 	}, [singleline]);
 
