@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { Page } from '@nti/web-commons';
 import { BLOCKS } from '@nti/web-editor';

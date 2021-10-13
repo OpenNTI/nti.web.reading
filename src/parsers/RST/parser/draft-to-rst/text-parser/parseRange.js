@@ -167,6 +167,7 @@ function getTextParts(text) {
 
 /**
  * Parse a range into RST
+ *
  * @param  {Object} range     the range to parse
  * @param  {string} text      the text to mark up
  * @param  {Object} context   the context of the parser

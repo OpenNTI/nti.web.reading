@@ -1,4 +1,3 @@
-import React from 'react';
 
 import * as CustomBlocks from './custom-blocks';
 import { Container, Content, ControlBar, Header, Sidebar } from './parts';
