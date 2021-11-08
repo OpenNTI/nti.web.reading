@@ -1,9 +1,8 @@
 import React, { useImperativeHandle, useRef } from 'react';
-import PropTypes from 'prop-types';
 
 import { Flyout, LabeledValue } from '@nti/web-commons';
 
-const Control = styled(LabeledValue)`
+const Trigger = styled(LabeledValue)`
 	flex: 1 1 auto;
 	max-width: 25%;
 	padding: 0.5rem 0.625rem 0.625rem 1rem;
@@ -21,32 +20,33 @@ const Control = styled(LabeledValue)`
 	}
 `;
 
-ReadingEditorHeaderControl.propTypes = {
-	label: PropTypes.node,
-	value: PropTypes.node,
+/**
+ * @typedef {object} Dismissable
+ * @property {() => void} dismiss
+ */
 
-	disabled: PropTypes.bool,
-	onDismiss: PropTypes.func,
+/**
+ * @typedef {object} ControlProps
+ * @property {React.ReactNode} label
+ * @property {React.ReactNode} value
+ * @property {boolean} disabled
+ * @property {() => void} onDismiss
+ */
 
-	children: PropTypes.any,
-	forwardRef: PropTypes.any,
-};
-function ReadingEditorHeaderControl({
-	label,
-	value,
-	disabled,
-	onDismiss,
-	children,
-	forwardRef,
-}) {
+/**
+ * @param {ControlProps & React.HTMLAttributes<HTMLDivElement>} props
+ * @param {Dismissable} ref
+ * @returns {JSX.Element}
+ */
+function impl({ label, value, disabled, onDismiss, children }, ref) {
 	const flyoutRef = useRef(null);
 	const trigger = (
-		<Control className="control" disabled={disabled} label={label} arrow>
+		<Trigger className="control" disabled={disabled} label={label} arrow>
 			{value}
-		</Control>
+		</Trigger>
 	);
 
-	useImperativeHandle(forwardRef, () => ({
+	useImperativeHandle(ref, () => ({
 		dismiss: () => flyoutRef.current?.dismiss(),
 	}));
 
@@ -63,7 +63,5 @@ function ReadingEditorHeaderControl({
 	);
 }
 
-const ControlForwardRef = (props, ref) => (
-	<ReadingEditorHeaderControl {...props} forwardRef={ref} />
-);
-export default React.forwardRef(ControlForwardRef);
+/** @type {React.ForwardRefExoticComponent<ControlProps & React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<Dismissable>>} */
+export default React.forwardRef(impl);

@@ -1,7 +1,13 @@
+import cx from 'classnames';
 
 import Control from './Control';
 
-const Controls = styled.div`
+const PropMapper = props => ({
+	...props,
+	className: cx('reading-editor-controls', props.className),
+});
+
+const Controls = styled('div').attrs(PropMapper)`
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
@@ -9,7 +15,6 @@ const Controls = styled.div`
 	border-bottom: 1px solid var(--border-grey-light);
 `;
 
-ReadingEditorHeaderControls.Control = Control;
-export default function ReadingEditorHeaderControls(props) {
-	return <Controls className="reading-editor-controls" {...props} />;
-}
+Controls.Control = Control;
+
+export default Controls;
