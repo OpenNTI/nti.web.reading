@@ -11,7 +11,7 @@ const Trigger = styled(LabeledValue)`
 
 	&.disabled {
 		pointer-events: none;
-		opacity: 0.4;
+		opacity: 40%;
 	}
 
 	&:first-child {
