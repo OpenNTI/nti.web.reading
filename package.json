@@ -35,7 +35,7 @@
     "@nti/web-editor": "NextThought/nti.web.editor",
     "@nti/web-video": "NextThought/nti.web.video",
     "react-transition-group": "^4.4.1",
-    "uuid": "^8.3.0"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.31.8"
